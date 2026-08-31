@@ -1,0 +1,155 @@
+/* The Skills section: explorer and configuration card share one column with
+   a clear band break between them, so search (the frequent action) sits
+   above settings (the occasional one). */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 0 16px;
+  max-width: 720px;
+}
+
+/* Search: the primary control. Prominent, full-width, with a visible
+   focus ring matching the rest of the host UI. */
+.search {
+  width: 100%;
+  box-sizing: border-box;
+  height: 38px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-layer-3);
+  color: var(--dsw-alias-label-primary);
+}
+
+.search::placeholder {
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.search:focus-visible {
+  outline: none;
+  border-color: var(--dsw-alias-brand-primary);
+}
+
+.hint {
+  margin: -10px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* Result rows: name and score on one baseline, description under, hairline
+   separated so a long list stays scannable. */
+.results {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+}
+
+.result {
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--dsw-alias-border-l2);
+}
+
+.result:last-child {
+  border-bottom: none;
+}
+
+.resultHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.name {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name:hover {
+  text-decoration: underline;
+}
+
+.name:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.score {
+  flex: none;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.description {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-secondary);
+}
+
+/* The copied path: monospace, so it reads as a path rather than prose. */
+.path {
+  margin: 4px 0 0;
+  font-family: var(--dsw-alias-font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+  word-break: break-all;
+}
+
+.meta {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.state {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-error);
+}
+
+/* Band break between the explorer and the configuration card. */
+.divider {
+  border: none;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+  margin: 0;
+}
+
+.configHeading {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-primary);
+  margin: 0 0 8px;
+}

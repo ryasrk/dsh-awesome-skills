@@ -10,6 +10,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SearchHit } from '../search.js'
 import type { en } from './locales.ts'
+import css from './SkillExplorer.module.css'
 
 /** One dictionary of the plugin's locale, whichever language is active. */
 export type Dict = typeof en
@@ -144,72 +145,43 @@ export function SkillExplorer(props: SkillExplorerProps) {
 
   const list = useMemo(() => results ?? [], [results])
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    boxSizing: 'border-box',
-    padding: '6px 10px',
-    fontSize: 13,
-    borderRadius: 6,
-    border: '1px solid rgba(128,128,128,0.4)',
-    background: 'transparent',
-    color: 'inherit',
-  }
-  const rowStyle: React.CSSProperties = {
-    padding: '8px 10px',
-    borderRadius: 6,
-    border: '1px solid rgba(128,128,128,0.25)',
-    marginBottom: 6,
-  }
-  const mutedStyle: React.CSSProperties = { opacity: 0.65, fontSize: 12, margin: '4px 0 8px' }
-
   return (
-    <div style={{ padding: '4px 0' }}>
+    <div className={css.section}>
       <input
-        style={inputStyle}
+        className={css.search}
         value={query}
         placeholder={t('searchPlaceholder')}
         onChange={(event) => setQuery(event.target.value)}
         aria-label={t('searchPlaceholder')}
       />
-      <p style={mutedStyle}>{t('searchHint')}</p>
+      <p className={css.hint}>{t('searchHint')}</p>
 
-      {failed && <p style={{ color: 'inherit', margin: '8px 0' }}>⚠ {t('error')}</p>}
-      {loading && <p style={mutedStyle}>{t('loading')}</p>}
+      {failed && <p className={css.error} role="alert">{t('error')}</p>}
+      {loading && <p className={css.state}>{t('loading')}</p>}
 
       {!loading && !failed && results !== undefined && (
         <>
-          <p style={mutedStyle}>
+          <p className={css.meta}>
             {template(t('results'), list.length)}
             {count > 0 && ` · ${template(t('corpusCount'), count)}`}
           </p>
-          {list.length === 0 && query.trim() !== '' && <p style={mutedStyle}>{t('noResults')}</p>}
-          <div>
+          {list.length === 0 && query.trim() !== '' && <p className={css.state}>{t('noResults')}</p>}
+          <div className={css.results}>
             {list.map((hit) => (
-              <div key={hit.path} style={rowStyle}>
-                <button
-                  type="button"
-                  onClick={() => copyPath(hit.path)}
-                  style={{
-                    all: 'unset',
-                    cursor: 'pointer',
-                    display: 'block',
-                    fontWeight: 600,
-                    fontSize: 13,
-                    width: '100%',
-                  }}
-                  title={t('copyPath')}
-                >
-                  {hit.name}
-                  <span style={{ float: 'right', fontWeight: 400, opacity: 0.6 }}>
-                    {hit.score.toFixed(3)}
-                  </span>
-                </button>
-                <div style={{ fontSize: 12, marginTop: 2, opacity: 0.8 }}>{hit.description}</div>
-                {copied === hit.path && (
-                  <div style={{ fontSize: 12, marginTop: 2, opacity: 0.9 }}>
-                    {copied}: {hit.path}
-                  </div>
-                )}
+              <div className={css.result} key={hit.path}>
+                <div className={css.resultHead}>
+                  <button
+                    type="button"
+                    className={css.name}
+                    onClick={() => copyPath(hit.path)}
+                    title={t('copyPath')}
+                  >
+                    {hit.name}
+                  </button>
+                  <span className={css.score}>{hit.score.toFixed(3)}</span>
+                </div>
+                <p className={css.description}>{hit.description}</p>
+                {copied === hit.path && <p className={css.path}>{hit.path}</p>}
               </div>
             ))}
           </div>

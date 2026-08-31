@@ -1,139 +1,152 @@
-window.__ModuleLoader__.load({ id: "dsh-awesome-skills", factory: (require, module, exports) => {
+window.__ModuleLoader__.load({ id: "dsh-awesome-skills", factory: (require) => { var module = { exports: {} }; var exports = module.exports;
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
-//#region src/client/locales.ts
-/**
-* Locale dictionaries for the plugin's browser surfaces (settings card and
-* the skills section). Namespaced under the plugin id so entries cannot
-* collide with another plugin's strings.
-*/
-const en = {
-	sectionTitle: "Skills",
-	searchPlaceholder: "Search the 16,000-skill corpus…",
-	searchHint: "Describe what you want to do; results come from semantic search on the host.",
-	results: "{n} results",
-	corpusCount: "{n} skills indexed",
-	copyPath: "Copy path",
-	copied: "Copied",
-	noResults: "No skills matched.",
-	error: "Search failed. Try again.",
-	loading: "Searching…",
-	cardTitle: "dsh-awesome-skills",
-	cardDescription: "Semantic search over the local 16,000-skill corpus",
-	fieldSemantic: "Semantic lane",
-	fieldSemanticHint: "Vector similarity (wasm). Off falls back to lexical + n-gram only",
-	fieldDefaultK: "Results per search",
-	fieldDefaultKHint: "How many hits search() returns (1-25)",
-	fieldPool: "Candidate pool",
-	fieldPoolHint: "Candidates re-ranked before the top results are chosen (50-3000)",
-	fieldWLex: "Lexical weight",
-	fieldWLexHint: "Weight of the keyword-overlap lane (0-1)",
-	fieldWGram: "N-gram weight",
-	fieldWGramHint: "Weight of the character-trigram lane (0-1)",
-	fieldAutoRoute: "Keep skill-router in step",
-	fieldAutoRouteHint: "Rewrite the installed skill-router when these values change",
-	detailSkillTitle: "Skill picked",
-	detailUnknownName: "name unavailable",
-	detailUnknownTool: "Unknown tool call",
-	detailTool: "Tool",
-	detailRunning: "Running…",
-	detailDuration: "Duration",
-	detailArgs: "Arguments",
-	detailOutput: "Output",
-	detailError: "Failed",
-	detailTruncated: "(truncated)",
-	unitMs: "ms",
-	unitS: "s",
-	unitMin: "min"
-};
-const zh = {
-	sectionTitle: "技能",
-	searchPlaceholder: "搜索 1.6 万技能语料…",
-	searchHint: "描述你想做的事情；结果由宿主端的语义搜索返回。",
-	results: "{n} 条结果",
-	corpusCount: "已索引 {n} 个技能",
-	copyPath: "复制路径",
-	copied: "已复制",
-	noResults: "没有匹配的技能。",
-	error: "搜索失败，请重试。",
-	loading: "搜索中…",
-	cardTitle: "dsh-awesome-skills",
-	cardDescription: "对本地 1.6 万技能语料进行语义检索",
-	fieldSemantic: "语义通道",
-	fieldSemanticHint: "向量相似度（wasm）。关闭后仅用词法 + n-gram",
-	fieldDefaultK: "每次搜索结果数",
-	fieldDefaultKHint: "search() 返回的条数（1-25）",
-	fieldPool: "候选池大小",
-	fieldPoolHint: "重排前的候选数量（50-3000）",
-	fieldWLex: "词法权重",
-	fieldWLexHint: "关键词重合通道的权重（0-1）",
-	fieldWGram: "n-gram 权重",
-	fieldWGramHint: "字符三元组通道的权重（0-1）",
-	fieldAutoRoute: "同步 skill-router",
-	fieldAutoRouteHint: "这些值变化时重写已安装的 skill-router",
-	detailSkillTitle: "已选取技能",
-	detailUnknownName: "名称不可用",
-	detailUnknownTool: "未知工具调用",
-	detailTool: "工具",
-	detailRunning: "运行中…",
-	detailDuration: "耗时",
-	detailArgs: "参数",
-	detailOutput: "输出",
-	detailError: "失败",
-	detailTruncated: "（已截断）",
-	unitMs: "毫秒",
-	unitS: "秒",
-	unitMin: "分"
+//#region \0dsh-css:SettingsCard_module_css.mjs
+const css$1 = ".alOFIW_card{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:14px 16px;display:flex}.alOFIW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:#fff;transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary);color:#fff;}.alOFIW_primary:hover:not(:disabled){filter:brightness(1.06)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}";
+const tagId$1 = "dsh-awesome-skills/SettingsCard_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId$1;
+	tag.textContent = css$1;
+	document.head.appendChild(tag);
+}
+var _dsh_css_SettingsCard_module_css_default = {
+	"actions": "alOFIW_actions",
+	"badge": "alOFIW_badge",
+	"hint": "alOFIW_hint",
+	"alert": "alOFIW_alert",
+	"revert": "alOFIW_revert",
+	"header": "alOFIW_header",
+	"body": "alOFIW_body",
+	"card": "alOFIW_card",
+	"input": "alOFIW_input",
+	"toggle": "alOFIW_toggle",
+	"control": "alOFIW_control",
+	"spacer": "alOFIW_spacer",
+	"footer": "alOFIW_footer",
+	"field": "alOFIW_field",
+	"name": "alOFIW_name",
+	"invalid": "alOFIW_invalid",
+	"button": "alOFIW_button",
+	"head": "alOFIW_head",
+	"primary": "alOFIW_primary",
+	"saved": "alOFIW_saved",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"label": "alOFIW_label",
+	"description": "alOFIW_description"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
 /**
 * The plugin's settings card in Settings → Plugins → Plugin configuration.
 *
-* Follows the shared card contract: staged edits, one save, an overridden
-* badge per field, and a render-nothing when the namespace is unavailable
-* (a deployment without this plugin's settings section shows no trace).
+* Layout follows the harness's own plugin-card and field conventions (see
+* SettingsCard.module.css): a title band, a stack of label-over-control rows
+* separated by hairlines, then an action band — three visual bands, so the
+* six fields scan instead of reading as a wall of boxes. Numeric fields are
+* bounded inputs so an out-of-range value is unrepresentable rather than
+* something a save has to reject; booleans are switches.
 */
-/** Fields the card edits, in display order. */
+/** Field descriptor: key, copy keys, control kind, and numeric bounds. */
 const FIELDS = [
 	{
 		key: "semantic",
-		labelKey: "fieldSemantic",
-		hintKey: "fieldSemanticHint",
-		type: "toggle"
+		label: "fieldSemantic",
+		hint: "fieldSemanticHint",
+		kind: "toggle"
 	},
 	{
 		key: "defaultK",
-		labelKey: "fieldDefaultK",
-		hintKey: "fieldDefaultKHint",
-		type: "number"
+		label: "fieldDefaultK",
+		hint: "fieldDefaultKHint",
+		kind: "number",
+		min: 1,
+		max: 25,
+		step: 1
 	},
 	{
 		key: "pool",
-		labelKey: "fieldPool",
-		hintKey: "fieldPoolHint",
-		type: "number"
+		label: "fieldPool",
+		hint: "fieldPoolHint",
+		kind: "number",
+		min: 50,
+		max: 3e3,
+		step: 50
 	},
 	{
 		key: "wLex",
-		labelKey: "fieldWLex",
-		hintKey: "fieldWLexHint",
-		type: "number"
+		label: "fieldWLex",
+		hint: "fieldWLexHint",
+		kind: "number",
+		min: 0,
+		max: 1,
+		step: .05
 	},
 	{
 		key: "wGram",
-		labelKey: "fieldWGram",
-		hintKey: "fieldWGramHint",
-		type: "number"
+		label: "fieldWGram",
+		hint: "fieldWGramHint",
+		kind: "number",
+		min: 0,
+		max: 1,
+		step: .05
 	},
 	{
 		key: "autoRoute",
-		labelKey: "fieldAutoRoute",
-		hintKey: "fieldAutoRouteHint",
-		type: "toggle"
+		label: "fieldAutoRoute",
+		hint: "fieldAutoRouteHint",
+		kind: "toggle"
 	}
 ];
+/** Localized copy. zh mirrors en key-for-key so a missing key is a typo, not a gap. */
+const DICT = {
+	en: {
+		cardTitle: "dsh-awesome-skills",
+		cardDescription: "Semantic search over the local 16,000-skill corpus",
+		fieldSemantic: "Semantic lane",
+		fieldSemanticHint: "Vector similarity (wasm). Off falls back to lexical + n-gram only",
+		fieldDefaultK: "Results per search",
+		fieldDefaultKHint: "How many hits search() returns (1-25)",
+		fieldPool: "Candidate pool",
+		fieldPoolHint: "Candidates re-ranked before the top results are chosen (50-3000)",
+		fieldWLex: "Lexical weight",
+		fieldWLexHint: "Weight of the keyword-overlap lane (0-1)",
+		fieldWGram: "N-gram weight",
+		fieldWGramHint: "Weight of the character-trigram lane (0-1)",
+		fieldAutoRoute: "Keep skill-router in step",
+		fieldAutoRouteHint: "Rewrite the installed skill-router when these values change",
+		save: "Save",
+		discard: "Discard",
+		saved: "Saved",
+		failed: "Save failed — retry",
+		overridden: "overridden",
+		revert: "revert"
+	},
+	zh: {
+		cardTitle: "dsh-awesome-skills",
+		cardDescription: "对本地 1.6 万技能语料进行语义检索",
+		fieldSemantic: "语义通道",
+		fieldSemanticHint: "向量相似度（wasm）。关闭后仅用词法 + n-gram",
+		fieldDefaultK: "每次搜索结果数",
+		fieldDefaultKHint: "search() 返回的条数（1-25）",
+		fieldPool: "候选池大小",
+		fieldPoolHint: "重排前的候选数量（50-3000）",
+		fieldWLex: "词法权重",
+		fieldWLexHint: "关键词重合通道的权重（0-1）",
+		fieldWGram: "n-gram 权重",
+		fieldWGramHint: "字符三元组通道的权重（0-1）",
+		fieldAutoRoute: "同步 skill-router",
+		fieldAutoRouteHint: "这些值变化时重写已安装的 skill-router",
+		save: "保存",
+		discard: "放弃",
+		saved: "已保存",
+		failed: "保存失败 — 重试",
+		overridden: "已覆盖",
+		revert: "还原"
+	}
+};
 /**
 * Render the plugin's configuration card.
 * @param props - the bound settings scope.
@@ -144,36 +157,38 @@ function SettingsCard(props) {
 	const [drafts, setDrafts] = (0, react.useState)({});
 	const [saving, setSaving] = (0, react.useState)(false);
 	const [failed, setFailed] = (0, react.useState)(false);
+	const [savedTick, setSavedTick] = (0, react.useState)(false);
 	(0, react.useEffect)(() => scope.subscribe(() => {
 		setSnapshot(scope.getSnapshot());
 	}), [scope]);
-	const t = (key) => {
-		return en[key];
-	};
+	const dict = (typeof document !== "undefined" ? document.documentElement.lang : "en").startsWith("zh") ? DICT.zh : DICT.en;
+	const t = (key) => dict[key];
 	const value = snapshot.value;
 	const user = snapshot.user;
 	if (snapshot.status !== "ready" || value === void 0) return null;
-	const field = (key) => {
+	const stateOf = (key) => {
 		const staged = drafts[key];
+		if (staged !== void 0) return staged;
 		const current = value[key];
-		return staged ?? {
+		return {
 			draft: current === void 0 ? "" : String(current),
 			overridden: user?.[key] !== void 0
 		};
 	};
-	const dirty = FIELDS.some((f) => f.key in drafts);
-	const anyInvalid = FIELDS.some((f) => {
+	const dirty = FIELDS.some((f) => drafts[f.key] !== void 0);
+	const invalid = FIELDS.some((f) => {
+		if (f.kind !== "number") return false;
 		const d = drafts[f.key]?.draft;
-		if (d === void 0) return false;
-		return !isValid(f.type, d);
+		return d !== void 0 && !validNumber(d, f.min, f.max);
 	});
-	const stage = (key, draft) => {
+	const stage = (key, draft, wasOverridden) => {
 		setFailed(false);
+		setSavedTick(false);
 		setDrafts((prev) => ({
 			...prev,
 			[key]: {
 				draft,
-				overridden: prev[key]?.overridden ?? user?.[key] !== void 0
+				overridden: wasOverridden
 			}
 		}));
 	};
@@ -184,10 +199,19 @@ function SettingsCard(props) {
 			for (const f of FIELDS) {
 				const staged = drafts[f.key];
 				if (staged === void 0) continue;
-				if (!isValid(f.type, staged.draft)) continue;
-				await scope.set(f.key, parse(f.type, staged.draft));
+				if (f.kind === "toggle") {
+					const next = staged.draft === "true";
+					if (next === value[f.key]) continue;
+					await scope.set(f.key, next);
+				} else {
+					if (!validNumber(staged.draft, f.min, f.max)) continue;
+					const n = Number(staged.draft);
+					if (n === value[f.key]) continue;
+					await scope.set(f.key, n);
+				}
 			}
 			setDrafts({});
+			setSavedTick(true);
 		} catch {
 			setFailed(true);
 		} finally {
@@ -197,53 +221,159 @@ function SettingsCard(props) {
 	const discard = () => {
 		setDrafts({});
 		setFailed(false);
+		setSavedTick(false);
 	};
-	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-		/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h4", { children: t("cardTitle") }),
-		/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: t("cardDescription") }),
-		FIELDS.map((f) => {
-			const state = field(f.key);
-			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", { children: [
-				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: t(f.labelKey) }),
-				f.type === "toggle" ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-					type: "checkbox",
-					checked: state.draft === "true",
-					onChange: (e) => stage(f.key, e.target.checked ? "true" : "false")
-				}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-					type: "text",
-					value: state.draft,
-					onChange: (e) => stage(f.key, e.target.value)
-				}),
-				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: t(f.hintKey) }),
-				state.overridden && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("em", { children: "overridden" })
-			] }, f.key);
-		}),
-		/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-			disabled: !dirty || anyInvalid || saving || !snapshot.writable,
-			onClick: () => {
-				save();
-			},
-			children: "Save"
-		}),
-		/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-			disabled: !dirty || saving,
-			onClick: discard,
-			children: "Discard"
-		}),
-		failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-			role: "alert",
-			children: "Save failed — retry"
-		})
-	] });
+	const revert = (key) => {
+		setDrafts((prev) => {
+			const next = { ...prev };
+			delete next[key];
+			return next;
+		});
+	};
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_SettingsCard_module_css_default.card,
+		children: [
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SettingsCard_module_css_default.header,
+				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+					className: _dsh_css_SettingsCard_module_css_default.name,
+					children: t("cardTitle")
+				}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+					className: _dsh_css_SettingsCard_module_css_default.description,
+					children: t("cardDescription")
+				})]
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+				className: _dsh_css_SettingsCard_module_css_default.body,
+				children: FIELDS.map((f) => {
+					const state = stateOf(f.key);
+					const isInvalid = f.kind === "number" && drafts[f.key] !== void 0 && !validNumber(state.draft, f.min, f.max);
+					const id = `dshas-${f.key}`;
+					return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+						className: _dsh_css_SettingsCard_module_css_default.field,
+						children: [
+							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+								className: _dsh_css_SettingsCard_module_css_default.head,
+								children: [
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("label", {
+										className: _dsh_css_SettingsCard_module_css_default.label,
+										htmlFor: id,
+										children: t(f.label)
+									}),
+									state.overridden && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+										className: _dsh_css_SettingsCard_module_css_default.badge,
+										children: t("overridden")
+									}),
+									drafts[f.key] !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+										type: "button",
+										className: _dsh_css_SettingsCard_module_css_default.revert,
+										onClick: () => revert(f.key),
+										children: t("revert")
+									})
+								]
+							}),
+							f.kind === "toggle" ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+								id,
+								type: "checkbox",
+								className: _dsh_css_SettingsCard_module_css_default.toggle,
+								role: "switch",
+								disabled: !snapshot.writable || saving,
+								checked: state.draft === "true",
+								onChange: (e) => stage(f.key, e.target.checked ? "true" : "false", state.overridden)
+							}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+								className: _dsh_css_SettingsCard_module_css_default.control,
+								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+									id,
+									type: "number",
+									className: isInvalid ? _dsh_css_SettingsCard_module_css_default.inputInvalid : _dsh_css_SettingsCard_module_css_default.input,
+									disabled: !snapshot.writable || saving,
+									min: f.min,
+									max: f.max,
+									step: f.step,
+									value: state.draft,
+									"aria-invalid": isInvalid || void 0,
+									onChange: (e) => stage(f.key, e.target.value, state.overridden)
+								})
+							}),
+							isInvalid ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SettingsCard_module_css_default.invalid,
+								children: `${t(f.label)}: ${f.min} – ${f.max}`
+							}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SettingsCard_module_css_default.hint,
+								children: t(f.hint)
+							})
+						]
+					}, f.key);
+				})
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SettingsCard_module_css_default.actions,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: _dsh_css_SettingsCard_module_css_default.primary,
+						disabled: !dirty || invalid || saving || !snapshot.writable,
+						onClick: () => {
+							save();
+						},
+						children: saving ? "…" : t("save")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: _dsh_css_SettingsCard_module_css_default.button,
+						disabled: !dirty || saving,
+						onClick: discard,
+						children: t("discard")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { className: _dsh_css_SettingsCard_module_css_default.spacer }),
+					failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+						className: _dsh_css_SettingsCard_module_css_default.alert,
+						role: "alert",
+						children: t("failed")
+					}),
+					!failed && savedTick && !dirty && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+						className: _dsh_css_SettingsCard_module_css_default.saved,
+						children: t("saved")
+					})
+				]
+			})
+		]
+	});
 }
-function isValid(type, draft) {
-	if (type === "toggle") return draft === "true" || draft === "false";
+/** A number is valid when it parses, is finite, and sits inside its bounds. */
+function validNumber(draft, min, max) {
+	if (draft.trim() === "") return false;
 	const n = Number(draft);
-	return draft !== "" && Number.isFinite(n);
+	return Number.isFinite(n) && n >= min && n <= max;
 }
-function parse(type, draft) {
-	return type === "toggle" ? draft === "true" : Number(draft);
+//#endregion
+//#region \0dsh-css:SkillExplorer_module_css.mjs
+const css = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
+const tagId = "dsh-awesome-skills/SkillExplorer_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId;
+	tag.textContent = css;
+	document.head.appendChild(tag);
 }
+var _dsh_css_SkillExplorer_module_css_default = {
+	"error": "vc1x0a_error",
+	"configHeading": "vc1x0a_configHeading",
+	"state": "vc1x0a_state",
+	"score": "vc1x0a_score",
+	"divider": "vc1x0a_divider",
+	"search": "vc1x0a_search",
+	"meta": "vc1x0a_meta",
+	"section": "vc1x0a_section",
+	"resultHead": "vc1x0a_resultHead",
+	"name": "vc1x0a_name",
+	"results": "vc1x0a_results",
+	"description": "vc1x0a_description",
+	"hint": "vc1x0a_hint",
+	"path": "vc1x0a_path",
+	"result": "vc1x0a_result"
+};
 //#endregion
 //#region src/client/SkillExplorer.tsx
 /**
@@ -358,107 +488,67 @@ function SkillExplorer(props) {
 		done();
 	}, []);
 	const list = (0, react.useMemo)(() => results ?? [], [results]);
-	const inputStyle = {
-		width: "100%",
-		boxSizing: "border-box",
-		padding: "6px 10px",
-		fontSize: 13,
-		borderRadius: 6,
-		border: "1px solid rgba(128,128,128,0.4)",
-		background: "transparent",
-		color: "inherit"
-	};
-	const rowStyle = {
-		padding: "8px 10px",
-		borderRadius: 6,
-		border: "1px solid rgba(128,128,128,0.25)",
-		marginBottom: 6
-	};
-	const mutedStyle = {
-		opacity: .65,
-		fontSize: 12,
-		margin: "4px 0 8px"
-	};
 	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-		style: { padding: "4px 0" },
+		className: _dsh_css_SkillExplorer_module_css_default.section,
 		children: [
 			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-				style: inputStyle,
+				className: _dsh_css_SkillExplorer_module_css_default.search,
 				value: query,
 				placeholder: t("searchPlaceholder"),
 				onChange: (event) => setQuery(event.target.value),
 				"aria-label": t("searchPlaceholder")
 			}),
 			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				style: mutedStyle,
+				className: _dsh_css_SkillExplorer_module_css_default.hint,
 				children: t("searchHint")
 			}),
-			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", {
-				style: {
-					color: "inherit",
-					margin: "8px 0"
-				},
-				children: ["⚠ ", t("error")]
+			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillExplorer_module_css_default.error,
+				role: "alert",
+				children: t("error")
 			}),
 			loading && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				style: mutedStyle,
+				className: _dsh_css_SkillExplorer_module_css_default.state,
 				children: t("loading")
 			}),
 			!loading && !failed && results !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
 				/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", {
-					style: mutedStyle,
+					className: _dsh_css_SkillExplorer_module_css_default.meta,
 					children: [template(t("results"), list.length), count > 0 && ` · ${template(t("corpusCount"), count)}`]
 				}),
 				list.length === 0 && query.trim() !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-					style: mutedStyle,
+					className: _dsh_css_SkillExplorer_module_css_default.state,
 					children: t("noResults")
 				}),
-				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: list.map((hit) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-					style: rowStyle,
-					children: [
-						/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
-							type: "button",
-							onClick: () => copyPath(hit.path),
-							style: {
-								all: "unset",
-								cursor: "pointer",
-								display: "block",
-								fontWeight: 600,
-								fontSize: 13,
-								width: "100%"
-							},
-							title: t("copyPath"),
-							children: [hit.name, /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-								style: {
-									float: "right",
-									fontWeight: 400,
-									opacity: .6
-								},
-								children: hit.score.toFixed(3)
-							})]
-						}),
-						/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-							style: {
-								fontSize: 12,
-								marginTop: 2,
-								opacity: .8
-							},
-							children: hit.description
-						}),
-						copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-							style: {
-								fontSize: 12,
-								marginTop: 2,
-								opacity: .9
-							},
-							children: [
-								copied,
-								": ",
-								hit.path
-							]
-						})
-					]
-				}, hit.path)) })
+				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+					className: _dsh_css_SkillExplorer_module_css_default.results,
+					children: list.map((hit) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+						className: _dsh_css_SkillExplorer_module_css_default.result,
+						children: [
+							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+								className: _dsh_css_SkillExplorer_module_css_default.resultHead,
+								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+									type: "button",
+									className: _dsh_css_SkillExplorer_module_css_default.name,
+									onClick: () => copyPath(hit.path),
+									title: t("copyPath"),
+									children: hit.name
+								}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+									className: _dsh_css_SkillExplorer_module_css_default.score,
+									children: hit.score.toFixed(3)
+								})]
+							}),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SkillExplorer_module_css_default.description,
+								children: hit.description
+							}),
+							copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SkillExplorer_module_css_default.path,
+								children: hit.path
+							})
+						]
+					}, hit.path))
+				})
 			] })
 		]
 	});
@@ -645,6 +735,91 @@ function errorLine(result, t) {
 	return `${t("detailError")}${detail}`;
 }
 //#endregion
+//#region src/client/locales.ts
+/**
+* Locale dictionaries for the plugin's browser surfaces (settings card and
+* the skills section). Namespaced under the plugin id so entries cannot
+* collide with another plugin's strings.
+*/
+const en = {
+	sectionTitle: "Skills",
+	searchPlaceholder: "Search the 16,000-skill corpus…",
+	searchHint: "Describe what you want to do; results come from semantic search on the host.",
+	results: "{n} results",
+	corpusCount: "{n} skills indexed",
+	copyPath: "Copy path",
+	copied: "Copied",
+	noResults: "No skills matched.",
+	error: "Search failed. Try again.",
+	loading: "Searching…",
+	cardTitle: "dsh-awesome-skills",
+	cardDescription: "Semantic search over the local 16,000-skill corpus",
+	fieldSemantic: "Semantic lane",
+	fieldSemanticHint: "Vector similarity (wasm). Off falls back to lexical + n-gram only",
+	fieldDefaultK: "Results per search",
+	fieldDefaultKHint: "How many hits search() returns (1-25)",
+	fieldPool: "Candidate pool",
+	fieldPoolHint: "Candidates re-ranked before the top results are chosen (50-3000)",
+	fieldWLex: "Lexical weight",
+	fieldWLexHint: "Weight of the keyword-overlap lane (0-1)",
+	fieldWGram: "N-gram weight",
+	fieldWGramHint: "Weight of the character-trigram lane (0-1)",
+	fieldAutoRoute: "Keep skill-router in step",
+	fieldAutoRouteHint: "Rewrite the installed skill-router when these values change",
+	detailSkillTitle: "Skill picked",
+	detailUnknownName: "name unavailable",
+	detailUnknownTool: "Unknown tool call",
+	detailTool: "Tool",
+	detailRunning: "Running…",
+	detailDuration: "Duration",
+	detailArgs: "Arguments",
+	detailOutput: "Output",
+	detailError: "Failed",
+	detailTruncated: "(truncated)",
+	unitMs: "ms",
+	unitS: "s",
+	unitMin: "min"
+};
+const zh = {
+	sectionTitle: "技能",
+	searchPlaceholder: "搜索 1.6 万技能语料…",
+	searchHint: "描述你想做的事情；结果由宿主端的语义搜索返回。",
+	results: "{n} 条结果",
+	corpusCount: "已索引 {n} 个技能",
+	copyPath: "复制路径",
+	copied: "已复制",
+	noResults: "没有匹配的技能。",
+	error: "搜索失败，请重试。",
+	loading: "搜索中…",
+	cardTitle: "dsh-awesome-skills",
+	cardDescription: "对本地 1.6 万技能语料进行语义检索",
+	fieldSemantic: "语义通道",
+	fieldSemanticHint: "向量相似度（wasm）。关闭后仅用词法 + n-gram",
+	fieldDefaultK: "每次搜索结果数",
+	fieldDefaultKHint: "search() 返回的条数（1-25）",
+	fieldPool: "候选池大小",
+	fieldPoolHint: "重排前的候选数量（50-3000）",
+	fieldWLex: "词法权重",
+	fieldWLexHint: "关键词重合通道的权重（0-1）",
+	fieldWGram: "n-gram 权重",
+	fieldWGramHint: "字符三元组通道的权重（0-1）",
+	fieldAutoRoute: "同步 skill-router",
+	fieldAutoRouteHint: "这些值变化时重写已安装的 skill-router",
+	detailSkillTitle: "已选取技能",
+	detailUnknownName: "名称不可用",
+	detailUnknownTool: "未知工具调用",
+	detailTool: "工具",
+	detailRunning: "运行中…",
+	detailDuration: "耗时",
+	detailArgs: "参数",
+	detailOutput: "输出",
+	detailError: "失败",
+	detailTruncated: "（已截断）",
+	unitMs: "毫秒",
+	unitS: "秒",
+	unitMin: "分"
+};
+//#endregion
 //#region src/client/index.tsx
 /** Dictionary namespace owned by this plugin. */
 const NS = "dsh-awesome-skills";
@@ -657,9 +832,11 @@ const inject = [
 /** Sidebar order for the Skills section: after the Market section (40). */
 const SECTION_ORDER = 45;
 /**
-* Shadows the shipped details renderer: single-slot cells elect the lowest
-* priority, and ui-tool occupies the default (0) cell, so this registration
-* wins without clashing at that priority.
+* Shadows the shipped details renderer: a single-slot cell renders its
+* lowest live priority (ui-slots register doc, index.ts:716-722, and the
+* ascending sort at 860-866 feeding entriesOfSlot 934-947), and ui-tool
+* occupies the default cell (0), so -1 both avoids the same-priority
+* load-time throw and wins the election.
 */
 const DETAILS_PRIORITY = -1;
 /**
@@ -671,47 +848,31 @@ function apply(ctx) {
 		en,
 		zh
 	}), "dsh-awesome-skills: dictionaries");
-	const t = ctx.locale.bind(NS);
 	ctx.slots.inject("conversation.details.tool", () => ctx.slots.register({
 		name: "conversation.details.tool",
-		id: "dsh-awesome-skills-skill-pick",
 		priority: DETAILS_PRIORITY,
-		locale: NS,
-		inject: () => ({ t })
-	}, (owner) => {
-		const o = owner ?? {};
-		return /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillPickDetails, {
-			block: o.block,
-			cwd: o.cwd,
-			t
-		});
-	}));
-	ctx.inject(["slots"], (scoped) => {
+		locale: NS
+	}, SkillPickDetails));
+	ctx.inject(["slots", "settingsScope"], (scoped) => {
 		const slotsCtx = scoped;
 		const t = ctx.locale.bind(NS);
+		const scope = slotsCtx.settingsScope.bind({ namespace: NS });
 		slotsCtx.slots.inject("settings.section", () => slotsCtx.slots.register({
 			name: "settings.section",
 			id: "skills",
 			order: SECTION_ORDER,
 			label: () => t("sectionTitle"),
 			locale: NS,
-			inject: () => ({ t })
-		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillExplorer, { t })));
-	});
-	ctx.inject(["settingsScope"], (scoped) => {
-		const scopeCtx = scoped;
-		const scope = scopeCtx.settingsScope.bind({ namespace: NS });
-		scopeCtx.slots.inject("settings.plugin.item", () => scopeCtx.slots.register({
-			name: "settings.plugin.item",
-			key: NS,
-			locale: NS,
-			inject: () => ({})
-		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { scope })));
+			inject: () => ({
+				t,
+				scope
+			})
+		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillExplorer, { t }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { scope })] })));
 	});
 }
 //#endregion
 exports.apply = apply;
 exports.inject = inject;
 
-} });
+return module.exports; } });
 //# sourceMappingURL=client.js.map
