@@ -19,7 +19,8 @@
     "url": "git+https://github.com/ryasrk/dsh-awesome-skills.git"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "onnxruntime-node": "^1.29.0"
@@ -41,6 +42,7 @@
     "lib",
     "src",
     "skills",
+    "model",
     "cordis.patch.yml",
     "README.md"
   ],
