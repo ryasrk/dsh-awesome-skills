@@ -12,11 +12,11 @@
  *      which is how an agent is told the search exists at all.
  */
 
-import type { Context } from '@deepseek-ai/cordis'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { registerSearchService, type SkillsSearch } from './search.js'
+import type { PluginContext } from './cordis-types.js'
 
 export const name = 'dsh-awesome-skills'
 
@@ -95,7 +95,7 @@ sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
   is not a failure.
 `
 
-export function apply(ctx: Context, config?: Config): void {
+export function apply(ctx: PluginContext, config?: Config): void {
   const home = config?.home ?? process.env.HOME ?? ''
   // The 16k skill bodies stay in their canonical corpus directory and are
   // referenced, not copied: the package ships the index (skills.json +
