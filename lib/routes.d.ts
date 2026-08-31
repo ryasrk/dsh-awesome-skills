@@ -46,7 +46,13 @@ export interface SkillRoutesHost {
  * @param corpusDir - Absolute corpus directory, surfaced by the status route.
  * @returns Disposer removing every registered route.
  */
-export declare function mountSkillRoutes(host: SkillRoutesHost, search: SkillsSearch, corpusDir: string): () => void;
+export declare function mountSkillRoutes(host: SkillRoutesHost, search: SkillsSearch, corpusDir: string, getKnobs: () => {
+    boosted: string[];
+    muted: string[];
+}, setKnobs: (next: {
+    boosted?: string[];
+    muted?: string[];
+}) => void): () => void;
 /**
  * Acquire the webServer and mount the routes, no-op on a host without one.
  * Registration happens inside the inject callback (dsh-market's shape) so a
@@ -61,5 +67,11 @@ export declare function mountSkillRoutesOnContext(ctx: {
     logger?: {
         warn(message: string): void;
     };
-}, search: SkillsSearch, corpusDir: string): void;
+}, search: SkillsSearch, corpusDir: string, getKnobs: () => {
+    boosted: string[];
+    muted: string[];
+}, setKnobs: (next: {
+    boosted?: string[];
+    muted?: string[];
+}) => void): void;
 //# sourceMappingURL=routes.d.ts.map

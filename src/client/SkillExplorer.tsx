@@ -19,6 +19,8 @@ export type Dict = typeof en
 export interface SkillExplorerProps {
   /** Locale lookup bound to the plugin's namespace. */
   t: (key: keyof Dict) => string
+  /** Called with each successful search's hits, for downstream pickers. */
+  onHits?: (hits: { path: string; name: string }[]) => void
 }
 
 /** Shape of the query route's success response. */
@@ -84,7 +86,7 @@ function template(text: string, n: number): string {
  * @param props - the injected locale lookup.
  */
 export function SkillExplorer(props: SkillExplorerProps) {
-  const { t } = props
+  const { t, onHits } = props
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchHit[] | undefined>(undefined)
   const [loading, setLoading] = useState(false)
@@ -120,6 +122,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
           setResults(body.results)
           setCount(body.count)
           setFailed(false)
+          onHits?.(body.results.map(r => ({ path: r.path, name: r.name })))
         } else {
           setFailed(true)
         }

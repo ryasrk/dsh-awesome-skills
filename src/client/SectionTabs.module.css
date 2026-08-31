@@ -1,0 +1,55 @@
+/* The Skills section's three submenus. Tabs read as the host's own segmented
+   control: underline on the active tab, hairline under the whole row. */
+
+.tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  border-bottom: 1px solid var(--dsw-alias-border-l2);
+  margin-bottom: 16px;
+}
+
+.tab {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 7px 12px;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--dsw-alias-label-secondary);
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  color: var(--dsw-alias-label-primary);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.tabOn {
+  composes: tab;
+  color: var(--dsw-alias-brand-primary);
+  border-bottom-color: var(--dsw-alias-brand-primary);
+  font-weight: 600;
+}
+
+/* A pending-change dot on the Priority tab: the one tab whose edits are
+   staged rather than applied, so the user is never surprised by an unsaved
+   list after switching away. */
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--dsw-alias-brand-primary);
+  margin-left: 6px;
+  vertical-align: 2px;
+}

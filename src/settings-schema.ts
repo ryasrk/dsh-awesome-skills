@@ -28,6 +28,7 @@ interface Zod {
   boolean(): ZodField
   number(): ZodField
   string(): ZodField
+  array(item: ZodField): ZodField
 }
 const z = createRequire(import.meta.url)('../vendor/schemastery/index.cjs') as unknown as Zod
 
@@ -40,6 +41,10 @@ export const SETTINGS_NAMESPACE = settingsNamespace('dsh-awesome-skills')
 export interface PluginSettings {
   /** Score with the semantic lane (requires the vendored wasm runtime). */
   semantic: boolean
+  /** Skill paths boosted above their natural rank, strongest first. */
+  boosted: string[]
+  /** Skill paths excluded from results entirely. */
+  muted: string[]
   /** Results returned per search, clamped to 1..25. */
   defaultK: number
   /** Candidate pool fed to the reranker before ranking. */
@@ -56,6 +61,8 @@ export interface PluginSettings {
 export const PluginSettingsSchema: ZodField = z
   .object({
     semantic: z.boolean().default(true),
+    boosted: z.array(z.string()).default([]),
+    muted: z.array(z.string()).default([]),
     defaultK: z.number().min(1).max(25).step(1).default(5),
     pool: z.number().min(50).max(3000).step(50).default(1200),
     wLex: z.number().min(0).max(1).default(0.55),
@@ -70,6 +77,8 @@ export const PluginSettingsSchema: ZodField = z
  */
 export const PLUGIN_SETTINGS_BASE: PluginSettings = {
   semantic: true,
+  boosted: [],
+  muted: [],
   defaultK: 5,
   pool: 1200,
   wLex: 0.55,

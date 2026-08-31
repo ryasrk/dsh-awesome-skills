@@ -23,6 +23,10 @@ export declare const SETTINGS_NAMESPACE: string;
 export interface PluginSettings {
     /** Score with the semantic lane (requires the vendored wasm runtime). */
     semantic: boolean;
+    /** Skill paths boosted above their natural rank, strongest first. */
+    boosted: string[];
+    /** Skill paths excluded from results entirely. */
+    muted: string[];
     /** Results returned per search, clamped to 1..25. */
     defaultK: number;
     /** Candidate pool fed to the reranker before ranking. */

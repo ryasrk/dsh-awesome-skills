@@ -9,8 +9,7 @@
  */
 
 import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import { SettingsCard } from './SettingsCard.tsx'
-import { SkillExplorer } from './SkillExplorer.tsx'
+import { SkillSection } from './SkillSection.tsx'
 import { SkillPickDetails } from './SkillPickDetails.tsx'
 import { en, zh } from './locales.ts'
 
@@ -31,6 +30,14 @@ const SECTION_ORDER = 45
  * load-time throw and wins the election.
  */
 const DETAILS_PRIORITY = -1
+
+/** Shape of the priority route's response. */
+interface PriorityResponse {
+  ok: boolean
+  boosted?: string[]
+  muted?: string[]
+  error?: string
+}
 
 /**
  * Mount the plugin's browser surfaces.
@@ -74,10 +81,19 @@ export function apply(ctx: ClientContext): void {
           inject: () => ({ t, scope }),
         },
         () => (
-          <div>
-            <SkillExplorer t={t} />
-            <SettingsCard scope={scope} />
-          </div>
+          <SkillSection
+            t={t}
+            scope={scope}
+            labels={{
+              section: t('sectionTitle'),
+              search: t('tabSearch'),
+              priority: t('tabPriority'),
+              config: t('tabConfig'),
+            }}
+            explorer={{ t: t as never }}
+
+            priority={{ }}
+          />
         ),
       ))
   })

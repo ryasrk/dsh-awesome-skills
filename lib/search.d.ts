@@ -42,6 +42,8 @@ export declare class SkillIndex {
     private vocab;
     private unk;
     private df;
+    /** Skill path -> index, for boost/mute lookups. */
+    private byPath;
     private docGrams;
     private docGramNorms;
     private gramsDirty;
@@ -83,7 +85,9 @@ export declare class SkillIndex {
     /** Absolute path of a skill's directory, for reading its SKILL.md. */
     skillDir(path: string): string;
     /** Replace the live ranking knobs. */
-    setKnobs(knobs: SearchKnobs): void;
+    setKnobs(knobs: Partial<SearchKnobs>): void;
+    /** The current knobs, for routes that echo them back. */
+    getKnobs(): SearchKnobs;
 }
 /**
  * Register the search service on the host context.
@@ -107,6 +111,10 @@ export interface SearchKnobs {
     pool: number;
     wLex: number;
     wGram: number;
+    /** Skill paths boosted above their natural rank, strongest first. */
+    boosted: string[];
+    /** Skill paths excluded from results entirely. */
+    muted: string[];
 }
 export interface SkillsSearch {
     /** Number of indexed skills. */
@@ -116,6 +124,8 @@ export interface SkillsSearch {
     /** Absolute directory holding a skill's SKILL.md. */
     skillDir(path: string): string;
     /** Replace the live ranking knobs (settings save path). */
-    setKnobs(knobs: SearchKnobs): void;
+    setKnobs(knobs: Partial<SearchKnobs>): void;
+    /** The current knobs. */
+    getKnobs(): SearchKnobs;
 }
 //# sourceMappingURL=search.d.ts.map

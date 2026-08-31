@@ -124,7 +124,11 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // Browser RPC for the Skill Explorer settings section. Injects ['webServer'],
   // so on a host without one this is a quiet no-op and the CLI-only
   // `lib/query.js` path keeps serving agents.
-  mountSkillRoutesOnContext(ctx, search, corpusDir)
+  // The priority routes read and write the same knobs the settings document
+  // drives, so the UI and a hand-edited cordis.yml cannot disagree.
+  const getKnobs = (): { boosted: string[]; muted: string[] } => search.getKnobs()
+  const setKnobs = (next: { boosted?: string[]; muted?: string[] }): void => search.setKnobs(next)
+  mountSkillRoutesOnContext(ctx, search, corpusDir, getKnobs, setKnobs)
 
   if (config?.installSkillRouter === false || !home) return
 

@@ -94,8 +94,56 @@ export function mountSkillRoutes(
   host: SkillRoutesHost,
   search: SkillsSearch,
   corpusDir: string,
+  getKnobs: () => { boosted: string[]; muted: string[] },
+  setKnobs: (next: { boosted?: string[]; muted?: string[] }) => void,
 ): () => void {
   const disposers = [
+    // Priority skills: list the current boost/mute order, and replace either
+    // list. The search service owns the values; these routes are a thin
+    // read/write door over it so the UI and the settings document agree.
+    host.webServer.register({
+      kind: 'exact',
+      path: '/dsh-awesome-skills/priority',
+      handler: async (request, response) => {
+        if (request.method === 'GET') {
+          sendJson(response, 200, { ok: true, boosted: getKnobs().boosted, muted: getKnobs().muted })
+          return
+        }
+        if (request.method !== 'POST') {
+          sendJson(response, 405, { ok: false, error: 'method not allowed' })
+          return
+        }
+        if (!sameOrigin(request)) {
+          sendJson(response, 403, { ok: false, error: 'cross-origin request' })
+          return
+        }
+        let raw: unknown
+        try {
+          raw = await readJsonBody(request)
+        } catch (error) {
+          sendJson(response, 400, { ok: false, error: error instanceof Error ? error.message : String(error) })
+          return
+        }
+        const parsed = (raw ?? {}) as { boosted?: unknown; muted?: unknown }
+        const next: { boosted?: string[]; muted?: string[] } = {}
+        if (parsed.boosted !== undefined) {
+          if (!Array.isArray(parsed.boosted) || parsed.boosted.some(v => typeof v !== 'string')) {
+            sendJson(response, 400, { ok: false, error: 'boosted must be an array of skill paths' })
+            return
+          }
+          next.boosted = parsed.boosted as string[]
+        }
+        if (parsed.muted !== undefined) {
+          if (!Array.isArray(parsed.muted) || parsed.muted.some(v => typeof v !== 'string')) {
+            sendJson(response, 400, { ok: false, error: 'muted must be an array of skill paths' })
+            return
+          }
+          next.muted = parsed.muted as string[]
+        }
+        setKnobs(next)
+        sendJson(response, 200, { ok: true, boosted: getKnobs().boosted, muted: getKnobs().muted })
+      },
+    }),
     host.webServer.register({
       kind: 'exact',
       path: '/dsh-awesome-skills/query',
@@ -104,43 +152,39 @@ export function mountSkillRoutes(
           sendJson(response, 405, { ok: false, error: 'method not allowed' })
           return
         }
-        // Mutating-looking POST on a search endpoint still only reads, but it
-        // executes an embedding (model load + inference), so same-origin only.
         if (!sameOrigin(request)) {
-          sendJson(response, 403, { ok: false, error: 'cross-origin request rejected' })
+          sendJson(response, 403, { ok: false, error: 'cross-origin request' })
+          return
+        }
+        let raw: unknown
+        try {
+          raw = await readJsonBody(request)
+        } catch (error) {
+          sendJson(response, 400, { ok: false, error: error instanceof Error ? error.message : String(error) })
+          return
+        }
+        const parsed = parseQueryBody(raw)
+        if (parsed === undefined) {
+          sendJson(response, 400, { ok: false, error: 'body must be { query: string, k?: number }' })
           return
         }
         try {
-          const parsed = parseQueryBody(await readJsonBody(request))
-          if (parsed === undefined) {
-            sendJson(response, 400, { ok: false, error: 'body must be { query: string, k?: number }' })
-            return
-          }
           const results = await search.search(parsed.query, parsed.k ?? 8)
           sendJson(response, 200, { ok: true, count: search.count(), results })
         } catch (error) {
-          sendJson(response, 500, {
-            ok: false,
-            error: error instanceof Error ? error.message : String(error),
-          })
+          sendJson(response, 500, { ok: false, error: error instanceof Error ? error.message : String(error) })
         }
       },
     }),
-
     host.webServer.register({
       kind: 'exact',
       path: '/dsh-awesome-skills/status',
       handler: (request, response) => {
-        if (request.method !== 'GET') {
-          sendJson(response, 405, { ok: false, error: 'method not allowed' })
-          return
-        }
         sendJson(response, 200, { ok: true, count: search.count(), corpusDir })
       },
     }),
   ]
-
-  host.logger?.info?.('dsh-awesome-skills: http routes mounted (/dsh-awesome-skills/query, /dsh-awesome-skills/status)')
+  host.logger?.info?.('dsh-awesome-skills: http routes mounted (query, status, priority)')
   return () => {
     for (const dispose of disposers) dispose()
   }
@@ -159,6 +203,8 @@ export function mountSkillRoutesOnContext(
   ctx: { inject?: unknown; logger?: { warn(message: string): void } },
   search: SkillsSearch,
   corpusDir: string,
+  getKnobs: () => { boosted: string[]; muted: string[] },
+  setKnobs: (next: { boosted?: string[]; muted?: string[] }) => void,
 ): void {
   const inject = ctx.inject as
     | ((deps: readonly string[], cb: (scoped: unknown) => void) => void)
@@ -173,10 +219,10 @@ export function mountSkillRoutesOnContext(
       ? host.effect
       : undefined
     if (effect) {
-      effect.call(host, () => mountSkillRoutes(host, search, corpusDir), 'dsh-awesome-skills: http routes')
+      effect.call(host, () => mountSkillRoutes(host, search, corpusDir, getKnobs, setKnobs), 'dsh-awesome-skills: http routes')
       return
     }
     ctx.logger?.warn('dsh-awesome-skills: webServer present but effect() missing; routes mounted without disposal')
-    mountSkillRoutes(host, search, corpusDir)
+    mountSkillRoutes(host, search, corpusDir, getKnobs, setKnobs)
   })
 }

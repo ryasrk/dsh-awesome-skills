@@ -30,6 +30,8 @@ type InferenceSession = OrtSession
 export const DIM = 384
 /** Candidate pool fed to the reranker. 50 was tuned for a 677-skill corpus. */
 export const POOL = 1200
+/** How far one boosted skill may climb; large enough to dominate, not to swamp. */
+const BOOST_STRENGTH = 2.0
 /** Hybrid weights: score = (1-W)*vector + W*lexical + G*gram. */
 const WEIGHT = 0.55
 const GRAM_WEIGHT = 0.5
@@ -78,10 +80,15 @@ export class SkillIndex {
   private packed: Float32Array = new Float32Array(0)
   private session: InferenceSession | undefined
   private ort: OrtModule | undefined
-  private knobs: SearchKnobs = { semantic: true, defaultK: 5, pool: POOL, wLex: WEIGHT, wGram: GRAM_WEIGHT }
+  private knobs: SearchKnobs = {
+    semantic: true, defaultK: 5, pool: POOL, wLex: WEIGHT, wGram: GRAM_WEIGHT,
+    boosted: [], muted: [],
+  }
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
   private df: Map<string, number> | undefined
+  /** Skill path -> index, for boost/mute lookups. */
+  private byPath = new Map<string, number>()
   private docGrams: (Map<string, number> | null)[] = []
   private docGramNorms: number[] = []
   private gramsDirty = false
@@ -118,6 +125,11 @@ export class SkillIndex {
     this.packed = new Float32Array(buf.buffer, buf.byteOffset, buf.byteLength / 4)
     this.docGrams = new Array(this.meta.length).fill(null)
     this.docGramNorms = new Array(this.meta.length).fill(0)
+    this.byPath.clear()
+    for (let i = 0; i < this.meta.length; i++) {
+      const p = this.meta[i].path || this.meta[i].name
+      if (!this.byPath.has(p)) this.byPath.set(p, i)
+    }
   }
 
   private async ensureModel(): Promise<void> {
@@ -360,6 +372,20 @@ export class SkillIndex {
       for (let d = 0; d < DIM; d++) x += vec![d] * this.packed[o + d]
       s[i] = x
     }
+    // Priority boosts must be able to lift a skill INTO the candidate pool,
+    // so they apply before the pool cut, not after it.
+    const boostDelta = new Map<number, number>()
+    if (this.knobs.boosted.length > 0) {
+      for (const path of this.knobs.boosted) {
+        const idx = this.byPath.get(path)
+        if (idx !== undefined) boostDelta.set(idx, 0)
+      }
+      // Strength falls off with position: the top of the list is the strongest.
+      for (const [rank, path] of this.knobs.boosted.entries()) {
+        const idx = this.byPath.get(path)
+        if (idx !== undefined) boostDelta.set(idx, BOOST_STRENGTH * (1 - rank / (this.knobs.boosted.length + 1)))
+      }
+    }
     const order = Array.from(s.keys()).sort((a, b) => s[b] - s[a]).slice(0, this.knobs.pool)
 
     const qt: Tokens = new Map()
@@ -373,7 +399,11 @@ export class SkillIndex {
       return order.slice(0, want).map(i => this.hit(i, s[i]))
     }
 
-    const scored = order.map(i => {
+    const mutedSet = new Set(this.knobs.muted)
+    const scored = order.filter(i => {
+      const p = this.meta[i].path || this.meta[i].name
+      return !mutedSet.has(p)
+    }).map(i => {
       const m = this.meta[i]
       const dm: Tokens = new Map()
       for (const w of toks(m.name + '. ' + m.description)) dm.set(w, (dm.get(w) || 0) + 1)
@@ -381,10 +411,11 @@ export class SkillIndex {
       const [dg, dgn] = this.gramsFor(i)
       const gsim = SkillIndex.gramCos(qg, dg, qn, dgn)
       const lex = this.lexical(qt, dm)
-      return { i, score: this.knobs.semantic
+      const base = this.knobs.semantic
         ? (1 - this.knobs.wLex) * s[i] + this.knobs.wLex * lex + this.knobs.wGram * gsim
         // Semantic off: the lexical and gram lanes rank on their own.
-        : this.knobs.wLex * lex + this.knobs.wGram * gsim }
+        : this.knobs.wLex * lex + this.knobs.wGram * gsim
+      return { i, score: base + (boostDelta.get(i) ?? 0) }
     })
     scored.sort((a, b) => b.score - a.score)
 
@@ -416,8 +447,13 @@ export class SkillIndex {
   }
 
   /** Replace the live ranking knobs. */
-  setKnobs(knobs: SearchKnobs): void {
+  setKnobs(knobs: Partial<SearchKnobs>): void {
     this.knobs = { ...this.knobs, ...knobs }
+  }
+
+  /** The current knobs, for routes that echo them back. */
+  getKnobs(): SearchKnobs {
+    return this.knobs
   }
 }
 
@@ -449,6 +485,7 @@ export function registerSearchService(
     search: (query: string, k?: number) => index.search(query, k),
     skillDir: (path: string) => index.skillDir(path),
     setKnobs: (knobs) => index.setKnobs(knobs),
+    getKnobs: () => index.getKnobs(),
   }
   ctx.provide('skills-search', service)
   ctx.logger.info(`dsh-awesome-skills: indexDir=${opts.indexDir} corpus=${opts.corpusDir}`)
@@ -462,6 +499,10 @@ export interface SearchKnobs {
   pool: number
   wLex: number
   wGram: number
+  /** Skill paths boosted above their natural rank, strongest first. */
+  boosted: string[]
+  /** Skill paths excluded from results entirely. */
+  muted: string[]
 }
 
 export interface SkillsSearch {
@@ -472,5 +513,7 @@ export interface SkillsSearch {
   /** Absolute directory holding a skill's SKILL.md. */
   skillDir(path: string): string
   /** Replace the live ranking knobs (settings save path). */
-  setKnobs(knobs: SearchKnobs): void
+  setKnobs(knobs: Partial<SearchKnobs>): void
+  /** The current knobs. */
+  getKnobs(): SearchKnobs
 }

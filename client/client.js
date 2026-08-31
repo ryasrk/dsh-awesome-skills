@@ -2,6 +2,234 @@ window.__ModuleLoader__.load({ id: "dsh-awesome-skills", factory: (require) => {
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
+//#region \0dsh-css:SectionTabs_module_css.mjs
+const css$3 = ".jsPfLW_tabs{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:flex-end;gap:2px;margin-bottom:16px;display:flex}.jsPfLW_tab{-webkit-appearance:none;appearance:none;font:inherit;white-space:nowrap;cursor:pointer;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-bottom:2px solid #0000;margin-bottom:-1px;padding:7px 12px;font-size:13px;line-height:1.5}.jsPfLW_tab:hover{color:var(--dsw-alias-label-primary)}.jsPfLW_tab:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px;border-radius:4px}.jsPfLW_tabOn{color:var(--dsw-alias-brand-primary);border-bottom-color:var(--dsw-alias-brand-primary);font-weight:600;}.jsPfLW_dot{background:var(--dsw-alias-brand-primary);vertical-align:2px;border-radius:999px;width:6px;height:6px;margin-left:6px;display:inline-block}";
+const tagId$3 = "dsh-awesome-skills/SectionTabs_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId$3;
+	tag.textContent = css$3;
+	document.head.appendChild(tag);
+}
+var _dsh_css_SectionTabs_module_css_default = {
+	"tab": "jsPfLW_tab",
+	"tabOn": "jsPfLW_tabOn",
+	"dot": "jsPfLW_dot",
+	"tabs": "jsPfLW_tabs"
+};
+//#endregion
+//#region \0dsh-css:SkillExplorer_module_css.mjs
+const css$2 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
+const tagId$2 = "dsh-awesome-skills/SkillExplorer_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId$2;
+	tag.textContent = css$2;
+	document.head.appendChild(tag);
+}
+var _dsh_css_SkillExplorer_module_css_default = {
+	"configHeading": "vc1x0a_configHeading",
+	"result": "vc1x0a_result",
+	"path": "vc1x0a_path",
+	"score": "vc1x0a_score",
+	"meta": "vc1x0a_meta",
+	"state": "vc1x0a_state",
+	"hint": "vc1x0a_hint",
+	"section": "vc1x0a_section",
+	"resultHead": "vc1x0a_resultHead",
+	"name": "vc1x0a_name",
+	"results": "vc1x0a_results",
+	"description": "vc1x0a_description",
+	"error": "vc1x0a_error",
+	"divider": "vc1x0a_divider",
+	"search": "vc1x0a_search"
+};
+//#endregion
+//#region src/client/SkillExplorer.tsx
+/**
+* The Skill Explorer: a live semantic search box over the host's 16k corpus,
+* rendered inside the plugin's own "Skills" settings section.
+*
+* Queries the host RPC route with a 300ms debounce and never throws — every
+* failure lands in the error state. Styling is minimal/inline on purpose; a
+* CSS module can come later without moving any of this logic.
+*/
+/** Resolve an absolute route against the page the bundle runs in (dsh-market's api() shape). */
+function api$1(path) {
+	const relative = path.replace(/^\/+/, "");
+	if (typeof document === "undefined") return `/${relative}`;
+	return new URL(relative, document.baseURI).pathname;
+}
+/**
+* Run one search against the host route.
+* @returns the parsed response, or an error object; never throws.
+*/
+async function runQuery(query, k) {
+	try {
+		const response = await fetch(api$1("/dsh-awesome-skills/query"), {
+			method: "POST",
+			headers: { "content-type": "application/json" },
+			body: JSON.stringify({
+				query,
+				k
+			})
+		});
+		const body = await response.json();
+		if (!response.ok || body.ok !== true) return {
+			ok: false,
+			error: body.ok === false && typeof body.error === "string" ? body.error : `HTTP ${response.status}`
+		};
+		return body;
+	} catch (error) {
+		return {
+			ok: false,
+			error: error instanceof Error ? error.message : String(error)
+		};
+	}
+}
+/** Ask the status route how many skills the corpus holds; 0 on any failure. */
+async function fetchCount() {
+	try {
+		const response = await fetch(api$1("/dsh-awesome-skills/status"));
+		if (!response.ok) return 0;
+		const body = await response.json();
+		return typeof body.count === "number" && Number.isFinite(body.count) ? body.count : 0;
+	} catch {
+		return 0;
+	}
+}
+/** Fill a dictionary template's {n} placeholder. */
+function template(text, n) {
+	return text.replace("{n}", String(n));
+}
+/**
+* Render the explorer section.
+* @param props - the injected locale lookup.
+*/
+function SkillExplorer(props) {
+	const { t, onHits } = props;
+	const [query, setQuery] = (0, react.useState)("");
+	const [results, setResults] = (0, react.useState)(void 0);
+	const [loading, setLoading] = (0, react.useState)(false);
+	const [failed, setFailed] = (0, react.useState)(false);
+	const [count, setCount] = (0, react.useState)(0);
+	const [copied, setCopied] = (0, react.useState)(void 0);
+	const seqRef = (0, react.useRef)(0);
+	const debounceRef = (0, react.useRef)(void 0);
+	(0, react.useEffect)(() => {
+		fetchCount().then(setCount);
+		return () => clearTimeout(debounceRef.current);
+	}, []);
+	(0, react.useEffect)(() => {
+		const trimmed = query.trim();
+		clearTimeout(debounceRef.current);
+		if (trimmed === "") {
+			setResults(void 0);
+			setLoading(false);
+			setFailed(false);
+			return;
+		}
+		setLoading(true);
+		const seq = ++seqRef.current;
+		debounceRef.current = setTimeout(() => {
+			runQuery(trimmed, 8).then((body) => {
+				if (seq !== seqRef.current) return;
+				if (body.ok) {
+					setResults(body.results);
+					setCount(body.count);
+					setFailed(false);
+					onHits?.(body.results.map((r) => ({
+						path: r.path,
+						name: r.name
+					})));
+				} else setFailed(true);
+				setLoading(false);
+			});
+		}, 300);
+		return () => clearTimeout(debounceRef.current);
+	}, [query]);
+	const copyPath = (0, react.useCallback)((path) => {
+		const done = () => {
+			setCopied(path);
+			setTimeout(() => {
+				setCopied((current) => current === path ? void 0 : current);
+			}, 1500);
+		};
+		if (typeof navigator !== "undefined" && typeof navigator.clipboard?.writeText === "function") {
+			navigator.clipboard.writeText(path).then(done, done);
+			return;
+		}
+		done();
+	}, []);
+	const list = (0, react.useMemo)(() => results ?? [], [results]);
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_SkillExplorer_module_css_default.section,
+		children: [
+			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+				className: _dsh_css_SkillExplorer_module_css_default.search,
+				value: query,
+				placeholder: t("searchPlaceholder"),
+				onChange: (event) => setQuery(event.target.value),
+				"aria-label": t("searchPlaceholder")
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillExplorer_module_css_default.hint,
+				children: t("searchHint")
+			}),
+			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillExplorer_module_css_default.error,
+				role: "alert",
+				children: t("error")
+			}),
+			loading && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillExplorer_module_css_default.state,
+				children: t("loading")
+			}),
+			!loading && !failed && results !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
+				/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", {
+					className: _dsh_css_SkillExplorer_module_css_default.meta,
+					children: [template(t("results"), list.length), count > 0 && ` · ${template(t("corpusCount"), count)}`]
+				}),
+				list.length === 0 && query.trim() !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+					className: _dsh_css_SkillExplorer_module_css_default.state,
+					children: t("noResults")
+				}),
+				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+					className: _dsh_css_SkillExplorer_module_css_default.results,
+					children: list.map((hit) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+						className: _dsh_css_SkillExplorer_module_css_default.result,
+						children: [
+							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+								className: _dsh_css_SkillExplorer_module_css_default.resultHead,
+								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+									type: "button",
+									className: _dsh_css_SkillExplorer_module_css_default.name,
+									onClick: () => copyPath(hit.path),
+									title: t("copyPath"),
+									children: hit.name
+								}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+									className: _dsh_css_SkillExplorer_module_css_default.score,
+									children: hit.score.toFixed(3)
+								})]
+							}),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SkillExplorer_module_css_default.description,
+								children: hit.description
+							}),
+							copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+								className: _dsh_css_SkillExplorer_module_css_default.path,
+								children: hit.path
+							})
+						]
+					}, hit.path))
+				})
+			] })
+		]
+	});
+}
+//#endregion
 //#region \0dsh-css:SettingsCard_module_css.mjs
 const css$1 = ".alOFIW_card{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:14px 16px;display:flex}.alOFIW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:#fff;transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary);color:#fff;}.alOFIW_primary:hover:not(:disabled){filter:brightness(1.06)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}";
 const tagId$1 = "dsh-awesome-skills/SettingsCard_module_css";
@@ -13,29 +241,29 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"actions": "alOFIW_actions",
-	"badge": "alOFIW_badge",
-	"hint": "alOFIW_hint",
-	"alert": "alOFIW_alert",
-	"revert": "alOFIW_revert",
 	"header": "alOFIW_header",
-	"body": "alOFIW_body",
-	"card": "alOFIW_card",
-	"input": "alOFIW_input",
-	"toggle": "alOFIW_toggle",
-	"control": "alOFIW_control",
-	"spacer": "alOFIW_spacer",
-	"footer": "alOFIW_footer",
-	"field": "alOFIW_field",
+	"alert": "alOFIW_alert",
 	"name": "alOFIW_name",
-	"invalid": "alOFIW_invalid",
-	"button": "alOFIW_button",
+	"hint": "alOFIW_hint",
+	"spacer": "alOFIW_spacer",
+	"field": "alOFIW_field",
 	"head": "alOFIW_head",
-	"primary": "alOFIW_primary",
-	"saved": "alOFIW_saved",
-	"inputInvalid": "alOFIW_inputInvalid",
+	"input": "alOFIW_input",
+	"invalid": "alOFIW_invalid",
+	"toggle": "alOFIW_toggle",
 	"label": "alOFIW_label",
-	"description": "alOFIW_description"
+	"card": "alOFIW_card",
+	"body": "alOFIW_body",
+	"actions": "alOFIW_actions",
+	"primary": "alOFIW_primary",
+	"badge": "alOFIW_badge",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"control": "alOFIW_control",
+	"revert": "alOFIW_revert",
+	"button": "alOFIW_button",
+	"description": "alOFIW_description",
+	"footer": "alOFIW_footer",
+	"saved": "alOFIW_saved"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -347,9 +575,9 @@ function validNumber(draft, min, max) {
 	return Number.isFinite(n) && n >= min && n <= max;
 }
 //#endregion
-//#region \0dsh-css:SkillExplorer_module_css.mjs
-const css = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
-const tagId = "dsh-awesome-skills/SkillExplorer_module_css";
+//#region \0dsh-css:PrioritySkills_module_css.mjs
+const css = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;display:flex}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_picker{max-width:320px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;align-self:flex-start;padding:0 10px;font-size:12px}.bm5jra_picker:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-brand-primary);color:#fff;cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}";
+const tagId = "dsh-awesome-skills/PrioritySkills_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 	const tag = document.createElement("style");
 	tag.dataset.plugin = "dsh-awesome-skills";
@@ -357,201 +585,375 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	tag.textContent = css;
 	document.head.appendChild(tag);
 }
-var _dsh_css_SkillExplorer_module_css_default = {
-	"error": "vc1x0a_error",
-	"configHeading": "vc1x0a_configHeading",
-	"state": "vc1x0a_state",
-	"score": "vc1x0a_score",
-	"divider": "vc1x0a_divider",
-	"search": "vc1x0a_search",
-	"meta": "vc1x0a_meta",
-	"section": "vc1x0a_section",
-	"resultHead": "vc1x0a_resultHead",
-	"name": "vc1x0a_name",
-	"results": "vc1x0a_results",
-	"description": "vc1x0a_description",
-	"hint": "vc1x0a_hint",
-	"path": "vc1x0a_path",
-	"result": "vc1x0a_result"
+var _dsh_css_PrioritySkills_module_css_default = {
+	"hint": "bm5jra_hint",
+	"empty": "bm5jra_empty",
+	"primary": "bm5jra_primary",
+	"button": "bm5jra_button",
+	"actions": "bm5jra_actions",
+	"path": "bm5jra_path",
+	"ctl": "bm5jra_ctl",
+	"input": "bm5jra_input",
+	"row": "bm5jra_row",
+	"list": "bm5jra_list",
+	"grow": "bm5jra_grow",
+	"picker": "bm5jra_picker",
+	"state": "bm5jra_state",
+	"heading": "bm5jra_heading",
+	"block": "bm5jra_block",
+	"root": "bm5jra_root",
+	"controls": "bm5jra_controls",
+	"rank": "bm5jra_rank",
+	"addRow": "bm5jra_addRow"
 };
 //#endregion
-//#region src/client/SkillExplorer.tsx
+//#region src/client/PrioritySkills.tsx
 /**
-* The Skill Explorer: a live semantic search box over the host's 16k corpus,
-* rendered inside the plugin's own "Skills" settings section.
+* Priority skills: the boost and mute lists, edited as ordered lists.
 *
-* Queries the host RPC route with a 300ms debounce and never throws — every
-* failure lands in the error state. Styling is minimal/inline on purpose; a
-* CSS module can come later without moving any of this logic.
+* Boost order is meaningful — the top of the list climbs highest — so the
+* editor is a vertical list with explicit move controls rather than a
+* checkbox grid. Mute is a flat exclusion list. Both are edited as staged
+* drafts and committed through the priority route, which is the same source
+* the search service reads.
 */
-/** Resolve an absolute route against the page the bundle runs in (dsh-market's api() shape). */
+/**
+* Render the priority editor.
+* @param props - locale, staged state, change handler, picker suggestions.
+*/
+function PrioritySkills(props) {
+	const { t, state, onChange, suggestions, onApply, applied } = props;
+	const [draft, setDraft] = (0, react.useState)("");
+	const [saving, setSaving] = (0, react.useState)(false);
+	const isDirty = applied !== void 0 && (applied.boosted.length !== state.boosted.length || applied.muted.length !== state.muted.length || applied.boosted.some((p, i) => state.boosted[i] !== p) || applied.muted.some((p, i) => state.muted[i] !== p));
+	const move = (0, react.useCallback)((list, from, delta) => {
+		const to = from + delta;
+		if (to < 0 || to >= list.length) return list;
+		const next = [...list];
+		const [item] = next.splice(from, 1);
+		next.splice(to, 0, item);
+		return next;
+	}, []);
+	const removeFrom = (key, index) => {
+		const next = state[key].filter((_, i) => i !== index);
+		onChange({
+			...state,
+			[key]: next
+		});
+	};
+	const add = (key, path) => {
+		const value = path.trim();
+		if (value === "") return;
+		if (state.boosted.includes(value) || state.muted.includes(value)) return;
+		onChange({
+			...state,
+			[key]: [...state[key], value]
+		});
+		setDraft("");
+	};
+	const available = suggestions.filter((s) => !state.boosted.includes(s.path) && !state.muted.includes(s.path));
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_PrioritySkills_module_css_default.root,
+		children: [
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
+				className: _dsh_css_PrioritySkills_module_css_default.block,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
+						className: _dsh_css_PrioritySkills_module_css_default.heading,
+						children: t("priorityBoostTitle")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.hint,
+						children: t("priorityBoostHint")
+					}),
+					state.boosted.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.empty,
+						children: t("priorityBoostEmpty")
+					}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ol", {
+						className: _dsh_css_PrioritySkills_module_css_default.list,
+						children: state.boosted.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+							className: _dsh_css_PrioritySkills_module_css_default.row,
+							children: [
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+									className: _dsh_css_PrioritySkills_module_css_default.rank,
+									children: index + 1
+								}),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", {
+									className: _dsh_css_PrioritySkills_module_css_default.path,
+									children: path
+								}),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("span", {
+									className: _dsh_css_PrioritySkills_module_css_default.controls,
+									children: [
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+											type: "button",
+											className: _dsh_css_PrioritySkills_module_css_default.ctl,
+											disabled: index === 0,
+											onClick: () => onChange({
+												...state,
+												boosted: move(state.boosted, index, -1)
+											}),
+											"aria-label": t("moveUp"),
+											children: "↑"
+										}),
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+											type: "button",
+											className: _dsh_css_PrioritySkills_module_css_default.ctl,
+											disabled: index === state.boosted.length - 1,
+											onClick: () => onChange({
+												...state,
+												boosted: move(state.boosted, index, 1)
+											}),
+											"aria-label": t("moveDown"),
+											children: "↓"
+										}),
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+											type: "button",
+											className: _dsh_css_PrioritySkills_module_css_default.ctl,
+											onClick: () => removeFrom("boosted", index),
+											"aria-label": t("remove"),
+											children: "×"
+										})
+									]
+								})
+							]
+						}, path))
+					}),
+					available.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("select", {
+						className: _dsh_css_PrioritySkills_module_css_default.picker,
+						value: "",
+						onChange: (e) => add("boosted", e.target.value),
+						"aria-label": t("addBoost"),
+						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
+							value: "",
+							children: t("addBoost")
+						}), available.map((s) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
+							value: s.path,
+							children: s.name
+						}, s.path))]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
+				className: _dsh_css_PrioritySkills_module_css_default.block,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
+						className: _dsh_css_PrioritySkills_module_css_default.heading,
+						children: t("priorityMuteTitle")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.hint,
+						children: t("priorityMuteHint")
+					}),
+					state.muted.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.empty,
+						children: t("priorityMuteEmpty")
+					}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ul", {
+						className: _dsh_css_PrioritySkills_module_css_default.list,
+						children: state.muted.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+							className: _dsh_css_PrioritySkills_module_css_default.row,
+							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", {
+								className: _dsh_css_PrioritySkills_module_css_default.path,
+								children: path
+							}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+								className: _dsh_css_PrioritySkills_module_css_default.controls,
+								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+									type: "button",
+									className: _dsh_css_PrioritySkills_module_css_default.ctl,
+									onClick: () => removeFrom("muted", index),
+									"aria-label": t("remove"),
+									children: "×"
+								})
+							})]
+						}, path))
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
+				className: _dsh_css_PrioritySkills_module_css_default.block,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
+						className: _dsh_css_PrioritySkills_module_css_default.heading,
+						children: t("priorityAddManual")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+						className: _dsh_css_PrioritySkills_module_css_default.addRow,
+						children: [
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+								className: _dsh_css_PrioritySkills_module_css_default.input,
+								value: draft,
+								placeholder: t("pathPlaceholder"),
+								onChange: (e) => setDraft(e.target.value),
+								onKeyDown: (e) => {
+									if (e.key === "Enter") {
+										if (e.shiftKey) add("muted", draft);
+										else add("boosted", draft);
+									}
+								}
+							}),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+								type: "button",
+								className: _dsh_css_PrioritySkills_module_css_default.primary,
+								disabled: draft.trim() === "",
+								onClick: () => add("boosted", draft),
+								children: t("addBoost")
+							}),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+								type: "button",
+								className: _dsh_css_PrioritySkills_module_css_default.button,
+								disabled: draft.trim() === "",
+								onClick: () => add("muted", draft),
+								children: t("addMute")
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.hint,
+						children: t("manualHint")
+					})
+				]
+			}),
+			onApply !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_PrioritySkills_module_css_default.actions,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: _dsh_css_PrioritySkills_module_css_default.primary,
+						disabled: !isDirty || saving,
+						onClick: () => {
+							setSaving(true);
+							onApply().finally(() => setSaving(false));
+						},
+						children: saving ? "…" : t("save")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { className: _dsh_css_PrioritySkills_module_css_default.grow }),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+						className: _dsh_css_PrioritySkills_module_css_default.state,
+						children: isDirty ? t("priorityUnsaved") : t("prioritySaved")
+					})
+				]
+			})
+		]
+	});
+}
+//#endregion
+//#region src/client/SkillSection.tsx
+/**
+* The Skills section's three submenus: Search, Priority, Config.
+*
+* Tab state is local to the section (dsh-market's pattern) rather than a
+* nested slot, because the three panes share state — the explorer's hits
+* feed the priority picker, and the config card and the priority list both
+* write the same settings document.
+*/
+/** Resolve an absolute route against the page the bundle runs in. */
 function api(path) {
 	const relative = path.replace(/^\/+/, "");
 	if (typeof document === "undefined") return `/${relative}`;
 	return new URL(relative, document.baseURI).pathname;
 }
 /**
-* Run one search against the host route.
-* @returns the parsed response, or an error object; never throws.
+* Render the tabbed Skills section.
+* @param props - locale, scope, labels, and the forwarded pane props.
 */
-async function runQuery(query, k) {
-	try {
-		const response = await fetch(api("/dsh-awesome-skills/query"), {
-			method: "POST",
-			headers: { "content-type": "application/json" },
-			body: JSON.stringify({
-				query,
-				k
-			})
-		});
-		const body = await response.json();
-		if (!response.ok || body.ok !== true) return {
-			ok: false,
-			error: body.ok === false && typeof body.error === "string" ? body.error : `HTTP ${response.status}`
-		};
-		return body;
-	} catch (error) {
-		return {
-			ok: false,
-			error: error instanceof Error ? error.message : String(error)
-		};
-	}
-}
-/** Ask the status route how many skills the corpus holds; 0 on any failure. */
-async function fetchCount() {
-	try {
-		const response = await fetch(api("/dsh-awesome-skills/status"));
-		if (!response.ok) return 0;
-		const body = await response.json();
-		return typeof body.count === "number" && Number.isFinite(body.count) ? body.count : 0;
-	} catch {
-		return 0;
-	}
-}
-/** Fill a dictionary template's {n} placeholder. */
-function template(text, n) {
-	return text.replace("{n}", String(n));
-}
-/**
-* Render the explorer section.
-* @param props - the injected locale lookup.
-*/
-function SkillExplorer(props) {
-	const { t } = props;
-	const [query, setQuery] = (0, react.useState)("");
-	const [results, setResults] = (0, react.useState)(void 0);
-	const [loading, setLoading] = (0, react.useState)(false);
-	const [failed, setFailed] = (0, react.useState)(false);
-	const [count, setCount] = (0, react.useState)(0);
-	const [copied, setCopied] = (0, react.useState)(void 0);
-	const seqRef = (0, react.useRef)(0);
-	const debounceRef = (0, react.useRef)(void 0);
-	(0, react.useEffect)(() => {
-		fetchCount().then(setCount);
-		return () => clearTimeout(debounceRef.current);
-	}, []);
-	(0, react.useEffect)(() => {
-		const trimmed = query.trim();
-		clearTimeout(debounceRef.current);
-		if (trimmed === "") {
-			setResults(void 0);
-			setLoading(false);
-			setFailed(false);
-			return;
-		}
-		setLoading(true);
-		const seq = ++seqRef.current;
-		debounceRef.current = setTimeout(() => {
-			runQuery(trimmed, 8).then((body) => {
-				if (seq !== seqRef.current) return;
-				if (body.ok) {
-					setResults(body.results);
-					setCount(body.count);
-					setFailed(false);
-				} else setFailed(true);
-				setLoading(false);
-			});
-		}, 300);
-		return () => clearTimeout(debounceRef.current);
-	}, [query]);
-	const copyPath = (0, react.useCallback)((path) => {
-		const done = () => {
-			setCopied(path);
-			setTimeout(() => {
-				setCopied((current) => current === path ? void 0 : current);
-			}, 1500);
-		};
-		if (typeof navigator !== "undefined" && typeof navigator.clipboard?.writeText === "function") {
-			navigator.clipboard.writeText(path).then(done, done);
-			return;
-		}
-		done();
-	}, []);
-	const list = (0, react.useMemo)(() => results ?? [], [results]);
-	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-		className: _dsh_css_SkillExplorer_module_css_default.section,
-		children: [
-			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-				className: _dsh_css_SkillExplorer_module_css_default.search,
-				value: query,
-				placeholder: t("searchPlaceholder"),
-				onChange: (event) => setQuery(event.target.value),
-				"aria-label": t("searchPlaceholder")
-			}),
-			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				className: _dsh_css_SkillExplorer_module_css_default.hint,
-				children: t("searchHint")
-			}),
-			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				className: _dsh_css_SkillExplorer_module_css_default.error,
-				role: "alert",
-				children: t("error")
-			}),
-			loading && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				className: _dsh_css_SkillExplorer_module_css_default.state,
-				children: t("loading")
-			}),
-			!loading && !failed && results !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-				/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", {
-					className: _dsh_css_SkillExplorer_module_css_default.meta,
-					children: [template(t("results"), list.length), count > 0 && ` · ${template(t("corpusCount"), count)}`]
-				}),
-				list.length === 0 && query.trim() !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-					className: _dsh_css_SkillExplorer_module_css_default.state,
-					children: t("noResults")
-				}),
-				/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-					className: _dsh_css_SkillExplorer_module_css_default.results,
-					children: list.map((hit) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-						className: _dsh_css_SkillExplorer_module_css_default.result,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-								className: _dsh_css_SkillExplorer_module_css_default.resultHead,
-								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-									type: "button",
-									className: _dsh_css_SkillExplorer_module_css_default.name,
-									onClick: () => copyPath(hit.path),
-									title: t("copyPath"),
-									children: hit.name
-								}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-									className: _dsh_css_SkillExplorer_module_css_default.score,
-									children: hit.score.toFixed(3)
-								})]
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-								className: _dsh_css_SkillExplorer_module_css_default.description,
-								children: hit.description
-							}),
-							copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-								className: _dsh_css_SkillExplorer_module_css_default.path,
-								children: hit.path
-							})
-						]
-					}, hit.path))
-				})
-			] })
-		]
+function SkillSection(props) {
+	const { t, scope, labels, explorer, priority } = props;
+	const [tab, setTab] = (0, react.useState)("search");
+	const [pending, setPending] = (0, react.useState)(false);
+	/** The explorer's latest hits, offered to the priority picker. */
+	const [hits, setHits] = (0, react.useState)([]);
+	const onHits = (0, react.useCallback)((next) => setHits(next), []);
+	/** Applied priority lists, as the route returns them. */
+	const [applied, setApplied] = (0, react.useState)({
+		boosted: [],
+		muted: []
 	});
+	/** Staged edits on top of `applied`, until Save commits them. */
+	const [staged, setStaged] = (0, react.useState)(void 0);
+	(0, react.useEffect)(() => {
+		let live = true;
+		(async () => {
+			try {
+				const body = await (await fetch(api("/dsh-awesome-skills/priority"))).json();
+				if (live && body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) setApplied({
+					boosted: body.boosted,
+					muted: body.muted
+				});
+			} catch {}
+		})();
+		return () => {
+			live = false;
+		};
+	}, []);
+	(0, react.useCallback)((next) => {
+		setStaged(next);
+	}, []);
+	const savePriority = (0, react.useCallback)(async () => {
+		if (staged === void 0) return;
+		try {
+			const body = await (await fetch(api("/dsh-awesome-skills/priority"), {
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify(staged)
+			})).json();
+			if (body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) {
+				setApplied({
+					boosted: body.boosted,
+					muted: body.muted
+				});
+				setStaged(void 0);
+			}
+		} catch {}
+	}, [staged]);
+	const tabs = (0, react.useMemo)(() => [
+		{
+			id: "search",
+			label: labels.search
+		},
+		{
+			id: "priority",
+			label: labels.priority,
+			pending
+		},
+		{
+			id: "config",
+			label: labels.config
+		}
+	], [labels, pending]);
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
+		/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+			className: _dsh_css_SectionTabs_module_css_default.tabs,
+			role: "tablist",
+			"aria-label": labels.section,
+			children: tabs.map((entry) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
+				type: "button",
+				role: "tab",
+				"aria-selected": tab === entry.id,
+				className: tab === entry.id ? _dsh_css_SectionTabs_module_css_default.tabOn : _dsh_css_SectionTabs_module_css_default.tab,
+				onClick: () => setTab(entry.id),
+				children: [entry.label, entry.pending && tab !== "priority" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SectionTabs_module_css_default.dot,
+					"aria-hidden": true
+				})]
+			}, entry.id))
+		}),
+		tab === "search" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillExplorer, {
+			...explorer,
+			onHits
+		}),
+		tab === "priority" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(PrioritySkills, {
+			t,
+			state: staged ?? applied,
+			onChange: (next) => {
+				setStaged(next);
+				setPending(true);
+			},
+			suggestions: hits,
+			onApply: savePriority,
+			applied
+		}),
+		tab === "config" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { scope })
+	] });
 }
 //#endregion
 //#region src/client/SkillPickDetails.tsx
@@ -778,7 +1180,27 @@ const en = {
 	detailTruncated: "(truncated)",
 	unitMs: "ms",
 	unitS: "s",
-	unitMin: "min"
+	unitMin: "min",
+	tabSearch: "Search",
+	tabPriority: "Priority",
+	tabConfig: "Config",
+	priorityBoostTitle: "Boosted skills",
+	priorityBoostHint: "Ordered list — the top entry climbs highest in results",
+	priorityBoostEmpty: "Nothing boosted yet",
+	priorityMuteTitle: "Muted skills",
+	priorityMuteHint: "Excluded from all search results",
+	priorityMuteEmpty: "Nothing muted",
+	priorityAddManual: "Add a skill path",
+	addBoost: "Boost",
+	addMute: "Mute",
+	moveUp: "Move up",
+	moveDown: "Move down",
+	remove: "Remove",
+	pathPlaceholder: "path/from/skills",
+	manualHint: "Enter adds to Boost; Shift+Enter adds to Mute",
+	save: "Save",
+	priorityUnsaved: "Unsaved changes",
+	prioritySaved: "All changes applied"
 };
 const zh = {
 	sectionTitle: "技能",
@@ -817,7 +1239,27 @@ const zh = {
 	detailTruncated: "（已截断）",
 	unitMs: "毫秒",
 	unitS: "秒",
-	unitMin: "分"
+	unitMin: "分",
+	tabSearch: "搜索",
+	tabPriority: "优先级",
+	tabConfig: "配置",
+	priorityBoostTitle: "置顶技能",
+	priorityBoostHint: "有序列表 — 越靠前在结果中越靠前",
+	priorityBoostEmpty: "暂无置顶",
+	priorityMuteTitle: "静音技能",
+	priorityMuteHint: "从所有搜索结果中排除",
+	priorityMuteEmpty: "暂无静音",
+	priorityAddManual: "添加技能路径",
+	addBoost: "置顶",
+	addMute: "静音",
+	moveUp: "上移",
+	moveDown: "下移",
+	remove: "移除",
+	pathPlaceholder: "路径/来自/技能",
+	manualHint: "回车加入置顶；Shift+回车加入静音",
+	save: "保存",
+	priorityUnsaved: "有未保存的更改",
+	prioritySaved: "所有更改已应用"
 };
 //#endregion
 //#region src/client/index.tsx
@@ -867,7 +1309,18 @@ function apply(ctx) {
 				t,
 				scope
 			})
-		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillExplorer, { t }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { scope })] })));
+		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillSection, {
+			t,
+			scope,
+			labels: {
+				section: t("sectionTitle"),
+				search: t("tabSearch"),
+				priority: t("tabPriority"),
+				config: t("tabConfig")
+			},
+			explorer: { t },
+			priority: {}
+		})));
 	});
 }
 //#endregion

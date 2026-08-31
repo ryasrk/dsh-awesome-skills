@@ -56,6 +56,8 @@ export function installSettingsSection(ctx: PluginContext, search: SkillsSearch)
         pool: value.pool,
         wLex: value.wLex,
         wGram: value.wGram,
+        boosted: value.boosted ?? [],
+        muted: value.muted ?? [],
       })
       ctx.logger.info(
         `dsh-awesome-skills: settings applied (semantic=${value.semantic} k=${value.defaultK} pool=${value.pool})`,
