@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "preflight": "node scripts/preflight.mjs"
   },
   "dsh": {
     "bundle": {

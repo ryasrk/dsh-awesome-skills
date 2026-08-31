@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { registerSearchService, type SkillsSearch } from './search.js'
 import { installSettingsSection } from './settings-wiring.js'
+import { mountSkillRoutesOnContext } from './routes.js'
 import type { PluginContext } from './cordis-types.js'
 
 export const name = 'dsh-awesome-skills'
@@ -119,6 +120,11 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // so on a host without the settings service nothing here runs and the
   // composed defaults above simply stand — degradation, not failure.
   installSettingsSection(ctx, search)
+
+  // Browser RPC for the Skill Explorer settings section. Injects ['webServer'],
+  // so on a host without one this is a quiet no-op and the CLI-only
+  // `lib/query.js` path keeps serving agents.
+  mountSkillRoutesOnContext(ctx, search, corpusDir)
 
   if (config?.installSkillRouter === false || !home) return
 
