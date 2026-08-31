@@ -42,5 +42,10 @@
     "@types/node": "^24.13.3",
     "onnxruntime-web": "^1.29.0",
     "typescript": "5.9"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "protobufjs"
+    ]
   }
 }
