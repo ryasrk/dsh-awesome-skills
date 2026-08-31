@@ -1,0 +1,7 @@
+node_modules/
+lib/
+*.tsbuildinfo
+# Derived caches: rebuilt from the index on first query.
+skills/gramcache.json
+skills/gramcache.fp.json
+skills/qcache.json

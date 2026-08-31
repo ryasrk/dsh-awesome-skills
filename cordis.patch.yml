@@ -1,0 +1,7 @@
+# dsh bundle patch: inserts this plugin into a profile's layer stack.
+# No loader config is needed: the plugin reads its corpus location from its
+# own package directory, so it needs nothing from the composition beyond
+# being mounted at all.
+- insert:
+    - id: dsh-awesome-skills
+      name: 'dsh-awesome-skills'

@@ -1,0 +1,51 @@
+{
+  "name": "dsh-awesome-skills",
+  "description": "Semantic vector search over a 16,000-skill local corpus. Ships a bundled `skill-router` skill that routes any task to the most relevant vetted playbook on demand, keeping the corpus out of the per-turn model catalog.",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "skills",
+    "vector-search",
+    "semantic-search"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryasrk/dsh-awesome-skills.git"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "onnxruntime-node": "^1.29.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "lib",
+    "src",
+    "skills",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "typescript": "5.9"
+  }
+}

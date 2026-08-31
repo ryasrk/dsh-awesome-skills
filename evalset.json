@@ -1,0 +1,485 @@
+[
+  {
+    "q": "make the signup flow convert better",
+    "gold": "signup",
+    "ok": [
+      "onboarding",
+      "cro"
+    ]
+  },
+  {
+    "q": "new users sign up but never do anything",
+    "gold": "onboarding",
+    "ok": [
+      "signup",
+      "churn-prevention"
+    ]
+  },
+  {
+    "q": "our postgres queries are slow",
+    "gold": "postgres",
+    "ok": [
+      "sql-queries",
+      "supabase-postgres-best-practices",
+      "mongodb-query-optimizer"
+    ]
+  },
+  {
+    "q": "add structured data so google shows stars",
+    "gold": "schema",
+    "ok": [
+      "seo-audit",
+      "programmatic-seo"
+    ]
+  },
+  {
+    "q": "why is our site not ranking",
+    "gold": "seo-audit",
+    "ok": [
+      "squirrelscan",
+      "programmatic-seo",
+      "site-architecture"
+    ]
+  },
+  {
+    "q": "write a cold email to a prospect",
+    "gold": "cold-email",
+    "ok": [
+      "emails",
+      "email-best-practices"
+    ]
+  },
+  {
+    "q": "people keep cancelling their subscription",
+    "gold": "churn-prevention",
+    "ok": [
+      "cohort-analysis",
+      "paywalls"
+    ]
+  },
+  {
+    "q": "automate browser end to end tests",
+    "gold": "playwright-skill",
+    "ok": [
+      "playwright",
+      "webapp-testing",
+      "cypress-skill"
+    ]
+  },
+  {
+    "q": "test my react components",
+    "gold": "jest-skill",
+    "ok": [
+      "vitest-skill",
+      "react-native-best-practices"
+    ]
+  },
+  {
+    "q": "deploy this to cloudflare",
+    "gold": "cloudflare-deploy",
+    "ok": [
+      "cloudflare",
+      "workers-best-practices",
+      "wrangler"
+    ]
+  },
+  {
+    "q": "turn this recording into text",
+    "gold": "transcribe",
+    "ok": [
+      "venice-audio-transcription",
+      "speech"
+    ]
+  },
+  {
+    "q": "make slides for a pitch",
+    "gold": "frontend-slides",
+    "ok": [
+      "pptx",
+      "pptx-generator",
+      "frontend-slides"
+    ]
+  },
+  {
+    "q": "is this codebase secure",
+    "gold": "security-best-practices",
+    "ok": [
+      "security-threat-model",
+      "vibesec-skill"
+    ]
+  },
+  {
+    "q": "model the threats for this repo",
+    "gold": "security-threat-model",
+    "ok": [
+      "security-best-practices",
+      "security-bluebook-builder"
+    ]
+  },
+  {
+    "q": "generate an image from a description",
+    "gold": "imagen",
+    "ok": [
+      "imagegen",
+      "venice-image-generate"
+    ]
+  },
+  {
+    "q": "our saas unit economics look bad",
+    "gold": "saas-economics-efficiency-metrics",
+    "ok": [
+      "charlie",
+      "saas-revenue-growth-metrics"
+    ]
+  },
+  {
+    "q": "how long is our runway",
+    "gold": "charlie",
+    "ok": [
+      "saas-economics-efficiency-metrics",
+      "finance-metrics-quickref"
+    ]
+  },
+  {
+    "q": "rewrite this so it doesn't sound like ai wrote it",
+    "gold": "humanizer",
+    "ok": [
+      "ru-text",
+      "beautiful-prose",
+      "humanizer",
+      "write-concisely"
+    ]
+  },
+  {
+    "q": "check russian text for ai tells",
+    "gold": "humanizer-ru",
+    "ok": [
+      "ru-text",
+      "humanizer"
+    ]
+  },
+  {
+    "q": "work on several features at once without stashing",
+    "gold": "using-git-worktrees",
+    "ok": [
+      "brainstorming"
+    ]
+  },
+  {
+    "q": "review the open pull request",
+    "gold": "review-pr",
+    "ok": [
+      "code-review",
+      "review-local-changes",
+      "gh-address-comments"
+    ]
+  },
+  {
+    "q": "find where this function is defined in a big repo",
+    "gold": "vexor-cli",
+    "ok": [
+      "understand-chat"
+    ]
+  },
+  {
+    "q": "train a big model across multiple gpu nodes",
+    "gold": "nemo-mbridge-multi-node-slurm",
+    "ok": [
+      "mcore-run-on-slurm",
+      "nemo-mbridge-mlm-bridge-training"
+    ]
+  },
+  {
+    "q": "build an animated architecture diagram",
+    "gold": "dashmotion",
+    "ok": [
+      "hand-drawn-diagrams",
+      "frontend-slides"
+    ]
+  },
+  {
+    "q": "make a hand drawn style flowchart",
+    "gold": "hand-drawn-diagrams",
+    "ok": [
+      "dashmotion"
+    ]
+  },
+  {
+    "q": "create an excel spreadsheet with formulas",
+    "gold": "xlsx",
+    "ok": [
+      "spreadsheet",
+      "minimax-xlsx"
+    ]
+  },
+  {
+    "q": "read this pdf and pull out the tables",
+    "gold": "pdf",
+    "ok": [
+      "xberg",
+      "doc"
+    ]
+  },
+  {
+    "q": "write a privacy policy for our app",
+    "gold": "privacy-policy",
+    "ok": [
+      "draft-nda",
+      "security-bluebook-builder"
+    ]
+  },
+  {
+    "q": "set up analytics to track conversions",
+    "gold": "analytics",
+    "ok": [
+      "metrics-dashboard",
+      "cohort-analysis"
+    ]
+  },
+  {
+    "q": "figure out which ads are wasting money",
+    "gold": "ads",
+    "ok": [
+      "ad-creative",
+      "ads",
+      "analytics"
+    ]
+  },
+  {
+    "q": "write linkedin posts that get engagement",
+    "gold": "linkedin-marketing",
+    "ok": [
+      "social",
+      "typefully"
+    ]
+  },
+  {
+    "q": "plan our go to market for a launch",
+    "gold": "gtm-strategy",
+    "ok": [
+      "launch",
+      "product-marketing",
+      "marketing-ideas"
+    ]
+  },
+  {
+    "q": "price this new product",
+    "gold": "pricing",
+    "ok": [
+      "pricing-strategy",
+      "monetization-strategy"
+    ]
+  },
+  {
+    "q": "make our landing page convert more",
+    "gold": "cro",
+    "ok": [
+      "copywriting",
+      "paywalls"
+    ]
+  },
+  {
+    "q": "audit the accessibility of this ui",
+    "gold": "ui-test",
+    "ok": [
+      "webapp-testing",
+      "playwright-skill"
+    ]
+  },
+  {
+    "q": "build a realtime websocket feature",
+    "gold": "durable-objects",
+    "ok": [
+      "agents-sdk",
+      "azure-web-pubsub-ts"
+    ]
+  },
+  {
+    "q": "store files in cloud object storage",
+    "gold": "azure-storage-blob-ts",
+    "ok": [
+      "azure-storage-blob-py"
+    ]
+  },
+  {
+    "q": "translate a book to another language",
+    "gold": "translate-book",
+    "ok": [
+      "ru-text"
+    ]
+  },
+  {
+    "q": "summarize this meeting transcript",
+    "gold": "summarize-meeting",
+    "ok": [
+      "summarize-interview",
+      "transcribe"
+    ]
+  },
+  {
+    "q": "help me prep for a pmo interview",
+    "gold": "review-resume",
+    "ok": [
+      "career-ops",
+      "interview-script"
+    ]
+  },
+  {
+    "q": "design the database schema for a new feature",
+    "gold": "mongodb-schema-design",
+    "ok": [
+      "supabase-postgres-best-practices",
+      "schema"
+    ]
+  },
+  {
+    "q": "write a product requirements doc",
+    "gold": "create-prd",
+    "ok": [
+      "prd-development",
+      "spec-writer"
+    ]
+  },
+  {
+    "q": "run a sprint retrospective",
+    "gold": "retro",
+    "ok": [
+      "sprint-plan",
+      "workshop-facilitation"
+    ]
+  },
+  {
+    "q": "set up ci so tests run on every pr",
+    "gold": "cicd-pipeline-skill",
+    "ok": [
+      "gh-fix-ci",
+      "hyperexecute-skill"
+    ]
+  },
+  {
+    "q": "track errors in production",
+    "gold": "sentry",
+    "ok": [
+      "sentry-fix-issues",
+      "dd-apm"
+    ]
+  },
+  {
+    "q": "add monitoring and tracing to this service",
+    "gold": "dd-apm",
+    "ok": [
+      "azure-monitor-opentelemetry-ts",
+      "sentry"
+    ]
+  },
+  {
+    "q": "build a chatbot with tool calling",
+    "gold": "mcp-builder",
+    "ok": [
+      "chatgpt-apps",
+      "gemini-api"
+    ]
+  },
+  {
+    "q": "create a wordpress gutenberg block",
+    "gold": "wp-block-development",
+    "ok": [
+      "wp-block-themes",
+      "wordpress-router"
+    ]
+  },
+  {
+    "q": "optimize this nextjs app's load time",
+    "gold": "web-perf",
+    "ok": [
+      "react-native-best-practices"
+    ]
+  },
+  {
+    "q": "write an npm cli tool",
+    "gold": "tool-design",
+    "ok": [
+      "n8n-mcp-tools-expert",
+      "mcp-builder"
+    ]
+  },
+  {
+    "q": "find duplicate or dead code",
+    "gold": "code-review",
+    "ok": [
+      "claude-skills",
+      "kaizen"
+    ]
+  },
+  {
+    "q": "explain why this code is written this way",
+    "gold": "keep-the-why",
+    "ok": [
+      "systematic-debugging"
+    ]
+  },
+  {
+    "q": "debug this failing test",
+    "gold": "systematic-debugging",
+    "ok": [
+      "test-driven-development",
+      "verification-before-completion"
+    ]
+  },
+  {
+    "q": "plan the implementation before coding",
+    "gold": "writing-plans",
+    "ok": [
+      "brainstorming",
+      "executing-plans"
+    ]
+  },
+  {
+    "q": "split this big story into smaller ones",
+    "gold": "user-story-splitting",
+    "ok": [
+      "user-stories",
+      "epic-breakdown-advisor"
+    ]
+  },
+  {
+    "q": "map the customer journey",
+    "gold": "customer-journey-map",
+    "ok": [
+      "customer-journey-mapping-workshop",
+      "user-personas"
+    ]
+  },
+  {
+    "q": "size the market for this idea",
+    "gold": "market-sizing",
+    "ok": [
+      "tam-sam-som-calculator",
+      "beachhead-segment"
+    ]
+  },
+  {
+    "q": "figure out who our best customers are",
+    "gold": "ideal-customer-profile",
+    "ok": [
+      "avatar-extraction",
+      "user-segmentation"
+    ]
+  },
+  {
+    "q": "write a press release",
+    "gold": "press-release",
+    "ok": [
+      "launch",
+      "eol-message"
+    ]
+  },
+  {
+    "q": "what could go wrong with this launch",
+    "gold": "pre-mortem",
+    "ok": [
+      "launch",
+      "pol-probe"
+    ]
+  }
+]
