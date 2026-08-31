@@ -9,11 +9,8 @@
 
 import { readFileSync, existsSync, writeFileSync, renameSync, unlinkSync } from 'node:fs'
 import { join } from 'node:path'
-import { createRequire } from 'node:module'
 import { createHash } from 'node:crypto'
-
-const require_ = createRequire(import.meta.url)
-const ort = require_('onnxruntime-node') as typeof import('onnxruntime-node')
+import * as ort from 'onnxruntime-web'
 
 /** Embedding dimensionality of all-MiniLM-L6-v2. */
 export const DIM = 384
@@ -65,7 +62,7 @@ export interface SearchOptions {
 export class SkillIndex {
   private meta: SkillEntry[] = []
   private packed: Float32Array = new Float32Array(0)
-  private session: import('onnxruntime-node').InferenceSession | undefined
+  private session: import('onnxruntime-web').InferenceSession | undefined
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
   private df: Map<string, number> | undefined
@@ -109,7 +106,7 @@ export class SkillIndex {
 
   private async ensureModel(): Promise<void> {
     if (this.session) return
-    this.session = await ort.InferenceSession.create(this.files.model)
+    this.session = await ort.InferenceSession.create(this.files.model, { executionProviders: ['wasm'] })
     const tk = JSON.parse(readFileSync(this.files.tokenizer, 'utf8')) as { model: { vocab: Record<string, number>; unk_token?: string } }
     // Null prototype: skill text legitimately contains tokens like
     // 'constructor', 'toString', '__proto__' - a normal object would resolve

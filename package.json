@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "onnxruntime-node": "^1.29.0"
+    "onnxruntime-web": "1.29.0"
   },
   "dsh": {
     "bundle": {
@@ -40,9 +40,7 @@
   ],
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "onnxruntime-web": "^1.29.0",
     "typescript": "5.9"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": []
   }
 }
