@@ -32,6 +32,7 @@
     "src",
     "skills",
     "model",
+    "vendor",
     "cordis.patch.yml",
     "README.md"
   ],
