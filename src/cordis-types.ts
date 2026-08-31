@@ -19,5 +19,6 @@ export interface PluginLogger {
  */
 export interface PluginContext {
   readonly logger: PluginLogger
+  provide(name: string, value?: unknown): () => void
   [key: string]: unknown
 }

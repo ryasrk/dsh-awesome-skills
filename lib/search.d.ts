@@ -91,6 +91,7 @@ export declare function registerSearchService(ctx: {
         info(m: string): void;
         warn(m: string): void;
     };
+    provide(name: string, value?: unknown): () => void;
 }, opts: {
     corpusDir: string;
     indexDir: string;

@@ -417,7 +417,10 @@ export class SkillIndex {
  * @returns the service, for callers that want it directly.
  */
 export function registerSearchService(
-  ctx: { logger: { info(m: string): void; warn(m: string): void } },
+  ctx: {
+    logger: { info(m: string): void; warn(m: string): void }
+    provide(name: string, value?: unknown): () => void
+  },
   opts: { corpusDir: string; indexDir: string; runtimeDir: string },
 ): SkillsSearch {
   const bundledModel = join(opts.runtimeDir, '..', 'model')
@@ -437,8 +440,7 @@ export function registerSearchService(
     search: (query: string, k?: number) => index.search(query, k),
     skillDir: (path: string) => index.skillDir(path),
   }
-  // Registered as a plain value so other plugins can `ctx.get('skills-search')`.
-  ;(ctx as unknown as { [k: string]: unknown })['skills-search'] = service
+  ctx.provide('skills-search', service)
   ctx.logger.info(`dsh-awesome-skills: indexDir=${opts.indexDir} corpus=${opts.corpusDir}`)
   return service
 }
