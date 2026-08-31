@@ -49,9 +49,11 @@ export interface SkillRoutesHost {
 export declare function mountSkillRoutes(host: SkillRoutesHost, search: SkillsSearch, corpusDir: string, getKnobs: () => {
     boosted: string[];
     muted: string[];
+    pinMode: 'pin' | 'boost';
 }, setKnobs: (next: {
     boosted?: string[];
     muted?: string[];
+    pinMode?: 'pin' | 'boost';
 }) => void): () => void;
 /**
  * Acquire the webServer and mount the routes, no-op on a host without one.
@@ -70,8 +72,10 @@ export declare function mountSkillRoutesOnContext(ctx: {
 }, search: SkillsSearch, corpusDir: string, getKnobs: () => {
     boosted: string[];
     muted: string[];
+    pinMode: 'pin' | 'boost';
 }, setKnobs: (next: {
     boosted?: string[];
     muted?: string[];
+    pinMode?: 'pin' | 'boost';
 }) => void): void;
 //# sourceMappingURL=routes.d.ts.map

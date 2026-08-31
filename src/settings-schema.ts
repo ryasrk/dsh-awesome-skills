@@ -29,6 +29,8 @@ interface Zod {
   number(): ZodField
   string(): ZodField
   array(item: ZodField): ZodField
+  union(list: readonly ZodField[]): ZodField
+  const(value: string): ZodField
 }
 const z = createRequire(import.meta.url)('../vendor/schemastery/index.cjs') as unknown as Zod
 
@@ -38,6 +40,9 @@ import { settingsNamespace } from './namespace.js'
 export const SETTINGS_NAMESPACE = settingsNamespace('dsh-awesome-skills')
 
 /** The fields a user may edit from the plugin-configuration card. */
+/** How the priority list acts on results. */
+export type PriorityMode = 'pin' | 'boost'
+
 export interface PluginSettings {
   /** Score with the semantic lane (requires the vendored wasm runtime). */
   semantic: boolean
@@ -45,6 +50,8 @@ export interface PluginSettings {
   boosted: string[]
   /** Skill paths excluded from results entirely. */
   muted: string[]
+  /** pin = hold the exact list order; boost = a scoring delta that decays by position. */
+  pinMode: PriorityMode
   /** Results returned per search, clamped to 1..25. */
   defaultK: number
   /** Candidate pool fed to the reranker before ranking. */
@@ -63,6 +70,8 @@ export const PluginSettingsSchema: ZodField = z
     semantic: z.boolean().default(true),
     boosted: z.array(z.string()).default([]),
     muted: z.array(z.string()).default([]),
+    // schemastery has no z.enum; union of const literals is its enum idiom.
+    pinMode: z.union([z.const('pin'), z.const('boost')]).default('pin'),
     defaultK: z.number().min(1).max(25).step(1).default(5),
     pool: z.number().min(50).max(3000).step(50).default(1200),
     wLex: z.number().min(0).max(1).default(0.55),
@@ -79,6 +88,7 @@ export const PLUGIN_SETTINGS_BASE: PluginSettings = {
   semantic: true,
   boosted: [],
   muted: [],
+  pinMode: 'pin',
   defaultK: 5,
   pool: 1200,
   wLex: 0.55,

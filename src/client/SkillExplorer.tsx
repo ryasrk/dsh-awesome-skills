@@ -180,6 +180,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
                     title={t('copyPath')}
                   >
                     {hit.name}
+                    {hit.pinned === true && <span className={css.pin}>{t('pinnedBadge')}</span>}
                   </button>
                   <span className={css.score}>{hit.score.toFixed(3)}</span>
                 </div>

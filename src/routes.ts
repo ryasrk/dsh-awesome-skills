@@ -94,8 +94,8 @@ export function mountSkillRoutes(
   host: SkillRoutesHost,
   search: SkillsSearch,
   corpusDir: string,
-  getKnobs: () => { boosted: string[]; muted: string[] },
-  setKnobs: (next: { boosted?: string[]; muted?: string[] }) => void,
+  getKnobs: () => { boosted: string[]; muted: string[]; pinMode: 'pin' | 'boost' },
+  setKnobs: (next: { boosted?: string[]; muted?: string[]; pinMode?: 'pin' | 'boost' }) => void,
 ): () => void {
   const disposers = [
     // Priority skills: list the current boost/mute order, and replace either
@@ -106,7 +106,7 @@ export function mountSkillRoutes(
       path: '/dsh-awesome-skills/priority',
       handler: async (request, response) => {
         if (request.method === 'GET') {
-          sendJson(response, 200, { ok: true, boosted: getKnobs().boosted, muted: getKnobs().muted })
+          sendJson(response, 200, { ok: true, boosted: getKnobs().boosted, muted: getKnobs().muted, pinMode: getKnobs().pinMode })
           return
         }
         if (request.method !== 'POST') {
@@ -124,8 +124,8 @@ export function mountSkillRoutes(
           sendJson(response, 400, { ok: false, error: error instanceof Error ? error.message : String(error) })
           return
         }
-        const parsed = (raw ?? {}) as { boosted?: unknown; muted?: unknown }
-        const next: { boosted?: string[]; muted?: string[] } = {}
+        const parsed = (raw ?? {}) as { boosted?: unknown; muted?: unknown; pinMode?: unknown }
+        const next: { boosted?: string[]; muted?: string[]; pinMode?: 'pin' | 'boost' } = {}
         if (parsed.boosted !== undefined) {
           if (!Array.isArray(parsed.boosted) || parsed.boosted.some(v => typeof v !== 'string')) {
             sendJson(response, 400, { ok: false, error: 'boosted must be an array of skill paths' })
@@ -140,8 +140,20 @@ export function mountSkillRoutes(
           }
           next.muted = parsed.muted as string[]
         }
+        if (parsed.pinMode !== undefined) {
+          if (parsed.pinMode !== 'pin' && parsed.pinMode !== 'boost') {
+            sendJson(response, 400, { ok: false, error: "pinMode must be 'pin' or 'boost'" })
+            return
+          }
+          next.pinMode = parsed.pinMode
+        }
         setKnobs(next)
-        sendJson(response, 200, { ok: true, boosted: getKnobs().boosted, muted: getKnobs().muted })
+        sendJson(response, 200, {
+          ok: true,
+          boosted: getKnobs().boosted,
+          muted: getKnobs().muted,
+          pinMode: getKnobs().pinMode,
+        })
       },
     }),
     host.webServer.register({
@@ -203,8 +215,8 @@ export function mountSkillRoutesOnContext(
   ctx: { inject?: unknown; logger?: { warn(message: string): void } },
   search: SkillsSearch,
   corpusDir: string,
-  getKnobs: () => { boosted: string[]; muted: string[] },
-  setKnobs: (next: { boosted?: string[]; muted?: string[] }) => void,
+  getKnobs: () => { boosted: string[]; muted: string[]; pinMode: 'pin' | 'boost' },
+  setKnobs: (next: { boosted?: string[]; muted?: string[]; pinMode?: 'pin' | 'boost' }) => void,
 ): void {
   const inject = ctx.inject as
     | ((deps: readonly string[], cb: (scoped: unknown) => void) => void)

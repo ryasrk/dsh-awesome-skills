@@ -61,6 +61,8 @@ export interface SearchHit {
   path: string
   score: number
   description: string
+  /** True when the hit holds a priority-pinned position rather than its natural rank. */
+  pinned?: boolean
 }
 
 export interface SearchOptions {
@@ -82,7 +84,7 @@ export class SkillIndex {
   private ort: OrtModule | undefined
   private knobs: SearchKnobs = {
     semantic: true, defaultK: 5, pool: POOL, wLex: WEIGHT, wGram: GRAM_WEIGHT,
-    boosted: [], muted: [],
+    boosted: [], muted: [], pinMode: 'pin',
   }
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
@@ -396,7 +398,11 @@ export class SkillIndex {
     qn = Math.sqrt(qn) || 1
 
     if (qt.size === 0 && qg.size === 0) {
-      return order.slice(0, want).map(i => this.hit(i, s[i]))
+      const hits = order.map(i => ({ i, score: s[i] }))
+      const pinnedHits = this.knobs.pinMode === 'pin' && this.knobs.boosted.length > 0
+        ? this.applyPinning(hits)
+        : hits
+      return pinnedHits.slice(0, want).map(h => this.hit(h.i, h.score, this.pinnedOf(h.i) !== undefined))
     }
 
     const mutedSet = new Set(this.knobs.muted)
@@ -425,12 +431,58 @@ export class SkillIndex {
       this.gramsFromCache = false
     }
 
-    return scored.slice(0, want).map(h => this.hit(h.i, h.score))
+    let ordered = scored
+    if (this.knobs.pinMode === 'pin' && this.knobs.boosted.length > 0) {
+      ordered = this.applyPinning(scored)
+    }
+    return ordered.slice(0, want).map(h => this.hit(h.i, h.score, this.pinnedOf(h.i) !== undefined))
   }
 
-  private hit(i: number, score: number): SearchHit {
+  private hit(i: number, score: number, pinned = false): SearchHit {
     const m = this.meta[i]
-    return { name: m.name, path: m.path || m.name, score: +score.toFixed(4), description: this.clip(m.description, 300) }
+    const out: SearchHit = { name: m.name, path: m.path || m.name, score: +score.toFixed(4), description: this.clip(m.description, 300) }
+    if (pinned) out.pinned = true
+    return out
+  }
+
+  /**
+   * Which boosted rank, if any, this index holds. Returns undefined for an
+   * unlisted skill; a listed one gets its position in the boost list.
+   */
+  private pinnedOf(i: number): number | undefined {
+    if (this.knobs.pinMode !== 'pin') return undefined
+    const path = this.meta[i].path || this.meta[i].name
+    const rank = this.knobs.boosted.indexOf(path)
+    return rank === -1 ? undefined : rank
+  }
+
+  /**
+   * Hold the boost list's exact order among the skills that actually matched.
+   * A pinned skill that did not match this query stays absent — pinning orders
+   * matches, it never invents them.
+   */
+  private applyPinning(scored: { i: number; score: number }[]): { i: number; score: number; pinnedRank?: number }[] {
+    if (this.knobs.boosted.length === 0) return scored
+    const rankOf = new Map<number, number>()
+    for (const [rank, path] of this.knobs.boosted.entries()) {
+      const idx = this.byPath.get(path)
+      if (idx !== undefined) rankOf.set(idx, rank)
+    }
+    if (rankOf.size === 0) return scored
+    const pinned = scored.filter(h => rankOf.has(h.i))
+      .map(h => ({ ...h, pinnedRank: rankOf.get(h.i) }))
+      .sort((a, b) => (a.pinnedRank ?? 0) - (b.pinnedRank ?? 0))
+    const rest = scored.filter(h => !rankOf.has(h.i))
+    const out: { i: number; score: number; pinnedRank?: number }[] = []
+    let pi = 0
+    for (const h of rest) {
+      while (pi < pinned.length && (pinned[pi].pinnedRank ?? 0) <= out.length) {
+        out.push(pinned[pi]); pi++
+      }
+      out.push(h)
+    }
+    while (pi < pinned.length) { out.push(pinned[pi]); pi++ }
+    return out
   }
 
   private clip(s: string, max: number): string {
@@ -503,6 +555,8 @@ export interface SearchKnobs {
   boosted: string[]
   /** Skill paths excluded from results entirely. */
   muted: string[]
+  /** boost = a scoring delta; pin = hold the exact list order when the skill appears. */
+  pinMode: 'boost' | 'pin'
 }
 
 export interface SkillsSearch {

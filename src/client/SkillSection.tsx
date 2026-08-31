@@ -53,7 +53,7 @@ export function SkillSection(props: SkillSectionProps) {
   const [hits, setHits] = useState<{ path: string; name: string }[]>([])
   const onHits = useCallback((next: { path: string; name: string }[]) => setHits(next), [])
   /** Applied priority lists, as the route returns them. */
-  const [applied, setApplied] = useState<PriorityState>({ boosted: [], muted: [] })
+  const [applied, setApplied] = useState<PriorityState>({ boosted: [], muted: [], pinMode: 'pin' })
   /** Staged edits on top of `applied`, until Save commits them. */
   const [staged, setStaged] = useState<PriorityState | undefined>(undefined)
 

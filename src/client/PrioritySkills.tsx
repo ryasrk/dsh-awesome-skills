@@ -15,6 +15,8 @@ import css from './PrioritySkills.module.css'
 export interface PriorityState {
   boosted: string[]
   muted: string[]
+  /** pin = hold the exact list order; boost = a scoring delta by position. */
+  pinMode: 'pin' | 'boost'
 }
 
 export interface PrioritySkillsProps {
@@ -75,8 +77,33 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   return (
     <div className={css.root}>
       <section className={css.block}>
+        <h3 className={css.heading}>{t('priorityModeTitle')}</h3>
+        <div className={css.modeRow} role="radiogroup" aria-label={t('priorityModeTitle')}>
+          <label className={state.pinMode === 'pin' ? css.modeOn : css.mode}>
+            <input
+              type="radio"
+              name="dshas-pin-mode"
+              checked={state.pinMode === 'pin'}
+              onChange={() => onChange({ ...state, pinMode: 'pin' })}
+            />
+            <span>{t('modePin')}</span>
+          </label>
+          <label className={state.pinMode === 'boost' ? css.modeOn : css.mode}>
+            <input
+              type="radio"
+              name="dshas-pin-mode"
+              checked={state.pinMode === 'boost'}
+              onChange={() => onChange({ ...state, pinMode: 'boost' })}
+            />
+            <span>{t('modeBoost')}</span>
+          </label>
+        </div>
+        <p className={css.hint}>{state.pinMode === 'pin' ? t('modePinHint') : t('modeBoostHint')}</p>
+      </section>
+
+      <section className={css.block}>
         <h3 className={css.heading}>{t('priorityBoostTitle')}</h3>
-        <p className={css.hint}>{t('priorityBoostHint')}</p>
+        <p className={css.hint}>{state.pinMode === 'pin' ? t('priorityPinHint') : t('priorityBoostHint')}</p>
 
         {state.boosted.length === 0
           ? <p className={css.empty}>{t('priorityBoostEmpty')}</p>

@@ -20,6 +20,8 @@ export interface SearchHit {
     path: string;
     score: number;
     description: string;
+    /** True when the hit holds a priority-pinned position rather than its natural rank. */
+    pinned?: boolean;
 }
 export interface SearchOptions {
     /** Absolute path to the corpus (directory of `<name>/SKILL.md`). */
@@ -81,6 +83,17 @@ export declare class SkillIndex {
      */
     search(query: string, k?: number): Promise<SearchHit[]>;
     private hit;
+    /**
+     * Which boosted rank, if any, this index holds. Returns undefined for an
+     * unlisted skill; a listed one gets its position in the boost list.
+     */
+    private pinnedOf;
+    /**
+     * Hold the boost list's exact order among the skills that actually matched.
+     * A pinned skill that did not match this query stays absent — pinning orders
+     * matches, it never invents them.
+     */
+    private applyPinning;
     private clip;
     /** Absolute path of a skill's directory, for reading its SKILL.md. */
     skillDir(path: string): string;
@@ -115,6 +128,8 @@ export interface SearchKnobs {
     boosted: string[];
     /** Skill paths excluded from results entirely. */
     muted: string[];
+    /** boost = a scoring delta; pin = hold the exact list order when the skill appears. */
+    pinMode: 'boost' | 'pin';
 }
 export interface SkillsSearch {
     /** Number of indexed skills. */

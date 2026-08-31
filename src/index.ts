@@ -126,8 +126,12 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // `lib/query.js` path keeps serving agents.
   // The priority routes read and write the same knobs the settings document
   // drives, so the UI and a hand-edited cordis.yml cannot disagree.
-  const getKnobs = (): { boosted: string[]; muted: string[] } => search.getKnobs()
-  const setKnobs = (next: { boosted?: string[]; muted?: string[] }): void => search.setKnobs(next)
+  const getKnobs = (): { boosted: string[]; muted: string[]; pinMode: 'pin' | 'boost' } => {
+    const k = search.getKnobs()
+    return { boosted: k.boosted, muted: k.muted, pinMode: k.pinMode }
+  }
+  const setKnobs = (next: { boosted?: string[]; muted?: string[]; pinMode?: 'pin' | 'boost' }): void =>
+    search.setKnobs(next)
   mountSkillRoutesOnContext(ctx, search, corpusDir, getKnobs, setKnobs)
 
   if (config?.installSkillRouter === false || !home) return

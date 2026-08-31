@@ -59,6 +59,13 @@ export declare const en: {
     readonly pathPlaceholder: "path/from/skills";
     readonly manualHint: "Enter adds to Boost; Shift+Enter adds to Mute";
     readonly save: "Save";
+    readonly pinnedBadge: "pinned";
+    readonly priorityModeTitle: "How the list acts";
+    readonly modePin: "Pin order";
+    readonly modePinHint: "Matched pinned skills hold the exact list order, ahead of everything else. Pinning orders matches — it never invents results.";
+    readonly modeBoost: "Boost scores";
+    readonly modeBoostHint: "Adds a scoring bonus that decays with position; relevance can still outrank a boosted skill.";
+    readonly priorityPinHint: "Ordered list — matched skills hold exactly this order in results";
     readonly priorityUnsaved: "Unsaved changes";
     readonly prioritySaved: "All changes applied";
 };
@@ -118,6 +125,13 @@ export declare const zh: {
     readonly pathPlaceholder: "路径/来自/技能";
     readonly manualHint: "回车加入置顶；Shift+回车加入静音";
     readonly save: "保存";
+    readonly pinnedBadge: "置顶";
+    readonly priorityModeTitle: "列表作用方式";
+    readonly modePin: "固定顺序";
+    readonly modePinHint: "命中的置顶技能将严格按此顺序排在最前。固定只影响命中的结果，不会凭空产生结果。";
+    readonly modeBoost: "加分";
+    readonly modeBoostHint: "按位置递减的加分；相关性仍可能超过被加分的技能。";
+    readonly priorityPinHint: "有序列表 — 命中的技能将严格按此顺序出现在结果中";
     readonly priorityUnsaved: "有未保存的更改";
     readonly prioritySaved: "所有更改已应用";
 };

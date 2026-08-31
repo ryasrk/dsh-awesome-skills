@@ -20,6 +20,8 @@ interface ZodField {
 /** Settings namespace owned by this plugin. Lowercase kebab-case. */
 export declare const SETTINGS_NAMESPACE: string;
 /** The fields a user may edit from the plugin-configuration card. */
+/** How the priority list acts on results. */
+export type PriorityMode = 'pin' | 'boost';
 export interface PluginSettings {
     /** Score with the semantic lane (requires the vendored wasm runtime). */
     semantic: boolean;
@@ -27,6 +29,8 @@ export interface PluginSettings {
     boosted: string[];
     /** Skill paths excluded from results entirely. */
     muted: string[];
+    /** pin = hold the exact list order; boost = a scoring delta that decays by position. */
+    pinMode: PriorityMode;
     /** Results returned per search, clamped to 1..25. */
     defaultK: number;
     /** Candidate pool fed to the reranker before ranking. */
