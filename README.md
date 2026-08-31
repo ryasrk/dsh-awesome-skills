@@ -22,7 +22,7 @@ the corpus on demand.
 ## Install
 
 ```sh
-dsh plugin --profile web add /path/to/dsh-awesome-skills
+dsh plugin --profile web add github:ryasrk/dsh-awesome-skills
 ```
 
 The plugin mounts as a cordis bundle (see `cordis.patch.yml`) and, on `apply`,
