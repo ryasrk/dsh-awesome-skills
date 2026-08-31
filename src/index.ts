@@ -16,6 +16,7 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { registerSearchService, type SkillsSearch } from './search.js'
+import { installSettingsSection } from './settings-wiring.js'
 import type { PluginContext } from './cordis-types.js'
 
 export const name = 'dsh-awesome-skills'
@@ -112,6 +113,12 @@ export function apply(ctx: PluginContext, config?: Config): void {
   })
 
   ctx.logger.info(`dsh-awesome-skills: corpus=${corpusDir} skills=${search.count()}`)
+
+  // Settings: the user layer over these defaults is what the plugin-
+  // configuration card edits. `installSettingsSection` injects ['settings'],
+  // so on a host without the settings service nothing here runs and the
+  // composed defaults above simply stand — degradation, not failure.
+  installSettingsSection(ctx, search)
 
   if (config?.installSkillRouter === false || !home) return
 

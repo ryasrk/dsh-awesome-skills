@@ -6,6 +6,10 @@
  * checkout. The loader passes the real context; these are the only members
  * we touch, and structural typing keeps us honest about that surface.
  */
+/** Minimal service-registration surface (cordis Service Definition). */
+export interface PluginProvider {
+    provide(name: string, value?: unknown): () => void;
+}
 /** Subset of the cordis logger this plugin calls. */
 export interface PluginLogger {
     info(message: string): void;

@@ -38,6 +38,7 @@ export declare class SkillIndex {
     private packed;
     private session;
     private ort;
+    private knobs;
     private vocab;
     private unk;
     private df;
@@ -81,6 +82,8 @@ export declare class SkillIndex {
     private clip;
     /** Absolute path of a skill's directory, for reading its SKILL.md. */
     skillDir(path: string): string;
+    /** Replace the live ranking knobs. */
+    setKnobs(knobs: SearchKnobs): void;
 }
 /**
  * Register the search service on the host context.
@@ -97,6 +100,14 @@ export declare function registerSearchService(ctx: {
     indexDir: string;
     runtimeDir: string;
 }): SkillsSearch;
+/** Live-tunable ranking knobs, driven by the settings namespace. */
+export interface SearchKnobs {
+    semantic: boolean;
+    defaultK: number;
+    pool: number;
+    wLex: number;
+    wGram: number;
+}
 export interface SkillsSearch {
     /** Number of indexed skills. */
     count(): number;
@@ -104,5 +115,7 @@ export interface SkillsSearch {
     search(query: string, k?: number): Promise<SearchHit[]>;
     /** Absolute directory holding a skill's SKILL.md. */
     skillDir(path: string): string;
+    /** Replace the live ranking knobs (settings save path). */
+    setKnobs(knobs: SearchKnobs): void;
 }
 //# sourceMappingURL=search.d.ts.map

@@ -78,6 +78,7 @@ export class SkillIndex {
   private packed: Float32Array = new Float32Array(0)
   private session: InferenceSession | undefined
   private ort: OrtModule | undefined
+  private knobs: SearchKnobs = { semantic: true, defaultK: 5, pool: POOL, wLex: WEIGHT, wGram: GRAM_WEIGHT }
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
   private df: Map<string, number> | undefined
@@ -359,7 +360,7 @@ export class SkillIndex {
       for (let d = 0; d < DIM; d++) x += vec![d] * this.packed[o + d]
       s[i] = x
     }
-    const order = Array.from(s.keys()).sort((a, b) => s[b] - s[a]).slice(0, POOL)
+    const order = Array.from(s.keys()).sort((a, b) => s[b] - s[a]).slice(0, this.knobs.pool)
 
     const qt: Tokens = new Map()
     for (const w of toks(q)) qt.set(w, (qt.get(w) || 0) + 1)
@@ -380,7 +381,10 @@ export class SkillIndex {
       const [dg, dgn] = this.gramsFor(i)
       const gsim = SkillIndex.gramCos(qg, dg, qn, dgn)
       const lex = this.lexical(qt, dm)
-      return { i, score: (1 - WEIGHT) * s[i] + WEIGHT * lex + GRAM_WEIGHT * gsim }
+      return { i, score: this.knobs.semantic
+        ? (1 - this.knobs.wLex) * s[i] + this.knobs.wLex * lex + this.knobs.wGram * gsim
+        // Semantic off: the lexical and gram lanes rank on their own.
+        : this.knobs.wLex * lex + this.knobs.wGram * gsim }
     })
     scored.sort((a, b) => b.score - a.score)
 
@@ -409,6 +413,11 @@ export class SkillIndex {
   /** Absolute path of a skill's directory, for reading its SKILL.md. */
   skillDir(path: string): string {
     return join(this.opts.corpusDir, path)
+  }
+
+  /** Replace the live ranking knobs. */
+  setKnobs(knobs: SearchKnobs): void {
+    this.knobs = { ...this.knobs, ...knobs }
   }
 }
 
@@ -439,10 +448,20 @@ export function registerSearchService(
     },
     search: (query: string, k?: number) => index.search(query, k),
     skillDir: (path: string) => index.skillDir(path),
+    setKnobs: (knobs) => index.setKnobs(knobs),
   }
   ctx.provide('skills-search', service)
   ctx.logger.info(`dsh-awesome-skills: indexDir=${opts.indexDir} corpus=${opts.corpusDir}`)
   return service
+}
+
+/** Live-tunable ranking knobs, driven by the settings namespace. */
+export interface SearchKnobs {
+  semantic: boolean
+  defaultK: number
+  pool: number
+  wLex: number
+  wGram: number
 }
 
 export interface SkillsSearch {
@@ -452,4 +471,6 @@ export interface SkillsSearch {
   search(query: string, k?: number): Promise<SearchHit[]>
   /** Absolute directory holding a skill's SKILL.md. */
   skillDir(path: string): string
+  /** Replace the live ranking knobs (settings save path). */
+  setKnobs(knobs: SearchKnobs): void
 }
