@@ -1,5 +1,4 @@
 node_modules/
-lib/
 *.tsbuildinfo
 # Derived caches: rebuilt from the index on first query. They live next to the
 # canonical corpus, not in the package's skills/ dir.
