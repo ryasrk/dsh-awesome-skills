@@ -22,9 +22,6 @@
     "build": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "onnxruntime-web": "1.29.0"
-  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

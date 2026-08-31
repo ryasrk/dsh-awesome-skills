@@ -9,23 +9,22 @@
 
 import { readFileSync, existsSync, writeFileSync, renameSync, unlinkSync } from 'node:fs'
 import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
-import { InferenceSession, Tensor, env as ortEnv } from 'onnxruntime-web/wasm'
+// Vendored copy of onnxruntime-web's wasm bundle (see vendor/ort/README.md).
+// Loaded through a relative path so this package has zero npm dependencies and
+// no lifecycle script, which keeps installs free of pnpm's build-script gate.
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import type { OrtModule, OrtSession, OrtSessionRunOptions, OrtTensorInstance } from './ort-types.js'
+import { loadOrt } from './ort-loader.js'
 
-import { createRequire } from 'node:module'
+/** Package root: this file compiles to <root>/lib/search.js. */
+const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
-const require_ = createRequire(import.meta.url)
+/** Directory holding the vendored .wasm binaries (adjacent to the bundle). */
+const ORT_WASM_DIR: string = join(PKG_ROOT, 'vendor', 'ort')
 
-/** Directory holding onnxruntime-web's .wasm binaries, or undefined when unset. */
-const ORT_WASM_DIR: string | undefined = (() => {
-  // onnxruntime-web's exports map does not expose package.json, so resolve a
-  // file that IS exported and strip its filename to reach the dist directory.
-  try {
-    return dirname(require_.resolve('onnxruntime-web/wasm'))
-  } catch {
-    return undefined
-  }
-})()
+type InferenceSession = OrtSession
 
 /** Embedding dimensionality of all-MiniLM-L6-v2. */
 export const DIM = 384
@@ -78,6 +77,7 @@ export class SkillIndex {
   private meta: SkillEntry[] = []
   private packed: Float32Array = new Float32Array(0)
   private session: InferenceSession | undefined
+  private ort: OrtModule | undefined
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
   private df: Map<string, number> | undefined
@@ -121,14 +121,10 @@ export class SkillIndex {
 
   private async ensureModel(): Promise<void> {
     if (this.session) return
-    if (ORT_WASM_DIR !== undefined) {
-      // Node ESM cannot fetch() a relative .wasm URL; hand ort the on-disk
-      // dist directory so locateFile() resolves real file paths.
-      ortEnv.wasm.wasmPaths = ORT_WASM_DIR + '/'
-      ortEnv.wasm.numThreads = 1
-    }
+    if (this.ort === undefined) this.ort = await loadOrt(ORT_WASM_DIR)
+    const ort = this.ort
     // ort.wasm treats a path argument as a URL in Node ESM; hand it bytes instead.
-    this.session = await InferenceSession.create(new Uint8Array(readFileSync(this.files.model)), { executionProviders: ['wasm'] })
+    this.session = await ort.InferenceSession.create(new Uint8Array(readFileSync(this.files.model)), { executionProviders: ['wasm'] })
     const tk = JSON.parse(readFileSync(this.files.tokenizer, 'utf8')) as { model: { vocab: Record<string, number>; unk_token?: string } }
     // Null prototype: skill text legitimately contains tokens like
     // 'constructor', 'toString', '__proto__' - a normal object would resolve
@@ -191,12 +187,14 @@ export class SkillIndex {
   /** Embed one text. L2-normalized mean pooling. */
   async embed(text: string): Promise<Float32Array> {
     await this.ensureModel()
+    const ort = this.ort!
     const e = this.encode(text)
-    const r = await this.session!.run({
-      input_ids: new Tensor('int64', e.ids, [1, e.n]),
-      attention_mask: new Tensor('int64', e.att, [1, e.n]),
-      token_type_ids: new Tensor('int64', e.tt, [1, e.n]),
-    })
+    const feeds: OrtSessionRunOptions = {
+      input_ids: new ort.Tensor('int64', e.ids, [1, e.n]) as OrtTensorInstance,
+      attention_mask: new ort.Tensor('int64', e.att, [1, e.n]) as OrtTensorInstance,
+      token_type_ids: new ort.Tensor('int64', e.tt, [1, e.n]) as OrtTensorInstance,
+    }
+    const r = await this.session!.run(feeds)
     const out = (r.last_hidden_state ? r.last_hidden_state.data : r[Object.keys(r)[0]]!.data) as Float32Array
     return SkillIndex.pool(out, e.n)
   }

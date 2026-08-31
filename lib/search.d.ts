@@ -37,6 +37,7 @@ export declare class SkillIndex {
     private meta;
     private packed;
     private session;
+    private ort;
     private vocab;
     private unk;
     private df;
