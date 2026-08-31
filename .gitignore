@@ -1,7 +1,8 @@
 node_modules/
 lib/
 *.tsbuildinfo
-# Derived caches: rebuilt from the index on first query.
-skills/gramcache.json
-skills/gramcache.fp.json
-skills/qcache.json
+# Derived caches: rebuilt from the index on first query. They live next to the
+# canonical corpus, not in the package's skills/ dir.
+gramcache.json
+gramcache.fp.json
+qcache.json
