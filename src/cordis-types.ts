@@ -54,6 +54,12 @@ export interface ToolDefinition {
     /** Model-facing content for one validated result value. */
     render(args: unknown, value: unknown): Array<{ type: 'text'; text: string }>
   }
+  /**
+   * In-process implementation the host invokes for one tool call. Never
+   * throws across the seam: every failure returns `{ ok: false, error }`
+   * (see tools.ts) so the model can correct course instead of dead-ending.
+   */
+  execute(args: unknown): Promise<{ ok: boolean; error?: string } & Record<string, unknown>>
 }
 
 /** Structural subset of the host `tools` service registry. */
