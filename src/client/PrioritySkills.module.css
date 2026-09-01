@@ -131,35 +131,6 @@
   cursor: default;
 }
 
-.pickers {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.picker {
-  align-self: flex-start;
-  max-width: 320px;
-  height: 32px;
-  padding: 0 10px;
-  font: inherit;
-  font-size: 12px;
-  border: 1px solid var(--dsw-alias-border-l2);
-  border-radius: 8px;
-  background: var(--dsw-alias-bg-layer-3);
-  color: var(--dsw-alias-label-primary);
-  cursor: pointer;
-}
-
-.picker:hover {
-  border-color: var(--dsw-alias-label-dimmed);
-}
-
-.picker:focus-visible {
-  outline: 2px solid var(--dsw-alias-brand-primary);
-  outline-offset: 2px;
-}
-
 .addRow {
   display: flex;
   align-items: center;
@@ -187,7 +158,7 @@
   border: 1px solid var(--dsw-alias-border-l2);
   border-radius: 8px;
   background: var(--dsw-alias-bg-layer-3);
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
+  box-shadow: 0 4px 16px var(--dsw-alias-shadow-popover, rgb(0 0 0 / 0.2));
   max-height: 220px;
   overflow: auto;
 }
@@ -246,8 +217,10 @@
   position: absolute;
   width: 1px;
   height: 1px;
+  margin: -1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 
@@ -262,9 +235,24 @@
   font-weight: 600;
 }
 
+/* :focus-within is the universal fallback (fires on click too — accepted);
+   :has(:focus-visible) refines it to keyboard focus where supported. */
+.seg:focus-within,
 .seg:has(input:focus-visible) {
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 2px;
+}
+
+/* Visually-hidden text for live regions that mirror on-screen info. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Inline refusals and warnings: the note names the list that holds the

@@ -14,7 +14,7 @@
  * never a silent no-op.
  */
 
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import css from './PrioritySkills.module.css'
 import { IconChevronDown, IconChevronUp, IconClose, IconSpinner } from './icons.tsx'
 
@@ -51,11 +51,13 @@ export interface PrioritySkillsProps {
   whitelistOnly?: boolean
 }
 
-/** One row of the staged-diff line: a list and how its length moves. */
+/** One row of the staged-diff line: a list and how the staged edit moves it. */
 interface DiffRow {
   label: string
   added: number
   removed: number
+  /** Same membership, different order — meaningful for the ranked list. */
+  reordered: boolean
 }
 
 /** List-target choice for the add combobox, in stable display order. */
@@ -71,12 +73,13 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   const { t, onChange, suggestions, onApply, applied, saveFailed, onDiscard, whitelistOnly } = props
   // Every list is read off the wire; a host or an older cached response can
   // hand us a shape missing a field, so normalize once instead of guarding
-  // at each of a dozen read sites.
-  const state: PriorityState = {
+  // at each of a dozen read sites. Memoized on the prop's identity so the
+  // downstream memos actually track it.
+  const state: PriorityState = useMemo(() => ({
     prio: Array.isArray(props.state?.prio) ? props.state.prio : [],
     blacklist: Array.isArray(props.state?.blacklist) ? props.state.blacklist : [],
     whitelist: Array.isArray(props.state?.whitelist) ? props.state.whitelist : [],
-  }
+  }), [props.state])
   const [draft, setDraft] = useState('')
   const [saving, setSaving] = useState(false)
   /** The list the combobox's pick (or the manual input's Enter) lands in. */
@@ -86,7 +89,6 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   /** Keyboard focus index inside the open combobox listbox. */
   const [activeIndex, setActiveIndex] = useState(-1)
   const [open, setOpen] = useState(false)
-  const listRef = useRef<HTMLUListElement | null>(null)
 
   const isDirty = applied !== undefined
     && (['prio', 'blacklist', 'whitelist'] as const).some(key => {
@@ -96,9 +98,10 @@ export function PrioritySkills(props: PrioritySkillsProps) {
     })
 
   /**
-   * The staged diff: per list, how the staged edit moves the count against
-   * the applied baseline. Zero-length moves are dropped, so the line reads
-   * as what actually changes when Save is pressed.
+   * The staged diff: per list, how the staged edit moves the list against
+   * the applied baseline. Zero-effect rows are dropped, so the line reads
+   * as what actually changes when Save is pressed; a same-set reorder of
+   * prio is reported as Reordered, since rank is that list's whole point.
    */
   const diff = useMemo<DiffRow[]>(() => {
     if (applied === undefined) return []
@@ -106,14 +109,30 @@ export function PrioritySkills(props: PrioritySkillsProps) {
       .map(key => {
         const before = Array.isArray(applied[key]) ? applied[key] : []
         const after = state[key]
+        const added = after.filter(p => !before.includes(p)).length
+        const removed = before.filter(p => !after.includes(p)).length
+        const reordered = added === 0 && removed === 0
+          && before.length === after.length
+          && before.length > 1
+          && before.some((p, i) => p !== after[i])
         return {
           label: t(key === 'prio' ? 'filterPrio' : key === 'blacklist' ? 'filterBlack' : 'filterWhite'),
-          added: after.filter(p => !before.includes(p)).length,
-          removed: before.filter(p => !after.includes(p)).length,
+          added,
+          removed,
+          reordered,
         }
       })
-      .filter(row => row.added > 0 || row.removed > 0)
+      .filter(row => row.added > 0 || row.removed > 0 || row.reordered)
   }, [applied, state, t])
+
+  /** One diff row as display text ("+2 Priority", "−1 Black", "Reordered"). */
+  const diffText = (row: DiffRow): string => {
+    const parts: string[] = []
+    if (row.added > 0) parts.push(`+${row.added} ${row.label}`)
+    if (row.removed > 0) parts.push(`−${row.removed} ${row.label}`)
+    if (row.reordered) parts.push(t('diffReordered'))
+    return parts.join(' ')
+  }
 
   const move = useCallback((list: string[], from: number, delta: number): string[] => {
     const to = from + delta
@@ -127,6 +146,8 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   const removeFrom = (key: Target, index: number): void => {
     const next = state[key].filter((_, i) => i !== index)
     onChange({ ...state, [key]: next })
+    // The refusal named a path that may be the one just removed.
+    setAddNote(undefined)
   }
 
   const add = (key: Target, path: string): void => {
@@ -163,6 +184,9 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   }
 
   const onPickerKeyDown = (event: React.KeyboardEvent): void => {
+    // IME composition: arrows and Enter belong to the candidate window until
+    // the composition commits; intercepting them breaks zh input.
+    if (event.nativeEvent.isComposing) return
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       setOpen(true)
@@ -261,29 +285,35 @@ export function PrioritySkills(props: PrioritySkillsProps) {
       {/* The one canonical add affordance: typeahead over the explorer's
           recent hits plus a list-target choice. */}
       <section className={css.block}>
-        <h3 className={css.heading}>{t('priorityAddManual')}</h3>
+        <h3 className={css.heading} id="dshas-add-heading">{t('priorityAddManual')}</h3>
         <div className={css.addRow}>
           <div className={css.combo}>
             <input
+              id="dshas-combo-input"
               className={css.input}
               value={draft}
               placeholder={t('pathPlaceholder')}
               role="combobox"
+              aria-labelledby="dshas-add-heading"
               aria-expanded={open && options.length > 0}
               aria-controls="dshas-combo-list"
               aria-autocomplete="list"
+              aria-activedescendant={open && activeIndex >= 0 && options[activeIndex] !== undefined ? `dshas-combo-opt-${activeIndex}` : undefined}
+              autoComplete="off"
+              spellCheck={false}
               onChange={e => { setDraft(e.target.value); setOpen(true); setActiveIndex(-1); setAddNote(undefined) }}
               onFocus={() => setOpen(true)}
               onBlur={() => { setOpen(false); setActiveIndex(-1) }}
               onKeyDown={onPickerKeyDown}
             />
             {open && options.length > 0 && (
-              <ul className={css.options} id="dshas-combo-list" role="listbox" ref={listRef}>
+              <ul className={css.options} id="dshas-combo-list" role="listbox">
                 {options.map((option, index) => (
-                  <li key={option.path}>
+                  <li key={option.path} role="presentation">
                     <button
                       type="button"
                       role="option"
+                      id={`dshas-combo-opt-${index}`}
                       aria-selected={index === activeIndex}
                       className={index === activeIndex ? css.optionOn : css.option}
                       onMouseDown={(event) => { event.preventDefault(); pick(option.path) }}
@@ -303,7 +333,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
                   type="radio"
                   name="dshas-target"
                   checked={target === key}
-                  onChange={() => setTarget(key)}
+                  onChange={() => { setTarget(key); setAddNote(undefined) }}
                 />
                 {targetLabel(key)}
               </label>
@@ -336,25 +366,19 @@ export function PrioritySkills(props: PrioritySkillsProps) {
           )}
           <span className={css.grow} />
           {isDirty && diff.length > 0 && (
-            <span className={css.diff} aria-hidden>
-              {diff.map((row, index) => (
-                <span key={row.label}>
-                  {index > 0 && ' · '}
-                  {row.added > 0 && `+${row.added} ${row.label}`}
-                  {row.added > 0 && row.removed > 0 && ' '}
-                  {row.removed > 0 && `−${row.removed} ${row.label}`}
-                </span>
-              ))}
-            </span>
+            <span className={css.diff}>{diff.map(diffText).join(' · ')}</span>
           )}
           <span className={css.state} aria-live="polite">
             {saveFailed
               ? t('prioritySaveFailed')
               : isDirty
                 ? (diff.length > 0
-                    ? `${t('priorityUnsaved')}: ${diff.map(row =>
-                        [row.added > 0 ? `+${row.added} ${row.label}` : '', row.removed > 0 ? `−${row.removed} ${row.label}` : ''].filter(Boolean).join(' ')
-                      ).join(' · ')}`
+                    ? <>
+                        {t('priorityUnsaved')}
+                        {/* The counts are already visible in the diff span;
+                            the live region repeats them for AT only. */}
+                        <span className={css.vh}>: {diff.map(diffText).join(' · ')}</span>
+                      </>
                     : t('priorityUnsaved'))
                 : t('prioritySaved')}
           </span>
