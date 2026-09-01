@@ -99,6 +99,10 @@ Read the best match using its \`path\` field (**not** its display \`name\`):
 sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
 \`\`\`
 
+The skill's directory may also hold reference files (examples, templates,
+scripts) the SKILL.md points at — they live beside it, so \`<path>/\` is the
+whole playbook. Read them when the SKILL.md says to.
+
 ## Rules
 
 - Read only the selected file, and follow it. Do not load several skills and
