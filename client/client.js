@@ -13,13 +13,13 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"state": "jsPfLW_state",
-	"loadError": "jsPfLW_loadError",
-	"retryBtn": "jsPfLW_retryBtn",
 	"dot": "jsPfLW_dot",
+	"loadError": "jsPfLW_loadError",
+	"state": "jsPfLW_state",
+	"tab": "jsPfLW_tab",
+	"retryBtn": "jsPfLW_retryBtn",
 	"tabOn": "jsPfLW_tabOn",
-	"tabs": "jsPfLW_tabs",
-	"tab": "jsPfLW_tab"
+	"tabs": "jsPfLW_tabs"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -33,38 +33,38 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"results": "vc1x0a_results",
-	"copyError": "vc1x0a_copyError",
-	"path": "vc1x0a_path",
-	"chip": "vc1x0a_chip",
-	"description": "vc1x0a_description",
-	"empty": "vc1x0a_empty",
-	"emptyTitle": "vc1x0a_emptyTitle",
-	"searchRow": "vc1x0a_searchRow",
-	"search": "vc1x0a_search",
-	"clear": "vc1x0a_clear",
-	"chipOn": "vc1x0a_chipOn",
-	"rowActions": "vc1x0a_rowActions",
-	"filterOn": "vc1x0a_filterOn",
-	"result": "vc1x0a_result",
-	"state": "vc1x0a_state",
-	"searchIcon": "vc1x0a_searchIcon",
-	"name": "vc1x0a_name",
-	"filterBar": "vc1x0a_filterBar",
-	"meta": "vc1x0a_meta",
-	"filterBtn": "vc1x0a_filterBtn",
-	"resultHead": "vc1x0a_resultHead",
-	"emptyBody": "vc1x0a_emptyBody",
-	"retryBtn": "vc1x0a_retryBtn",
-	"section": "vc1x0a_section",
-	"pathInert": "vc1x0a_pathInert",
-	"chipPrimary": "vc1x0a_chipPrimary",
-	"score": "vc1x0a_score",
-	"error": "vc1x0a_error",
-	"resultIn": "vc1x0a_resultIn",
-	"hint": "vc1x0a_hint",
 	"searchBlock": "vc1x0a_searchBlock",
-	"errorRow": "vc1x0a_errorRow"
+	"state": "vc1x0a_state",
+	"copyError": "vc1x0a_copyError",
+	"emptyBody": "vc1x0a_emptyBody",
+	"search": "vc1x0a_search",
+	"chip": "vc1x0a_chip",
+	"chipOn": "vc1x0a_chipOn",
+	"emptyTitle": "vc1x0a_emptyTitle",
+	"rowActions": "vc1x0a_rowActions",
+	"filterBtn": "vc1x0a_filterBtn",
+	"path": "vc1x0a_path",
+	"filterOn": "vc1x0a_filterOn",
+	"description": "vc1x0a_description",
+	"section": "vc1x0a_section",
+	"filterBar": "vc1x0a_filterBar",
+	"searchRow": "vc1x0a_searchRow",
+	"resultIn": "vc1x0a_resultIn",
+	"score": "vc1x0a_score",
+	"errorRow": "vc1x0a_errorRow",
+	"retryBtn": "vc1x0a_retryBtn",
+	"hint": "vc1x0a_hint",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"searchIcon": "vc1x0a_searchIcon",
+	"result": "vc1x0a_result",
+	"error": "vc1x0a_error",
+	"resultHead": "vc1x0a_resultHead",
+	"pathInert": "vc1x0a_pathInert",
+	"results": "vc1x0a_results",
+	"empty": "vc1x0a_empty",
+	"clear": "vc1x0a_clear",
+	"meta": "vc1x0a_meta",
+	"name": "vc1x0a_name"
 };
 //#endregion
 //#region src/client/icons.tsx
@@ -429,32 +429,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"control": "alOFIW_control",
-	"card": "alOFIW_card",
 	"segOn": "alOFIW_segOn",
-	"invalid": "alOFIW_invalid",
+	"body": "alOFIW_body",
+	"revert": "alOFIW_revert",
 	"field": "alOFIW_field",
+	"control": "alOFIW_control",
 	"header": "alOFIW_header",
-	"description": "alOFIW_description",
-	"hint": "alOFIW_hint",
-	"inputInvalid": "alOFIW_inputInvalid",
+	"name": "alOFIW_name",
 	"input": "alOFIW_input",
-	"toggle": "alOFIW_toggle",
-	"seg": "alOFIW_seg",
+	"segmented": "alOFIW_segmented",
+	"head": "alOFIW_head",
+	"badge": "alOFIW_badge",
+	"hint": "alOFIW_hint",
+	"description": "alOFIW_description",
+	"label": "alOFIW_label",
+	"invalid": "alOFIW_invalid",
 	"actions": "alOFIW_actions",
 	"spacer": "alOFIW_spacer",
-	"primary": "alOFIW_primary",
-	"dshasSpin": "alOFIW_dshasSpin",
-	"name": "alOFIW_name",
-	"revert": "alOFIW_revert",
-	"segmented": "alOFIW_segmented",
+	"seg": "alOFIW_seg",
 	"alert": "alOFIW_alert",
+	"dshasSpin": "alOFIW_dshasSpin",
+	"card": "alOFIW_card",
 	"saved": "alOFIW_saved",
 	"button": "alOFIW_button",
-	"head": "alOFIW_head",
-	"label": "alOFIW_label",
-	"badge": "alOFIW_badge",
-	"body": "alOFIW_body"
+	"toggle": "alOFIW_toggle",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"primary": "alOFIW_primary"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -812,36 +812,36 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"primary": "bm5jra_primary",
-	"optionOn": "bm5jra_optionOn",
-	"grow": "bm5jra_grow",
+	"noMatch": "bm5jra_noMatch",
+	"state": "bm5jra_state",
+	"ctl": "bm5jra_ctl",
+	"segOn": "bm5jra_segOn",
 	"rank": "bm5jra_rank",
 	"actions": "bm5jra_actions",
-	"heading": "bm5jra_heading",
-	"combo": "bm5jra_combo",
-	"option": "bm5jra_option",
-	"diff": "bm5jra_diff",
-	"segOn": "bm5jra_segOn",
-	"hint": "bm5jra_hint",
-	"options": "bm5jra_options",
 	"root": "bm5jra_root",
-	"path": "bm5jra_path",
+	"primary": "bm5jra_primary",
 	"vh": "bm5jra_vh",
-	"empty": "bm5jra_empty",
-	"state": "bm5jra_state",
 	"segGroup": "bm5jra_segGroup",
-	"list": "bm5jra_list",
-	"block": "bm5jra_block",
+	"path": "bm5jra_path",
+	"warn": "bm5jra_warn",
 	"danger": "bm5jra_danger",
+	"combo": "bm5jra_combo",
+	"seg": "bm5jra_seg",
+	"grow": "bm5jra_grow",
+	"diff": "bm5jra_diff",
+	"heading": "bm5jra_heading",
+	"empty": "bm5jra_empty",
+	"addRow": "bm5jra_addRow",
+	"options": "bm5jra_options",
+	"block": "bm5jra_block",
+	"optionOn": "bm5jra_optionOn",
 	"row": "bm5jra_row",
 	"controls": "bm5jra_controls",
-	"noMatch": "bm5jra_noMatch",
 	"input": "bm5jra_input",
 	"button": "bm5jra_button",
-	"addRow": "bm5jra_addRow",
-	"seg": "bm5jra_seg",
-	"ctl": "bm5jra_ctl",
-	"warn": "bm5jra_warn"
+	"list": "bm5jra_list",
+	"hint": "bm5jra_hint",
+	"option": "bm5jra_option"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -1519,13 +1519,13 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 var _dsh_css_SkillPickDetails_module_css_default = {
 	"duration": "AWa8SG_duration",
 	"sectionLabel": "AWa8SG_sectionLabel",
-	"name": "AWa8SG_name",
-	"stateRunning": "AWa8SG_stateRunning",
+	"fallback": "AWa8SG_fallback",
 	"pre": "AWa8SG_pre",
 	"stateError": "AWa8SG_stateError",
+	"stateRunning": "AWa8SG_stateRunning",
+	"name": "AWa8SG_name",
 	"head": "AWa8SG_head",
-	"root": "AWa8SG_root",
-	"fallback": "AWa8SG_fallback"
+	"root": "AWa8SG_root"
 };
 //#endregion
 //#region src/client/SkillPickDetails.tsx
