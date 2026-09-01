@@ -20,8 +20,6 @@ export interface SearchHit {
     path: string;
     score: number;
     description: string;
-    /** True when the hit holds a priority-pinned position rather than its natural rank. */
-    pinned?: boolean;
 }
 export interface SearchOptions {
     /** Absolute path to the corpus (directory of `<name>/SKILL.md`). */
@@ -44,7 +42,7 @@ export declare class SkillIndex {
     private vocab;
     private unk;
     private df;
-    /** Skill path -> index, for boost/mute lookups. */
+    /** Skill path -> index, for whitelist/blacklist membership lookups. */
     private byPath;
     private docGrams;
     private docGramNorms;
@@ -83,22 +81,17 @@ export declare class SkillIndex {
      */
     search(query: string, k?: number): Promise<SearchHit[]>;
     private hit;
-    /**
-     * Which boosted rank, if any, this index holds. Returns undefined for an
-     * unlisted skill; a listed one gets its position in the boost list.
-     */
-    private pinnedOf;
-    /**
-     * Hold the boost list's exact order among the skills that actually matched.
-     * A pinned skill that did not match this query stays absent — pinning orders
-     * matches, it never invents them.
-     */
-    private applyPinning;
     private clip;
     /** Absolute path of a skill's directory, for reading its SKILL.md. */
     skillDir(path: string): string;
     /** Replace the live ranking knobs. */
     setKnobs(knobs: Partial<SearchKnobs>): void;
+    /**
+     * Indices that survive the visibility filters: the whitelist cuts first
+     * (when scope-restricted and non-empty), then the blacklist narrows within
+     * it. Returns a Set for O(1) membership tests over a 16k corpus.
+     */
+    private visibleIndices;
     /** The current knobs, for routes that echo them back. */
     getKnobs(): SearchKnobs;
 }
@@ -124,12 +117,14 @@ export interface SearchKnobs {
     pool: number;
     wLex: number;
     wGram: number;
-    /** Skill paths boosted above their natural rank, strongest first. */
-    boosted: string[];
-    /** Skill paths excluded from results entirely. */
-    muted: string[];
-    /** boost = a scoring delta; pin = hold the exact list order when the skill appears. */
-    pinMode: 'boost' | 'pin';
+    /** Skill paths loaded into context at the start of every turn, in order. */
+    prio: string[];
+    /** Skill paths hidden from search results. */
+    blacklist: string[];
+    /** When whitelistOnly is set, only these paths are visible. */
+    whitelist: string[];
+    /** Restrict visibility to the whitelist. No effect while whitelist is empty. */
+    whitelistOnly: boolean;
 }
 export interface SkillsSearch {
     /** Number of indexed skills. */

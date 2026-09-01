@@ -30,6 +30,7 @@ const FIELDS = [
   { key: 'wLex', label: 'fieldWLex', hint: 'fieldWLexHint', kind: 'number', min: 0, max: 1, step: 0.05 },
   { key: 'wGram', label: 'fieldWGram', hint: 'fieldWGramHint', kind: 'number', min: 0, max: 1, step: 0.05 },
   { key: 'autoRoute', label: 'fieldAutoRoute', hint: 'fieldAutoRouteHint', kind: 'toggle' },
+  { key: 'whitelistOnly', label: 'scopeLabel', hint: 'scopeHint', kind: 'scope' },
 ] as const
 
 type FieldKey = (typeof FIELDS)[number]['key']
@@ -129,7 +130,7 @@ export function SettingsCard(props: SettingsCardProps) {
       for (const f of FIELDS) {
         const staged = drafts[f.key]
         if (staged === undefined) continue
-        if (f.kind === 'toggle') {
+        if (f.kind === 'toggle' || f.kind === 'scope') {
           const next = staged.draft === 'true'
           if (next === value[f.key]) continue
           await scope.set(f.key, next)
@@ -179,7 +180,25 @@ export function SettingsCard(props: SettingsCardProps) {
                 )}
               </div>
 
-              {f.kind === 'toggle' ? (
+              {f.kind === 'scope' ? (
+                <div className={css.segmented} role="radiogroup" aria-label={t('scopeLabel' as keyof typeof DICT['en'])}>
+                  {[
+                    { value: 'false', label: t('scopeAll' as keyof typeof DICT['en']) },
+                    { value: 'true', label: t('scopeWhitelist' as keyof typeof DICT['en']) },
+                  ].map(option => (
+                    <label key={option.value} className={state.draft === option.value ? css.segOn : css.seg}>
+                      <input
+                        type="radio"
+                        name={`dshas-${f.key}`}
+                        checked={state.draft === option.value}
+                        disabled={!snapshot.writable || saving}
+                        onChange={() => stage(f.key, option.value, state.overridden)}
+                      />
+                      {option.label}
+                    </label>
+                  ))}
+                </div>
+              ) : f.kind === 'toggle' ? (
                 <input
                   id={id}
                   type="checkbox"

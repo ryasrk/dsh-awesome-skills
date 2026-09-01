@@ -13,10 +13,12 @@ import css from './PrioritySkills.module.css'
 
 /** One ordered list's shape as the route returns it. */
 export interface PriorityState {
-  boosted: string[]
-  muted: string[]
-  /** pin = hold the exact list order; boost = a scoring delta by position. */
-  pinMode: 'pin' | 'boost'
+  /** Loaded into context at the start of every turn, in order. */
+  prio: string[]
+  /** Hidden from search results. */
+  blacklist: string[]
+  /** When whitelistOnly is set, only these are visible. */
+  whitelist: string[]
 }
 
 export interface PrioritySkillsProps {
@@ -45,9 +47,11 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   const [saving, setSaving] = useState(false)
 
   const isDirty = applied !== undefined
-    && (applied.boosted.length !== state.boosted.length || applied.muted.length !== state.muted.length
-      || applied.boosted.some((p, i) => state.boosted[i] !== p)
-      || applied.muted.some((p, i) => state.muted[i] !== p))
+    && (['prio', 'blacklist', 'whitelist'] as const).some(key => {
+      const a = applied[key]
+      const b = state[key]
+      return a.length !== b.length || a.some((p, i) => b[i] !== p)
+    })
 
   const move = useCallback((list: string[], from: number, delta: number): string[] => {
     const to = from + delta
@@ -58,70 +62,45 @@ export function PrioritySkills(props: PrioritySkillsProps) {
     return next
   }, [])
 
-  const removeFrom = (key: 'boosted' | 'muted', index: number): void => {
+  const removeFrom = (key: 'prio' | 'blacklist' | 'whitelist', index: number): void => {
     const next = state[key].filter((_, i) => i !== index)
     onChange({ ...state, [key]: next })
   }
 
-  const add = (key: 'boosted' | 'muted', path: string): void => {
+  const add = (key: 'prio' | 'blacklist' | 'whitelist', path: string): void => {
     const value = path.trim()
     if (value === '') return
-    if (state.boosted.includes(value) || state.muted.includes(value)) return
+    if (state.prio.includes(value) || state.blacklist.includes(value) || state.whitelist.includes(value)) return
     onChange({ ...state, [key]: [...state[key], value] })
     setDraft('')
   }
 
   const available = suggestions.filter(s =>
-    !state.boosted.includes(s.path) && !state.muted.includes(s.path))
+    !state.prio.includes(s.path) && !state.blacklist.includes(s.path) && !state.whitelist.includes(s.path))
 
   return (
     <div className={css.root}>
       <section className={css.block}>
-        <h3 className={css.heading}>{t('priorityModeTitle')}</h3>
-        <div className={css.modeRow} role="radiogroup" aria-label={t('priorityModeTitle')}>
-          <label className={state.pinMode === 'pin' ? css.modeOn : css.mode}>
-            <input
-              type="radio"
-              name="dshas-pin-mode"
-              checked={state.pinMode === 'pin'}
-              onChange={() => onChange({ ...state, pinMode: 'pin' })}
-            />
-            <span>{t('modePin')}</span>
-          </label>
-          <label className={state.pinMode === 'boost' ? css.modeOn : css.mode}>
-            <input
-              type="radio"
-              name="dshas-pin-mode"
-              checked={state.pinMode === 'boost'}
-              onChange={() => onChange({ ...state, pinMode: 'boost' })}
-            />
-            <span>{t('modeBoost')}</span>
-          </label>
-        </div>
-        <p className={css.hint}>{state.pinMode === 'pin' ? t('modePinHint') : t('modeBoostHint')}</p>
-      </section>
+        <h3 className={css.heading}>{t('prioTitle')}</h3>
+        <p className={css.hint}>{t('prioHint')}</p>
 
-      <section className={css.block}>
-        <h3 className={css.heading}>{t('priorityBoostTitle')}</h3>
-        <p className={css.hint}>{state.pinMode === 'pin' ? t('priorityPinHint') : t('priorityBoostHint')}</p>
-
-        {state.boosted.length === 0
-          ? <p className={css.empty}>{t('priorityBoostEmpty')}</p>
+        {state.prio.length === 0
+          ? <p className={css.empty}>{t('prioEmpty')}</p>
           : (
             <ol className={css.list}>
-              {state.boosted.map((path, index) => (
+              {state.prio.map((path, index) => (
                 <li className={css.row} key={path}>
                   <span className={css.rank}>{index + 1}</span>
                   <code className={css.path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} disabled={index === 0}
-                      onClick={() => onChange({ ...state, boosted: move(state.boosted, index, -1) })}
+                      onClick={() => onChange({ ...state, prio: move(state.prio, index, -1) })}
                       aria-label={t('moveUp')}>↑</button>
                     <button type="button" className={css.ctl}
-                      disabled={index === state.boosted.length - 1}
-                      onClick={() => onChange({ ...state, boosted: move(state.boosted, index, 1) })}
+                      disabled={index === state.prio.length - 1}
+                      onClick={() => onChange({ ...state, prio: move(state.prio, index, 1) })}
                       aria-label={t('moveDown')}>↓</button>
-                    <button type="button" className={css.ctl} onClick={() => removeFrom('boosted', index)}
+                    <button type="button" className={css.ctl} onClick={() => removeFrom('prio', index)}
                       aria-label={t('remove')}>×</button>
                   </span>
                 </li>
@@ -133,28 +112,49 @@ export function PrioritySkills(props: PrioritySkillsProps) {
           <select
             className={css.picker}
             value=""
-            onChange={e => add('boosted', e.target.value)}
-            aria-label={t('addBoost')}
+            onChange={e => add('prio', e.target.value)}
+            aria-label={t('addPrio')}
           >
-            <option value="">{t('addBoost')}</option>
+            <option value="">{t('addPrio')}</option>
             {available.map(s => <option key={s.path} value={s.path}>{s.name}</option>)}
           </select>
         )}
       </section>
 
       <section className={css.block}>
-        <h3 className={css.heading}>{t('priorityMuteTitle')}</h3>
-        <p className={css.hint}>{t('priorityMuteHint')}</p>
+        <h3 className={css.heading}>{t('blacklistTitle')}</h3>
+        <p className={css.hint}>{t('blacklistHint')}</p>
 
-        {state.muted.length === 0
-          ? <p className={css.empty}>{t('priorityMuteEmpty')}</p>
+        {state.blacklist.length === 0
+          ? <p className={css.empty}>{t('blacklistEmpty')}</p>
           : (
             <ul className={css.list}>
-              {state.muted.map((path, index) => (
+              {state.blacklist.map((path, index) => (
                 <li className={css.row} key={path}>
                   <code className={css.path}>{path}</code>
                   <span className={css.controls}>
-                    <button type="button" className={css.ctl} onClick={() => removeFrom('muted', index)}
+                    <button type="button" className={css.ctl} onClick={() => removeFrom('blacklist', index)}
+                      aria-label={t('remove')}>×</button>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+      </section>
+
+      <section className={css.block}>
+        <h3 className={css.heading}>{t('whitelistTitle')}</h3>
+        <p className={css.hint}>{t('whitelistHint')}</p>
+
+        {state.whitelist.length === 0
+          ? <p className={css.empty}>{t('whitelistEmpty')}</p>
+          : (
+            <ul className={css.list}>
+              {state.whitelist.map((path, index) => (
+                <li className={css.row} key={path}>
+                  <code className={css.path}>{path}</code>
+                  <span className={css.controls}>
+                    <button type="button" className={css.ctl} onClick={() => removeFrom('whitelist', index)}
                       aria-label={t('remove')}>×</button>
                   </span>
                 </li>
@@ -172,16 +172,18 @@ export function PrioritySkills(props: PrioritySkillsProps) {
             placeholder={t('pathPlaceholder')}
             onChange={e => setDraft(e.target.value)}
             onKeyDown={e => {
-              if (e.key === 'Enter') {
-                if (e.shiftKey) add('muted', draft)
-                else add('boosted', draft)
-              }
+              if (e.key !== 'Enter') return
+              if (e.altKey) add('whitelist', draft)
+              else if (e.shiftKey) add('blacklist', draft)
+              else add('prio', draft)
             }}
           />
           <button type="button" className={css.primary} disabled={draft.trim() === ''}
-            onClick={() => add('boosted', draft)}>{t('addBoost')}</button>
+            onClick={() => add('prio', draft)}>{t('addPrio')}</button>
           <button type="button" className={css.button} disabled={draft.trim() === ''}
-            onClick={() => add('muted', draft)}>{t('addMute')}</button>
+            onClick={() => add('blacklist', draft)}>{t('addBlack')}</button>
+          <button type="button" className={css.button} disabled={draft.trim() === ''}
+            onClick={() => add('whitelist', draft)}>{t('addWhite')}</button>
         </div>
         <p className={css.hint}>{t('manualHint')}</p>
       </section>

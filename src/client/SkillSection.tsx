@@ -53,7 +53,7 @@ export function SkillSection(props: SkillSectionProps) {
   const [hits, setHits] = useState<{ path: string; name: string }[]>([])
   const onHits = useCallback((next: { path: string; name: string }[]) => setHits(next), [])
   /** Applied priority lists, as the route returns them. */
-  const [applied, setApplied] = useState<PriorityState>({ boosted: [], muted: [], pinMode: 'pin' })
+  const [applied, setApplied] = useState<PriorityState>({ prio: [], blacklist: [], whitelist: [] })
   /** Staged edits on top of `applied`, until Save commits them. */
   const [staged, setStaged] = useState<PriorityState | undefined>(undefined)
 
@@ -116,7 +116,15 @@ export function SkillSection(props: SkillSectionProps) {
         ))}
       </div>
 
-      {tab === 'search' && <SkillExplorer {...explorer} onHits={onHits} />}
+      {tab === 'search' && (
+        <SkillExplorer
+          {...explorer}
+          onHits={onHits}
+          membership={applied}
+          onAssign={(key, path) => { void assign(key, path, false) }}
+          onUnassign={(key, path) => { void assign(key, path, true) }}
+        />
+      )}
       {tab === 'priority' && (
         <PrioritySkills
           t={t}

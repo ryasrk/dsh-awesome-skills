@@ -35,6 +35,131 @@
   border-color: var(--dsw-alias-brand-primary);
 }
 
+.searchRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.clear {
+  appearance: none;
+  position: absolute;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-module-platform);
+  color: var(--dsw-alias-label-secondary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--dsw-alias-label-primary);
+}
+
+.clear:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
+/* search-ux: a clear affordance belongs inside the field, not after it. */
+.search {
+  padding-right: 38px;
+}
+
+.filterBar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  appearance: none;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-layer-3);
+  color: var(--dsw-alias-label-secondary);
+  padding: 3px 12px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  color: var(--dsw-alias-label-primary);
+  border-color: var(--dsw-alias-label-dimmed);
+}
+
+.filterBtn:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
+.filterOn {
+  composes: filterBtn;
+  border-color: var(--dsw-alias-brand-primary);
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+}
+
+.rowActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 7px;
+  background: var(--dsw-alias-bg-layer-3);
+  color: var(--dsw-alias-label-secondary);
+  padding: 3px 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.chip:hover {
+  color: var(--dsw-alias-label-primary);
+  border-color: var(--dsw-alias-label-dimmed);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
+/* critique-affordance: one dominant action per row. */
+.chipPrimary {
+  composes: chip;
+  border-color: var(--dsw-alias-brand-primary);
+  background: var(--dsw-alias-brand-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.chipPrimary:hover {
+  filter: brightness(1.06);
+}
+
+.chipOn {
+  composes: chip;
+  border-style: dashed;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+}
+
 .hint {
   margin: -10px 0 0;
   font-size: 12px;

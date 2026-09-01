@@ -30,8 +30,6 @@ type InferenceSession = OrtSession
 export const DIM = 384
 /** Candidate pool fed to the reranker. 50 was tuned for a 677-skill corpus. */
 export const POOL = 1200
-/** How far one boosted skill may climb; large enough to dominate, not to swamp. */
-const BOOST_STRENGTH = 2.0
 /** Hybrid weights: score = (1-W)*vector + W*lexical + G*gram. */
 const WEIGHT = 0.55
 const GRAM_WEIGHT = 0.5
@@ -61,8 +59,6 @@ export interface SearchHit {
   path: string
   score: number
   description: string
-  /** True when the hit holds a priority-pinned position rather than its natural rank. */
-  pinned?: boolean
 }
 
 export interface SearchOptions {
@@ -84,12 +80,12 @@ export class SkillIndex {
   private ort: OrtModule | undefined
   private knobs: SearchKnobs = {
     semantic: true, defaultK: 5, pool: POOL, wLex: WEIGHT, wGram: GRAM_WEIGHT,
-    boosted: [], muted: [], pinMode: 'pin',
+    prio: [], blacklist: [], whitelist: [], whitelistOnly: false,
   }
   private vocab: Record<string, number> | undefined
   private unk = '[UNK]'
   private df: Map<string, number> | undefined
-  /** Skill path -> index, for boost/mute lookups. */
+  /** Skill path -> index, for whitelist/blacklist membership lookups. */
   private byPath = new Map<string, number>()
   private docGrams: (Map<string, number> | null)[] = []
   private docGramNorms: number[] = []
@@ -374,21 +370,13 @@ export class SkillIndex {
       for (let d = 0; d < DIM; d++) x += vec![d] * this.packed[o + d]
       s[i] = x
     }
-    // Priority boosts must be able to lift a skill INTO the candidate pool,
-    // so they apply before the pool cut, not after it.
-    const boostDelta = new Map<number, number>()
-    if (this.knobs.boosted.length > 0) {
-      for (const path of this.knobs.boosted) {
-        const idx = this.byPath.get(path)
-        if (idx !== undefined) boostDelta.set(idx, 0)
-      }
-      // Strength falls off with position: the top of the list is the strongest.
-      for (const [rank, path] of this.knobs.boosted.entries()) {
-        const idx = this.byPath.get(path)
-        if (idx !== undefined) boostDelta.set(idx, BOOST_STRENGTH * (1 - rank / (this.knobs.boosted.length + 1)))
-      }
-    }
-    const order = Array.from(s.keys()).sort((a, b) => s[b] - s[a]).slice(0, this.knobs.pool)
+    // Visibility filters apply before the pool cut, so a restricted scope
+    // cannot be defeated by a large pool.
+    const visible = this.visibleIndices()
+    const order = Array.from(s.keys())
+      .filter(i => visible.has(i))
+      .sort((a, b) => s[b] - s[a])
+      .slice(0, this.knobs.pool)
 
     const qt: Tokens = new Map()
     for (const w of toks(q)) qt.set(w, (qt.get(w) || 0) + 1)
@@ -398,18 +386,10 @@ export class SkillIndex {
     qn = Math.sqrt(qn) || 1
 
     if (qt.size === 0 && qg.size === 0) {
-      const hits = order.map(i => ({ i, score: s[i] }))
-      const pinnedHits = this.knobs.pinMode === 'pin' && this.knobs.boosted.length > 0
-        ? this.applyPinning(hits)
-        : hits
-      return pinnedHits.slice(0, want).map(h => this.hit(h.i, h.score, this.pinnedOf(h.i) !== undefined))
+      return order.slice(0, want).map(i => this.hit(i, s[i]))
     }
 
-    const mutedSet = new Set(this.knobs.muted)
-    const scored = order.filter(i => {
-      const p = this.meta[i].path || this.meta[i].name
-      return !mutedSet.has(p)
-    }).map(i => {
+    const scored = order.map(i => {
       const m = this.meta[i]
       const dm: Tokens = new Map()
       for (const w of toks(m.name + '. ' + m.description)) dm.set(w, (dm.get(w) || 0) + 1)
@@ -421,7 +401,7 @@ export class SkillIndex {
         ? (1 - this.knobs.wLex) * s[i] + this.knobs.wLex * lex + this.knobs.wGram * gsim
         // Semantic off: the lexical and gram lanes rank on their own.
         : this.knobs.wLex * lex + this.knobs.wGram * gsim
-      return { i, score: base + (boostDelta.get(i) ?? 0) }
+      return { i, score: base }
     })
     scored.sort((a, b) => b.score - a.score)
 
@@ -431,59 +411,14 @@ export class SkillIndex {
       this.gramsFromCache = false
     }
 
-    let ordered = scored
-    if (this.knobs.pinMode === 'pin' && this.knobs.boosted.length > 0) {
-      ordered = this.applyPinning(scored)
-    }
-    return ordered.slice(0, want).map(h => this.hit(h.i, h.score, this.pinnedOf(h.i) !== undefined))
+    return scored.slice(0, want).map(h => this.hit(h.i, h.score))
   }
 
-  private hit(i: number, score: number, pinned = false): SearchHit {
+  private hit(i: number, score: number): SearchHit {
     const m = this.meta[i]
-    const out: SearchHit = { name: m.name, path: m.path || m.name, score: +score.toFixed(4), description: this.clip(m.description, 300) }
-    if (pinned) out.pinned = true
-    return out
+    return { name: m.name, path: m.path || m.name, score: +score.toFixed(4), description: this.clip(m.description, 300) }
   }
 
-  /**
-   * Which boosted rank, if any, this index holds. Returns undefined for an
-   * unlisted skill; a listed one gets its position in the boost list.
-   */
-  private pinnedOf(i: number): number | undefined {
-    if (this.knobs.pinMode !== 'pin') return undefined
-    const path = this.meta[i].path || this.meta[i].name
-    const rank = this.knobs.boosted.indexOf(path)
-    return rank === -1 ? undefined : rank
-  }
-
-  /**
-   * Hold the boost list's exact order among the skills that actually matched.
-   * A pinned skill that did not match this query stays absent — pinning orders
-   * matches, it never invents them.
-   */
-  private applyPinning(scored: { i: number; score: number }[]): { i: number; score: number; pinnedRank?: number }[] {
-    if (this.knobs.boosted.length === 0) return scored
-    const rankOf = new Map<number, number>()
-    for (const [rank, path] of this.knobs.boosted.entries()) {
-      const idx = this.byPath.get(path)
-      if (idx !== undefined) rankOf.set(idx, rank)
-    }
-    if (rankOf.size === 0) return scored
-    const pinned = scored.filter(h => rankOf.has(h.i))
-      .map(h => ({ ...h, pinnedRank: rankOf.get(h.i) }))
-      .sort((a, b) => (a.pinnedRank ?? 0) - (b.pinnedRank ?? 0))
-    const rest = scored.filter(h => !rankOf.has(h.i))
-    const out: { i: number; score: number; pinnedRank?: number }[] = []
-    let pi = 0
-    for (const h of rest) {
-      while (pi < pinned.length && (pinned[pi].pinnedRank ?? 0) <= out.length) {
-        out.push(pinned[pi]); pi++
-      }
-      out.push(h)
-    }
-    while (pi < pinned.length) { out.push(pinned[pi]); pi++ }
-    return out
-  }
 
   private clip(s: string, max: number): string {
     if (!s) return ''
@@ -501,6 +436,24 @@ export class SkillIndex {
   /** Replace the live ranking knobs. */
   setKnobs(knobs: Partial<SearchKnobs>): void {
     this.knobs = { ...this.knobs, ...knobs }
+  }
+
+  /**
+   * Indices that survive the visibility filters: the whitelist cuts first
+   * (when scope-restricted and non-empty), then the blacklist narrows within
+   * it. Returns a Set for O(1) membership tests over a 16k corpus.
+   */
+  private visibleIndices(): Set<number> {
+    const wl = this.knobs.whitelist
+    const bl = new Set(this.knobs.blacklist)
+    const allow = this.knobs.whitelistOnly && wl.length > 0 ? new Set(wl) : undefined
+    const out = new Set<number>()
+    for (const [path, idx] of this.byPath) {
+      if (allow !== undefined && !allow.has(path)) continue
+      if (bl.has(path)) continue
+      out.add(idx)
+    }
+    return out
   }
 
   /** The current knobs, for routes that echo them back. */
@@ -551,12 +504,14 @@ export interface SearchKnobs {
   pool: number
   wLex: number
   wGram: number
-  /** Skill paths boosted above their natural rank, strongest first. */
-  boosted: string[]
-  /** Skill paths excluded from results entirely. */
-  muted: string[]
-  /** boost = a scoring delta; pin = hold the exact list order when the skill appears. */
-  pinMode: 'boost' | 'pin'
+  /** Skill paths loaded into context at the start of every turn, in order. */
+  prio: string[]
+  /** Skill paths hidden from search results. */
+  blacklist: string[]
+  /** When whitelistOnly is set, only these paths are visible. */
+  whitelist: string[]
+  /** Restrict visibility to the whitelist. No effect while whitelist is empty. */
+  whitelistOnly: boolean
 }
 
 export interface SkillsSearch {

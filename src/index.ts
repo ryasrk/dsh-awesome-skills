@@ -18,6 +18,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { registerSearchService, type SkillsSearch } from './search.js'
 import { installSettingsSection } from './settings-wiring.js'
 import { mountSkillRoutesOnContext } from './routes.js'
+import { installPriorityLoader } from './priority-loader.js'
 import type { PluginContext } from './cordis-types.js'
 
 export const name = 'dsh-awesome-skills'
@@ -136,13 +137,19 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // `lib/query.js` path keeps serving agents.
   // The priority routes read and write the same knobs the settings document
   // drives, so the UI and a hand-edited cordis.yml cannot disagree.
-  const getKnobs = (): { boosted: string[]; muted: string[]; pinMode: 'pin' | 'boost' } => {
+  const getKnobs = (): { prio: string[]; blacklist: string[]; whitelist: string[]; whitelistOnly: boolean } => {
     const k = search.getKnobs()
-    return { boosted: k.boosted, muted: k.muted, pinMode: k.pinMode }
+    return { prio: k.prio, blacklist: k.blacklist, whitelist: k.whitelist, whitelistOnly: k.whitelistOnly }
   }
-  const setKnobs = (next: { boosted?: string[]; muted?: string[]; pinMode?: 'pin' | 'boost' }): void =>
+  const setKnobs = (next: { prio?: string[]; blacklist?: string[]; whitelist?: string[]; whitelistOnly?: boolean }): void =>
     search.setKnobs(next)
   mountSkillRoutesOnContext(ctx, search, corpusDir, getKnobs, setKnobs)
+
+  // "Wajib diload dari awal" made literal: the priority list's skill bodies
+  // are injected into every model turn. The knobs are read live through the
+  // same closure the routes write, so a settings save changes the next turn
+  // without a restart.
+  installPriorityLoader(ctx, corpusDir, () => ({ prio: search.getKnobs().prio }), ctx.logger)
 
   if (config?.installSkillRouter === false || !home) return
 

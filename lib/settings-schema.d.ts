@@ -20,17 +20,17 @@ interface ZodField {
 /** Settings namespace owned by this plugin. Lowercase kebab-case. */
 export declare const SETTINGS_NAMESPACE: string;
 /** The fields a user may edit from the plugin-configuration card. */
-/** How the priority list acts on results. */
-export type PriorityMode = 'pin' | 'boost';
 export interface PluginSettings {
     /** Score with the semantic lane (requires the vendored wasm runtime). */
     semantic: boolean;
-    /** Skill paths boosted above their natural rank, strongest first. */
-    boosted: string[];
-    /** Skill paths excluded from results entirely. */
-    muted: string[];
-    /** pin = hold the exact list order; boost = a scoring delta that decays by position. */
-    pinMode: PriorityMode;
+    /** Skill paths loaded into context at the start of every turn, in order. */
+    prio: string[];
+    /** Skill paths hidden from search results and the catalog. */
+    blacklist: string[];
+    /** When whitelistOnly is set, only these paths are visible. */
+    whitelist: string[];
+    /** Restrict visibility to the whitelist. No effect while whitelist is empty. */
+    whitelistOnly: boolean;
     /** Results returned per search, clamped to 1..25. */
     defaultK: number;
     /** Candidate pool fed to the reranker before ranking. */

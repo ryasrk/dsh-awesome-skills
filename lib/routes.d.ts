@@ -47,13 +47,15 @@ export interface SkillRoutesHost {
  * @returns Disposer removing every registered route.
  */
 export declare function mountSkillRoutes(host: SkillRoutesHost, search: SkillsSearch, corpusDir: string, getKnobs: () => {
-    boosted: string[];
-    muted: string[];
-    pinMode: 'pin' | 'boost';
+    prio: string[];
+    blacklist: string[];
+    whitelist: string[];
+    whitelistOnly: boolean;
 }, setKnobs: (next: {
-    boosted?: string[];
-    muted?: string[];
-    pinMode?: 'pin' | 'boost';
+    prio?: string[];
+    blacklist?: string[];
+    whitelist?: string[];
+    whitelistOnly?: boolean;
 }) => void): () => void;
 /**
  * Acquire the webServer and mount the routes, no-op on a host without one.
@@ -70,12 +72,14 @@ export declare function mountSkillRoutesOnContext(ctx: {
         warn(message: string): void;
     };
 }, search: SkillsSearch, corpusDir: string, getKnobs: () => {
-    boosted: string[];
-    muted: string[];
-    pinMode: 'pin' | 'boost';
+    prio: string[];
+    blacklist: string[];
+    whitelist: string[];
+    whitelistOnly: boolean;
 }, setKnobs: (next: {
-    boosted?: string[];
-    muted?: string[];
-    pinMode?: 'pin' | 'boost';
+    prio?: string[];
+    blacklist?: string[];
+    whitelist?: string[];
+    whitelistOnly?: boolean;
 }) => void): void;
 //# sourceMappingURL=routes.d.ts.map

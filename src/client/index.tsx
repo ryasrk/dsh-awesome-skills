@@ -34,8 +34,9 @@ const DETAILS_PRIORITY = -1
 /** Shape of the priority route's response. */
 interface PriorityResponse {
   ok: boolean
-  boosted?: string[]
-  muted?: string[]
+  prio?: string[]
+  blacklist?: string[]
+  whitelist?: string[]
   error?: string
 }
 

@@ -13,14 +13,14 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"tabs": "jsPfLW_tabs",
 	"dot": "jsPfLW_dot",
-	"tabOn": "jsPfLW_tabOn",
-	"tab": "jsPfLW_tab"
+	"tab": "jsPfLW_tab",
+	"tabs": "jsPfLW_tabs",
+	"tabOn": "jsPfLW_tabOn"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
-const css$2 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_pin{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);white-space:nowrap;border-radius:4px;margin-left:6px;padding:0 5px;font-size:10px;font-weight:600;line-height:15px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
+const css$2 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_searchRow{align-items:center;display:flex;position:relative}.vc1x0a_clear{-webkit-appearance:none;appearance:none;background:var(--dsw-alias-bg-module-platform);width:24px;height:24px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:999px;font-size:14px;line-height:1;position:absolute;right:8px}.vc1x0a_clear:hover{color:var(--dsw-alias-label-primary)}.vc1x0a_clear:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_search{padding-right:38px}.vc1x0a_filterBar{flex-wrap:wrap;gap:6px;display:flex}.vc1x0a_filterBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:999px;padding:3px 12px;font-size:12px;line-height:1.5}.vc1x0a_filterBtn:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_filterBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_filterOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.vc1x0a_rowActions{flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;display:flex}.vc1x0a_chip{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:7px;padding:3px 10px;font-size:11px;font-weight:500;line-height:1.4}.vc1x0a_chip:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_chip:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_chipPrimary{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-brand-primary);color:#fff;font-weight:600;}.vc1x0a_chipPrimary:hover{filter:brightness(1.06)}.vc1x0a_chipOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-style:dashed;}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_pin{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);white-space:nowrap;border-radius:4px;margin-left:6px;padding:0 5px;font-size:10px;font-weight:600;line-height:15px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
 const tagId$2 = "dsh-awesome-skills/SkillExplorer_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 	const tag = document.createElement("style");
@@ -30,22 +30,31 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"hint": "vc1x0a_hint",
-	"meta": "vc1x0a_meta",
 	"section": "vc1x0a_section",
-	"state": "vc1x0a_state",
-	"search": "vc1x0a_search",
-	"result": "vc1x0a_result",
-	"path": "vc1x0a_path",
-	"score": "vc1x0a_score",
-	"name": "vc1x0a_name",
-	"divider": "vc1x0a_divider",
-	"results": "vc1x0a_results",
-	"resultHead": "vc1x0a_resultHead",
-	"description": "vc1x0a_description",
-	"error": "vc1x0a_error",
+	"filterBar": "vc1x0a_filterBar",
+	"hint": "vc1x0a_hint",
 	"pin": "vc1x0a_pin",
-	"configHeading": "vc1x0a_configHeading"
+	"path": "vc1x0a_path",
+	"clear": "vc1x0a_clear",
+	"filterOn": "vc1x0a_filterOn",
+	"chip": "vc1x0a_chip",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"results": "vc1x0a_results",
+	"description": "vc1x0a_description",
+	"meta": "vc1x0a_meta",
+	"score": "vc1x0a_score",
+	"state": "vc1x0a_state",
+	"error": "vc1x0a_error",
+	"filterBtn": "vc1x0a_filterBtn",
+	"searchRow": "vc1x0a_searchRow",
+	"resultHead": "vc1x0a_resultHead",
+	"rowActions": "vc1x0a_rowActions",
+	"divider": "vc1x0a_divider",
+	"configHeading": "vc1x0a_configHeading",
+	"result": "vc1x0a_result",
+	"search": "vc1x0a_search",
+	"chipOn": "vc1x0a_chipOn",
+	"name": "vc1x0a_name"
 };
 //#endregion
 //#region src/client/SkillExplorer.tsx
@@ -110,17 +119,21 @@ function template(text, n) {
 * @param props - the injected locale lookup.
 */
 function SkillExplorer(props) {
-	const { t, onHits } = props;
+	const { t, onHits, membership, onAssign, onUnassign } = props;
 	const [query, setQuery] = (0, react.useState)("");
 	const [results, setResults] = (0, react.useState)(void 0);
 	const [loading, setLoading] = (0, react.useState)(false);
 	const [failed, setFailed] = (0, react.useState)(false);
 	const [count, setCount] = (0, react.useState)(0);
 	const [copied, setCopied] = (0, react.useState)(void 0);
+	/** Which membership slice the results show; 'all' is the unfiltered view. */
+	const [filter, setFilter] = (0, react.useState)("all");
 	const seqRef = (0, react.useRef)(0);
 	const debounceRef = (0, react.useRef)(void 0);
+	const inputRef = (0, react.useRef)(void 0);
 	(0, react.useEffect)(() => {
 		fetchCount().then(setCount);
+		inputRef.current?.focus();
 		return () => clearTimeout(debounceRef.current);
 	}, []);
 	(0, react.useEffect)(() => {
@@ -164,20 +177,58 @@ function SkillExplorer(props) {
 		}
 		done();
 	}, []);
-	const list = (0, react.useMemo)(() => results ?? [], [results]);
+	const list = (0, react.useMemo)(() => {
+		const hits = results ?? [];
+		if (filter === "all" || membership === void 0) return hits;
+		const set = new Set(membership[filter]);
+		return hits.filter((h) => set.has(h.path));
+	}, [
+		results,
+		filter,
+		membership
+	]);
 	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 		className: _dsh_css_SkillExplorer_module_css_default.section,
 		children: [
-			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-				className: _dsh_css_SkillExplorer_module_css_default.search,
-				value: query,
-				placeholder: t("searchPlaceholder"),
-				onChange: (event) => setQuery(event.target.value),
-				"aria-label": t("searchPlaceholder")
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SkillExplorer_module_css_default.searchRow,
+				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+					ref: inputRef,
+					className: _dsh_css_SkillExplorer_module_css_default.search,
+					value: query,
+					placeholder: t("searchPlaceholder"),
+					onChange: (event) => setQuery(event.target.value),
+					onKeyDown: (event) => {
+						if (event.key === "Escape") setQuery("");
+					},
+					"aria-label": t("searchPlaceholder")
+				}), query !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: _dsh_css_SkillExplorer_module_css_default.clear,
+					onClick: () => setQuery(""),
+					"aria-label": t("clear"),
+					children: "×"
+				})]
 			}),
 			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 				className: _dsh_css_SkillExplorer_module_css_default.hint,
 				children: t("searchHint")
+			}),
+			membership !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+				className: _dsh_css_SkillExplorer_module_css_default.filterBar,
+				role: "group",
+				"aria-label": t("scopeLabel"),
+				children: [
+					"all",
+					"prio",
+					"blacklist",
+					"whitelist"
+				].map((key) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: filter === key ? _dsh_css_SkillExplorer_module_css_default.filterOn : _dsh_css_SkillExplorer_module_css_default.filterBtn,
+					onClick: () => setFilter(key),
+					children: t(key === "all" ? "filterAll" : key === "prio" ? "filterPrio" : key === "blacklist" ? "filterBlack" : "filterWhite")
+				}, key))
 			}),
 			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 				className: _dsh_css_SkillExplorer_module_css_default.error,
@@ -204,15 +255,12 @@ function SkillExplorer(props) {
 						children: [
 							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 								className: _dsh_css_SkillExplorer_module_css_default.resultHead,
-								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
+								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 									type: "button",
 									className: _dsh_css_SkillExplorer_module_css_default.name,
 									onClick: () => copyPath(hit.path),
 									title: t("copyPath"),
-									children: [hit.name, hit.pinned === true && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-										className: _dsh_css_SkillExplorer_module_css_default.pin,
-										children: t("pinnedBadge")
-									})]
+									children: hit.name
 								}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
 									className: _dsh_css_SkillExplorer_module_css_default.score,
 									children: hit.score.toFixed(3)
@@ -222,9 +270,30 @@ function SkillExplorer(props) {
 								className: _dsh_css_SkillExplorer_module_css_default.description,
 								children: hit.description
 							}),
-							copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-								className: _dsh_css_SkillExplorer_module_css_default.path,
-								children: hit.path
+							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+								className: _dsh_css_SkillExplorer_module_css_default.rowActions,
+								children: [membership !== void 0 && onAssign !== void 0 && onUnassign !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)(react_jsx_runtime.Fragment, { children: [
+									"prio",
+									"blacklist",
+									"whitelist"
+								].map((key) => {
+									return membership[key].includes(hit.path) ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
+										type: "button",
+										className: _dsh_css_SkillExplorer_module_css_default.chipOn,
+										onClick: () => onUnassign(key, hit.path),
+										title: t("remove"),
+										children: [t(key === "prio" ? "chipPrio" : key === "blacklist" ? "chipBlack" : "chipWhite"), " ×"]
+									}, key) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+										type: "button",
+										className: key === "prio" ? _dsh_css_SkillExplorer_module_css_default.chipPrimary : _dsh_css_SkillExplorer_module_css_default.chip,
+										onClick: () => onAssign(key, hit.path),
+										title: t(key === "prio" ? "addPrio" : key === "blacklist" ? "blacklistTitle" : "whitelistTitle"),
+										children: t(key === "prio" ? "addPrio" : key === "blacklist" ? "addBlack" : "addWhite")
+									}, key);
+								}) }) : null, copied === hit.path && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+									className: _dsh_css_SkillExplorer_module_css_default.path,
+									children: hit.path
+								})]
 							})
 						]
 					}, hit.path))
@@ -235,7 +304,7 @@ function SkillExplorer(props) {
 }
 //#endregion
 //#region \0dsh-css:SettingsCard_module_css.mjs
-const css$1 = ".alOFIW_card{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:14px 16px;display:flex}.alOFIW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:#fff;transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary);color:#fff;}.alOFIW_primary:hover:not(:disabled){filter:brightness(1.06)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}";
+const css$1 = ".alOFIW_card{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:14px 16px;display:flex}.alOFIW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:#fff;transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_segmented{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:8px;gap:2px;padding:2px;display:inline-flex}.alOFIW_seg{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;border-radius:6px;align-items:center;gap:6px;padding:4px 12px;font-size:12px;line-height:1.5;display:inline-flex}.alOFIW_seg input{accent-color:var(--dsw-alias-brand-primary);margin:0}.alOFIW_seg:hover{color:var(--dsw-alias-label-primary)}.alOFIW_segOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.alOFIW_seg:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary);color:#fff;}.alOFIW_primary:hover:not(:disabled){filter:brightness(1.06)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}";
 const tagId$1 = "dsh-awesome-skills/SettingsCard_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 	const tag = document.createElement("style");
@@ -245,29 +314,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"revert": "alOFIW_revert",
 	"actions": "alOFIW_actions",
-	"spacer": "alOFIW_spacer",
-	"primary": "alOFIW_primary",
-	"invalid": "alOFIW_invalid",
-	"name": "alOFIW_name",
-	"footer": "alOFIW_footer",
-	"hint": "alOFIW_hint",
-	"button": "alOFIW_button",
-	"body": "alOFIW_body",
-	"label": "alOFIW_label",
-	"inputInvalid": "alOFIW_inputInvalid",
-	"saved": "alOFIW_saved",
-	"field": "alOFIW_field",
-	"header": "alOFIW_header",
-	"description": "alOFIW_description",
-	"alert": "alOFIW_alert",
-	"card": "alOFIW_card",
-	"control": "alOFIW_control",
 	"input": "alOFIW_input",
+	"spacer": "alOFIW_spacer",
+	"alert": "alOFIW_alert",
+	"hint": "alOFIW_hint",
+	"name": "alOFIW_name",
+	"body": "alOFIW_body",
+	"description": "alOFIW_description",
+	"field": "alOFIW_field",
+	"control": "alOFIW_control",
+	"toggle": "alOFIW_toggle",
+	"header": "alOFIW_header",
+	"inputInvalid": "alOFIW_inputInvalid",
 	"badge": "alOFIW_badge",
+	"revert": "alOFIW_revert",
+	"card": "alOFIW_card",
+	"saved": "alOFIW_saved",
+	"footer": "alOFIW_footer",
+	"seg": "alOFIW_seg",
+	"button": "alOFIW_button",
+	"primary": "alOFIW_primary",
 	"head": "alOFIW_head",
-	"toggle": "alOFIW_toggle"
+	"label": "alOFIW_label",
+	"invalid": "alOFIW_invalid",
+	"segmented": "alOFIW_segmented",
+	"segOn": "alOFIW_segOn"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -330,6 +402,12 @@ const FIELDS = [
 		label: "fieldAutoRoute",
 		hint: "fieldAutoRouteHint",
 		kind: "toggle"
+	},
+	{
+		key: "whitelistOnly",
+		label: "scopeLabel",
+		hint: "scopeHint",
+		kind: "scope"
 	}
 ];
 /** Localized copy. zh mirrors en key-for-key so a missing key is a typo, not a gap. */
@@ -431,7 +509,7 @@ function SettingsCard(props) {
 			for (const f of FIELDS) {
 				const staged = drafts[f.key];
 				if (staged === void 0) continue;
-				if (f.kind === "toggle") {
+				if (f.kind === "toggle" || f.kind === "scope") {
 					const next = staged.draft === "true";
 					if (next === value[f.key]) continue;
 					await scope.set(f.key, next);
@@ -504,7 +582,27 @@ function SettingsCard(props) {
 									})
 								]
 							}),
-							f.kind === "toggle" ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+							f.kind === "scope" ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+								className: _dsh_css_SettingsCard_module_css_default.segmented,
+								role: "radiogroup",
+								"aria-label": t("scopeLabel"),
+								children: [{
+									value: "false",
+									label: t("scopeAll")
+								}, {
+									value: "true",
+									label: t("scopeWhitelist")
+								}].map((option) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", {
+									className: state.draft === option.value ? _dsh_css_SettingsCard_module_css_default.segOn : _dsh_css_SettingsCard_module_css_default.seg,
+									children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+										type: "radio",
+										name: `dshas-${f.key}`,
+										checked: state.draft === option.value,
+										disabled: !snapshot.writable || saving,
+										onChange: () => stage(f.key, option.value, state.overridden)
+									}), option.label]
+								}, option.value))
+							}) : f.kind === "toggle" ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
 								id,
 								type: "checkbox",
 								className: _dsh_css_SettingsCard_module_css_default.toggle,
@@ -590,28 +688,28 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"ctl": "bm5jra_ctl",
-	"addRow": "bm5jra_addRow",
-	"path": "bm5jra_path",
-	"button": "bm5jra_button",
-	"modeRow": "bm5jra_modeRow",
-	"modeOn": "bm5jra_modeOn",
-	"row": "bm5jra_row",
-	"input": "bm5jra_input",
-	"picker": "bm5jra_picker",
-	"state": "bm5jra_state",
-	"root": "bm5jra_root",
-	"mode": "bm5jra_mode",
-	"rank": "bm5jra_rank",
-	"hint": "bm5jra_hint",
-	"primary": "bm5jra_primary",
 	"empty": "bm5jra_empty",
+	"input": "bm5jra_input",
+	"primary": "bm5jra_primary",
+	"modeRow": "bm5jra_modeRow",
 	"heading": "bm5jra_heading",
-	"controls": "bm5jra_controls",
-	"grow": "bm5jra_grow",
+	"addRow": "bm5jra_addRow",
+	"root": "bm5jra_root",
+	"button": "bm5jra_button",
+	"mode": "bm5jra_mode",
+	"picker": "bm5jra_picker",
+	"ctl": "bm5jra_ctl",
 	"actions": "bm5jra_actions",
-	"list": "bm5jra_list",
-	"block": "bm5jra_block"
+	"grow": "bm5jra_grow",
+	"hint": "bm5jra_hint",
+	"path": "bm5jra_path",
+	"rank": "bm5jra_rank",
+	"modeOn": "bm5jra_modeOn",
+	"controls": "bm5jra_controls",
+	"state": "bm5jra_state",
+	"row": "bm5jra_row",
+	"block": "bm5jra_block",
+	"list": "bm5jra_list"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -632,7 +730,15 @@ function PrioritySkills(props) {
 	const { t, state, onChange, suggestions, onApply, applied } = props;
 	const [draft, setDraft] = (0, react.useState)("");
 	const [saving, setSaving] = (0, react.useState)(false);
-	const isDirty = applied !== void 0 && (applied.boosted.length !== state.boosted.length || applied.muted.length !== state.muted.length || applied.boosted.some((p, i) => state.boosted[i] !== p) || applied.muted.some((p, i) => state.muted[i] !== p));
+	const isDirty = applied !== void 0 && [
+		"prio",
+		"blacklist",
+		"whitelist"
+	].some((key) => {
+		const a = applied[key];
+		const b = state[key];
+		return a.length !== b.length || a.some((p, i) => b[i] !== p);
+	});
 	const move = (0, react.useCallback)((list, from, delta) => {
 		const to = from + delta;
 		if (to < 0 || to >= list.length) return list;
@@ -651,14 +757,14 @@ function PrioritySkills(props) {
 	const add = (key, path) => {
 		const value = path.trim();
 		if (value === "") return;
-		if (state.boosted.includes(value) || state.muted.includes(value)) return;
+		if (state.prio.includes(value) || state.blacklist.includes(value) || state.whitelist.includes(value)) return;
 		onChange({
 			...state,
 			[key]: [...state[key], value]
 		});
 		setDraft("");
 	};
-	const available = suggestions.filter((s) => !state.boosted.includes(s.path) && !state.muted.includes(s.path));
+	const available = suggestions.filter((s) => !state.prio.includes(s.path) && !state.blacklist.includes(s.path) && !state.whitelist.includes(s.path));
 	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 		className: _dsh_css_PrioritySkills_module_css_default.root,
 		children: [
@@ -667,59 +773,18 @@ function PrioritySkills(props) {
 				children: [
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
 						className: _dsh_css_PrioritySkills_module_css_default.heading,
-						children: t("priorityModeTitle")
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-						className: _dsh_css_PrioritySkills_module_css_default.modeRow,
-						role: "radiogroup",
-						"aria-label": t("priorityModeTitle"),
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", {
-							className: state.pinMode === "pin" ? _dsh_css_PrioritySkills_module_css_default.modeOn : _dsh_css_PrioritySkills_module_css_default.mode,
-							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-								type: "radio",
-								name: "dshas-pin-mode",
-								checked: state.pinMode === "pin",
-								onChange: () => onChange({
-									...state,
-									pinMode: "pin"
-								})
-							}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: t("modePin") })]
-						}), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", {
-							className: state.pinMode === "boost" ? _dsh_css_PrioritySkills_module_css_default.modeOn : _dsh_css_PrioritySkills_module_css_default.mode,
-							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-								type: "radio",
-								name: "dshas-pin-mode",
-								checked: state.pinMode === "boost",
-								onChange: () => onChange({
-									...state,
-									pinMode: "boost"
-								})
-							}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: t("modeBoost") })]
-						})]
+						children: t("prioTitle")
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 						className: _dsh_css_PrioritySkills_module_css_default.hint,
-						children: state.pinMode === "pin" ? t("modePinHint") : t("modeBoostHint")
-					})
-				]
-			}),
-			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
-				className: _dsh_css_PrioritySkills_module_css_default.block,
-				children: [
-					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
-						className: _dsh_css_PrioritySkills_module_css_default.heading,
-						children: t("priorityBoostTitle")
+						children: t("prioHint")
 					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-						className: _dsh_css_PrioritySkills_module_css_default.hint,
-						children: state.pinMode === "pin" ? t("priorityPinHint") : t("priorityBoostHint")
-					}),
-					state.boosted.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+					state.prio.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 						className: _dsh_css_PrioritySkills_module_css_default.empty,
-						children: t("priorityBoostEmpty")
+						children: t("prioEmpty")
 					}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ol", {
 						className: _dsh_css_PrioritySkills_module_css_default.list,
-						children: state.boosted.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+						children: state.prio.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
 							className: _dsh_css_PrioritySkills_module_css_default.row,
 							children: [
 								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
@@ -739,7 +804,7 @@ function PrioritySkills(props) {
 											disabled: index === 0,
 											onClick: () => onChange({
 												...state,
-												boosted: move(state.boosted, index, -1)
+												prio: move(state.prio, index, -1)
 											}),
 											"aria-label": t("moveUp"),
 											children: "↑"
@@ -747,10 +812,10 @@ function PrioritySkills(props) {
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 											type: "button",
 											className: _dsh_css_PrioritySkills_module_css_default.ctl,
-											disabled: index === state.boosted.length - 1,
+											disabled: index === state.prio.length - 1,
 											onClick: () => onChange({
 												...state,
-												boosted: move(state.boosted, index, 1)
+												prio: move(state.prio, index, 1)
 											}),
 											"aria-label": t("moveDown"),
 											children: "↓"
@@ -758,7 +823,7 @@ function PrioritySkills(props) {
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 											type: "button",
 											className: _dsh_css_PrioritySkills_module_css_default.ctl,
-											onClick: () => removeFrom("boosted", index),
+											onClick: () => removeFrom("prio", index),
 											"aria-label": t("remove"),
 											children: "×"
 										})
@@ -770,11 +835,11 @@ function PrioritySkills(props) {
 					available.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("select", {
 						className: _dsh_css_PrioritySkills_module_css_default.picker,
 						value: "",
-						onChange: (e) => add("boosted", e.target.value),
-						"aria-label": t("addBoost"),
+						onChange: (e) => add("prio", e.target.value),
+						"aria-label": t("addPrio"),
 						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
 							value: "",
-							children: t("addBoost")
+							children: t("addPrio")
 						}), available.map((s) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
 							value: s.path,
 							children: s.name
@@ -787,18 +852,18 @@ function PrioritySkills(props) {
 				children: [
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
 						className: _dsh_css_PrioritySkills_module_css_default.heading,
-						children: t("priorityMuteTitle")
+						children: t("blacklistTitle")
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 						className: _dsh_css_PrioritySkills_module_css_default.hint,
-						children: t("priorityMuteHint")
+						children: t("blacklistHint")
 					}),
-					state.muted.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+					state.blacklist.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 						className: _dsh_css_PrioritySkills_module_css_default.empty,
-						children: t("priorityMuteEmpty")
+						children: t("blacklistEmpty")
 					}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ul", {
 						className: _dsh_css_PrioritySkills_module_css_default.list,
-						children: state.muted.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+						children: state.blacklist.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
 							className: _dsh_css_PrioritySkills_module_css_default.row,
 							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", {
 								className: _dsh_css_PrioritySkills_module_css_default.path,
@@ -808,7 +873,42 @@ function PrioritySkills(props) {
 								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 									type: "button",
 									className: _dsh_css_PrioritySkills_module_css_default.ctl,
-									onClick: () => removeFrom("muted", index),
+									onClick: () => removeFrom("blacklist", index),
+									"aria-label": t("remove"),
+									children: "×"
+								})
+							})]
+						}, path))
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
+				className: _dsh_css_PrioritySkills_module_css_default.block,
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", {
+						className: _dsh_css_PrioritySkills_module_css_default.heading,
+						children: t("whitelistTitle")
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.hint,
+						children: t("whitelistHint")
+					}),
+					state.whitelist.length === 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+						className: _dsh_css_PrioritySkills_module_css_default.empty,
+						children: t("whitelistEmpty")
+					}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ul", {
+						className: _dsh_css_PrioritySkills_module_css_default.list,
+						children: state.whitelist.map((path, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+							className: _dsh_css_PrioritySkills_module_css_default.row,
+							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", {
+								className: _dsh_css_PrioritySkills_module_css_default.path,
+								children: path
+							}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+								className: _dsh_css_PrioritySkills_module_css_default.controls,
+								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+									type: "button",
+									className: _dsh_css_PrioritySkills_module_css_default.ctl,
+									onClick: () => removeFrom("whitelist", index),
 									"aria-label": t("remove"),
 									children: "×"
 								})
@@ -833,25 +933,32 @@ function PrioritySkills(props) {
 								placeholder: t("pathPlaceholder"),
 								onChange: (e) => setDraft(e.target.value),
 								onKeyDown: (e) => {
-									if (e.key === "Enter") {
-										if (e.shiftKey) add("muted", draft);
-										else add("boosted", draft);
-									}
+									if (e.key !== "Enter") return;
+									if (e.altKey) add("whitelist", draft);
+									else if (e.shiftKey) add("blacklist", draft);
+									else add("prio", draft);
 								}
 							}),
 							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 								type: "button",
 								className: _dsh_css_PrioritySkills_module_css_default.primary,
 								disabled: draft.trim() === "",
-								onClick: () => add("boosted", draft),
-								children: t("addBoost")
+								onClick: () => add("prio", draft),
+								children: t("addPrio")
 							}),
 							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 								type: "button",
 								className: _dsh_css_PrioritySkills_module_css_default.button,
 								disabled: draft.trim() === "",
-								onClick: () => add("muted", draft),
-								children: t("addMute")
+								onClick: () => add("blacklist", draft),
+								children: t("addBlack")
+							}),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+								type: "button",
+								className: _dsh_css_PrioritySkills_module_css_default.button,
+								disabled: draft.trim() === "",
+								onClick: () => add("whitelist", draft),
+								children: t("addWhite")
 							})
 						]
 					}),
@@ -913,9 +1020,9 @@ function SkillSection(props) {
 	const onHits = (0, react.useCallback)((next) => setHits(next), []);
 	/** Applied priority lists, as the route returns them. */
 	const [applied, setApplied] = (0, react.useState)({
-		boosted: [],
-		muted: [],
-		pinMode: "pin"
+		prio: [],
+		blacklist: [],
+		whitelist: []
 	});
 	/** Staged edits on top of `applied`, until Save commits them. */
 	const [staged, setStaged] = (0, react.useState)(void 0);
@@ -988,7 +1095,14 @@ function SkillSection(props) {
 		}),
 		tab === "search" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillExplorer, {
 			...explorer,
-			onHits
+			onHits,
+			membership: applied,
+			onAssign: (key, path) => {
+				assign(key, path, false);
+			},
+			onUnassign: (key, path) => {
+				assign(key, path, true);
+			}
 		}),
 		tab === "priority" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(PrioritySkills, {
 			t,
@@ -1194,7 +1308,6 @@ function errorLine(result, t) {
 */
 const en = {
 	sectionTitle: "Skills",
-	searchPlaceholder: "Search the 16,000-skill corpus…",
 	searchHint: "Describe what you want to do; results come from semantic search on the host.",
 	results: "{n} results",
 	corpusCount: "{n} skills indexed",
@@ -1233,34 +1346,53 @@ const en = {
 	tabSearch: "Search",
 	tabPriority: "Priority",
 	tabConfig: "Config",
-	priorityBoostTitle: "Boosted skills",
-	priorityBoostHint: "Ordered list — the top entry climbs highest in results",
-	priorityBoostEmpty: "Nothing boosted yet",
-	priorityMuteTitle: "Muted skills",
-	priorityMuteHint: "Excluded from all search results",
-	priorityMuteEmpty: "Nothing muted",
+	prioTitle: "Priority skills",
+	prioHint: "Loaded into context at the start of every turn, in this order",
+	prioEmpty: "Nothing prioritised yet — search for a skill and press \"+ Prio\", or add a path below",
+	addPrio: "+ Prio",
+	blacklistTitle: "Blacklisted skills",
+	blacklistHint: "Hidden from search results entirely",
+	blacklistEmpty: "Nothing blacklisted",
+	addBlack: "Black",
+	whitelistTitle: "Whitelisted skills",
+	whitelistHint: "When search scope is \"Whitelist only\", only these are visible",
+	whitelistEmpty: "Nothing whitelisted",
+	addWhite: "White",
 	priorityAddManual: "Add a skill path",
-	addBoost: "Boost",
-	addMute: "Mute",
+	searchPlaceholder: "Search 16,000 skills by what you want to do…",
+	clear: "Clear search",
+	filterAll: "All",
+	filterPrio: "Priority",
+	filterBlack: "Blacklisted",
+	filterWhite: "Whitelisted",
+	chipPrio: "Priority",
+	chipBlack: "Blacklisted",
+	chipWhite: "Whitelisted",
+	scopeLabel: "Search scope",
+	scopeAll: "All skills",
+	scopeWhitelist: "Whitelist only",
+	scopeHint: "Whitelist only hides everything not whitelisted — no effect while the whitelist is empty",
 	moveUp: "Move up",
 	moveDown: "Move down",
 	remove: "Remove",
 	pathPlaceholder: "path/from/skills",
-	manualHint: "Enter adds to Boost; Shift+Enter adds to Mute",
+	manualHint: "Enter adds to Priority; Shift+Enter adds to Blacklist; Alt+Enter adds to Whitelist",
 	save: "Save",
 	pinnedBadge: "pinned",
-	priorityModeTitle: "How the list acts",
-	modePin: "Pin order",
-	modePinHint: "Matched pinned skills hold the exact list order, ahead of everything else. Pinning orders matches — it never invents results.",
-	modeBoost: "Boost scores",
-	modeBoostHint: "Adds a scoring bonus that decays with position; relevance can still outrank a boosted skill.",
-	priorityPinHint: "Ordered list — matched skills hold exactly this order in results",
 	priorityUnsaved: "Unsaved changes",
 	prioritySaved: "All changes applied"
 };
 const zh = {
 	sectionTitle: "技能",
-	searchPlaceholder: "搜索 1.6 万技能语料…",
+	searchPlaceholder: "用你想做的事搜索 1.6 万个技能…",
+	clear: "清除搜索",
+	filterAll: "全部",
+	filterPrio: "优先",
+	filterBlack: "黑名单",
+	filterWhite: "白名单",
+	chipPrio: "优先",
+	chipBlack: "黑名单",
+	chipWhite: "白名单",
 	searchHint: "描述你想做的事情；结果由宿主端的语义搜索返回。",
 	results: "{n} 条结果",
 	corpusCount: "已索引 {n} 个技能",
@@ -1299,28 +1431,30 @@ const zh = {
 	tabSearch: "搜索",
 	tabPriority: "优先级",
 	tabConfig: "配置",
-	priorityBoostTitle: "置顶技能",
-	priorityBoostHint: "有序列表 — 越靠前在结果中越靠前",
-	priorityBoostEmpty: "暂无置顶",
-	priorityMuteTitle: "静音技能",
-	priorityMuteHint: "从所有搜索结果中排除",
-	priorityMuteEmpty: "暂无静音",
+	prioTitle: "优先技能",
+	prioHint: "每个回合开始时按此顺序加载到上下文",
+	prioEmpty: "暂无优先技能 — 搜索后点“+ Prio”，或在下方添加路径",
+	addPrio: "+ Prio",
+	blacklistTitle: "黑名单技能",
+	blacklistHint: "完全从搜索结果中隐藏",
+	blacklistEmpty: "暂无黑名单",
+	addBlack: "黑名单",
+	whitelistTitle: "白名单技能",
+	whitelistHint: "当搜索范围为“仅白名单”时，只显示这些技能",
+	whitelistEmpty: "暂无白名单",
+	addWhite: "白名单",
 	priorityAddManual: "添加技能路径",
-	addBoost: "置顶",
-	addMute: "静音",
+	scopeLabel: "搜索范围",
+	scopeAll: "全部技能",
+	scopeWhitelist: "仅白名单",
+	scopeHint: "“仅白名单”会隐藏所有未列入白名单的技能 — 白名单为空时无效果",
 	moveUp: "上移",
 	moveDown: "下移",
 	remove: "移除",
 	pathPlaceholder: "路径/来自/技能",
-	manualHint: "回车加入置顶；Shift+回车加入静音",
+	manualHint: "回车加入优先；Shift+回车加入黑名单；Alt+回车加入白名单",
 	save: "保存",
 	pinnedBadge: "置顶",
-	priorityModeTitle: "列表作用方式",
-	modePin: "固定顺序",
-	modePinHint: "命中的置顶技能将严格按此顺序排在最前。固定只影响命中的结果，不会凭空产生结果。",
-	modeBoost: "加分",
-	modeBoostHint: "按位置递减的加分；相关性仍可能超过被加分的技能。",
-	priorityPinHint: "有序列表 — 命中的技能将严格按此顺序出现在结果中",
 	priorityUnsaved: "有未保存的更改",
 	prioritySaved: "所有更改已应用"
 };

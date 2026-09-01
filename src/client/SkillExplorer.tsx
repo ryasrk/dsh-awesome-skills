@@ -21,6 +21,12 @@ export interface SkillExplorerProps {
   t: (key: keyof Dict) => string
   /** Called with each successful search's hits, for downstream pickers. */
   onHits?: (hits: { path: string; name: string }[]) => void
+  /** Current list membership, so hits show their state and actions resolve. */
+  membership?: { prio: string[]; blacklist: string[]; whitelist: string[] }
+  /** Add a skill path to one of the lists. */
+  onAssign?: (key: 'prio' | 'blacklist' | 'whitelist', path: string) => void
+  /** Remove a skill path from one of the lists. */
+  onUnassign?: (key: 'prio' | 'blacklist' | 'whitelist', path: string) => void
 }
 
 /** Shape of the query route's success response. */
@@ -86,20 +92,25 @@ function template(text: string, n: number): string {
  * @param props - the injected locale lookup.
  */
 export function SkillExplorer(props: SkillExplorerProps) {
-  const { t, onHits } = props
+  const { t, onHits, membership, onAssign, onUnassign } = props
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchHit[] | undefined>(undefined)
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
   const [count, setCount] = useState(0)
   const [copied, setCopied] = useState<string | undefined>(undefined)
+  /** Which membership slice the results show; 'all' is the unfiltered view. */
+  const [filter, setFilter] = useState<'all' | 'prio' | 'blacklist' | 'whitelist'>('all')
   // Sequence-stamps each response so a slow earlier request can never
   // overwrite the answer to a newer query.
   const seqRef = useRef(0)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
+  const inputRef = useRef<HTMLInputElement>(undefined)
   useEffect(() => {
     void fetchCount().then(setCount)
+    // search-ux: focus the input when the search view opens
+    inputRef.current?.focus()
     return () => clearTimeout(debounceRef.current)
   }, [])
 
@@ -146,18 +157,47 @@ export function SkillExplorer(props: SkillExplorerProps) {
     done()
   }, [])
 
-  const list = useMemo(() => results ?? [], [results])
+  const list = useMemo(() => {
+    const hits = results ?? []
+    if (filter === 'all' || membership === undefined) return hits
+    const set = new Set(membership[filter])
+    return hits.filter(h => set.has(h.path))
+  }, [results, filter, membership])
 
   return (
     <div className={css.section}>
-      <input
-        className={css.search}
-        value={query}
-        placeholder={t('searchPlaceholder')}
-        onChange={(event) => setQuery(event.target.value)}
-        aria-label={t('searchPlaceholder')}
-      />
+      <div className={css.searchRow}>
+        <input
+          ref={inputRef}
+          className={css.search}
+          value={query}
+          placeholder={t('searchPlaceholder')}
+          onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={(event) => { if (event.key === 'Escape') setQuery('') }}
+          aria-label={t('searchPlaceholder')}
+        />
+        {query !== '' && (
+          <button type="button" className={css.clear} onClick={() => setQuery('')} aria-label={t('clear')}>
+            ×
+          </button>
+        )}
+      </div>
       <p className={css.hint}>{t('searchHint')}</p>
+
+      {membership !== undefined && (
+        <div className={css.filterBar} role="group" aria-label={t('scopeLabel')}>
+          {(['all', 'prio', 'blacklist', 'whitelist'] as const).map(key => (
+            <button
+              key={key}
+              type="button"
+              className={filter === key ? css.filterOn : css.filterBtn}
+              onClick={() => setFilter(key)}
+            >
+              {t(key === 'all' ? 'filterAll' : key === 'prio' ? 'filterPrio' : key === 'blacklist' ? 'filterBlack' : 'filterWhite')}
+            </button>
+          ))}
+        </div>
+      )}
 
       {failed && <p className={css.error} role="alert">{t('error')}</p>}
       {loading && <p className={css.state}>{t('loading')}</p>}
@@ -180,12 +220,41 @@ export function SkillExplorer(props: SkillExplorerProps) {
                     title={t('copyPath')}
                   >
                     {hit.name}
-                    {hit.pinned === true && <span className={css.pin}>{t('pinnedBadge')}</span>}
                   </button>
                   <span className={css.score}>{hit.score.toFixed(3)}</span>
                 </div>
                 <p className={css.description}>{hit.description}</p>
-                {copied === hit.path && <p className={css.path}>{hit.path}</p>}
+                <div className={css.rowActions}>
+                  {membership !== undefined && onAssign !== undefined && onUnassign !== undefined ? (
+                    <>
+                      {(['prio', 'blacklist', 'whitelist'] as const).map(key => {
+                        const inList = membership[key].includes(hit.path)
+                        return inList ? (
+                          <button
+                            key={key}
+                            type="button"
+                            className={css.chipOn}
+                            onClick={() => onUnassign(key, hit.path)}
+                            title={t('remove')}
+                          >
+                            {t(key === 'prio' ? 'chipPrio' : key === 'blacklist' ? 'chipBlack' : 'chipWhite')} ×
+                          </button>
+                        ) : (
+                          <button
+                            key={key}
+                            type="button"
+                            className={key === 'prio' ? css.chipPrimary : css.chip}
+                            onClick={() => onAssign(key, hit.path)}
+                            title={t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}
+                          >
+                            {t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'addBlack' : 'addWhite')}
+                          </button>
+                        )
+                      })}
+                    </>
+                  ) : null}
+                  {copied === hit.path && <span className={css.path}>{hit.path}</span>}
+                </div>
               </div>
             ))}
           </div>

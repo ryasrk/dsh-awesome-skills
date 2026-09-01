@@ -40,18 +40,17 @@ import { settingsNamespace } from './namespace.js'
 export const SETTINGS_NAMESPACE = settingsNamespace('dsh-awesome-skills')
 
 /** The fields a user may edit from the plugin-configuration card. */
-/** How the priority list acts on results. */
-export type PriorityMode = 'pin' | 'boost'
-
 export interface PluginSettings {
   /** Score with the semantic lane (requires the vendored wasm runtime). */
   semantic: boolean
-  /** Skill paths boosted above their natural rank, strongest first. */
-  boosted: string[]
-  /** Skill paths excluded from results entirely. */
-  muted: string[]
-  /** pin = hold the exact list order; boost = a scoring delta that decays by position. */
-  pinMode: PriorityMode
+  /** Skill paths loaded into context at the start of every turn, in order. */
+  prio: string[]
+  /** Skill paths hidden from search results and the catalog. */
+  blacklist: string[]
+  /** When whitelistOnly is set, only these paths are visible. */
+  whitelist: string[]
+  /** Restrict visibility to the whitelist. No effect while whitelist is empty. */
+  whitelistOnly: boolean
   /** Results returned per search, clamped to 1..25. */
   defaultK: number
   /** Candidate pool fed to the reranker before ranking. */
@@ -68,10 +67,10 @@ export interface PluginSettings {
 export const PluginSettingsSchema: ZodField = z
   .object({
     semantic: z.boolean().default(true),
-    boosted: z.array(z.string()).default([]),
-    muted: z.array(z.string()).default([]),
-    // schemastery has no z.enum; union of const literals is its enum idiom.
-    pinMode: z.union([z.const('pin'), z.const('boost')]).default('pin'),
+    prio: z.array(z.string()).default([]),
+    blacklist: z.array(z.string()).default([]),
+    whitelist: z.array(z.string()).default([]),
+    whitelistOnly: z.boolean().default(false),
     defaultK: z.number().min(1).max(25).step(1).default(5),
     pool: z.number().min(50).max(3000).step(50).default(1200),
     wLex: z.number().min(0).max(1).default(0.55),
@@ -86,9 +85,10 @@ export const PluginSettingsSchema: ZodField = z
  */
 export const PLUGIN_SETTINGS_BASE: PluginSettings = {
   semantic: true,
-  boosted: [],
-  muted: [],
-  pinMode: 'pin',
+  prio: [],
+  blacklist: [],
+  whitelist: [],
+  whitelistOnly: false,
   defaultK: 5,
   pool: 1200,
   wLex: 0.55,
