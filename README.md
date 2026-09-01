@@ -62,8 +62,8 @@ dsh plugin --profile web add github:ryasrk/dsh-awesome-skills
 
 The plugin mounts as a cordis bundle (see `cordis.patch.yml`) and, on `apply`,
 installs the bundled `skill-router` skill into `~/.agents/skills/skill-router`.
-An existing `skill-router` is never overwritten, so a hand-tuned router
-survives reinstall.
+The bundled `skill-router` is refreshed on every apply — the shipped copy is
+the source of truth for its behaviour.
 
 ## Model-facing tools
 
