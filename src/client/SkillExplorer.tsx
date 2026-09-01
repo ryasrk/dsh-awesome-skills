@@ -12,7 +12,6 @@ import type { SearchHit } from '../search.js'
 import type { en } from './locales.ts'
 import css from './SkillExplorer.module.css'
 import { IconClose, IconSearch } from './icons.tsx'
-
 /** One dictionary of the plugin's locale, whichever language is active. */
 export type Dict = typeof en
 
@@ -178,24 +177,26 @@ export function SkillExplorer(props: SkillExplorerProps) {
 
   return (
     <div className={css.section}>
-      <div className={css.searchRow}>
-        <span className={css.searchIcon}><IconSearch /></span>
-        <input
-          ref={inputRef}
-          className={css.search}
-          value={query}
-          placeholder={t('searchPlaceholder')}
-          onChange={(event) => setQuery(event.target.value)}
-          onKeyDown={(event) => { if (event.key === 'Escape') setQuery('') }}
-          aria-label={t('searchPlaceholder')}
-        />
-        {query !== '' && (
-          <button type="button" className={css.clear} onClick={() => setQuery('')} aria-label={t('clear')}>
-            ×
-          </button>
-        )}
+      <div className={css.searchBlock}>
+        <div className={css.searchRow}>
+          <span className={css.searchIcon}><IconSearch /></span>
+          <input
+            ref={inputRef}
+            className={css.search}
+            value={query}
+            placeholder={t('searchPlaceholder')}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => { if (event.key === 'Escape') setQuery('') }}
+            aria-label={t('searchPlaceholder')}
+          />
+          {query !== '' && (
+            <button type="button" className={css.clear} onClick={() => setQuery('')} aria-label={t('clear')}>
+              <IconClose size={12} />
+            </button>
+          )}
+        </div>
+        <p className={css.hint}>{t('searchHint')}</p>
       </div>
-      <p className={css.hint}>{t('searchHint')}</p>
 
       {membership !== undefined && (
         <div className={css.filterBar} role="group" aria-label={t('scopeLabel')}>
@@ -244,7 +245,8 @@ export function SkillExplorer(props: SkillExplorerProps) {
                   >
                     {hit.name}
                   </button>
-                  <span className={css.score}>{hit.score.toFixed(3)}</span>
+                  {/* One decimal: honest precision for a fuzzy ranking. */}
+                  <span className={css.score}>{hit.score.toFixed(1)}</span>
                 </div>
                 <p className={css.description}>{hit.description}</p>
                 <div className={css.rowActions}>

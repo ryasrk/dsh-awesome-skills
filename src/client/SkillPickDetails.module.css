@@ -85,26 +85,6 @@
   color: var(--dsw-alias-state-error-primary);
 }
 
-.output {
-  margin: 4px 0 0;
-  padding: 8px 10px;
-  font-size: 12px;
-  line-height: 1.55;
-  white-space: pre-wrap;
-  word-break: break-word;
-  background: var(--dsw-alias-bg-layer-2);
-  color: var(--dsw-alias-label-secondary);
-  border-radius: 8px;
-  max-height: 200px;
-  overflow: auto;
-}
-
-.truncated {
-  margin: 2px 0 0;
-  font-size: 10px;
-  color: var(--dsw-alias-label-tertiary);
-}
-
 .fallback {
   margin: 0;
   font-size: 12px;

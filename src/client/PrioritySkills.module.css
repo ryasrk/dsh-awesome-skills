@@ -334,49 +334,6 @@
   cursor: default;
 }
 
-.modeRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.mode {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
-  font: inherit;
-  font-size: 12px;
-  line-height: 1.5;
-  border: 1px solid var(--dsw-alias-border-l2);
-  border-radius: 8px;
-  background: var(--dsw-alias-bg-layer-3);
-  color: var(--dsw-alias-label-secondary);
-  cursor: pointer;
-}
-
-.mode:hover {
-  border-color: var(--dsw-alias-label-dimmed);
-}
-
-.modeOn {
-  composes: mode;
-  border-color: var(--dsw-alias-brand-primary);
-  background: var(--dsw-alias-bg-layer-2);
-  color: var(--dsw-alias-label-primary);
-  font-weight: 600;
-}
-
-.mode input {
-  accent-color: var(--dsw-alias-brand-primary);
-  margin: 0;
-}
-
-.mode:focus-within {
-  outline: 2px solid var(--dsw-alias-brand-primary);
-  outline-offset: 2px;
-}
-
 .actions {
   display: flex;
   align-items: center;

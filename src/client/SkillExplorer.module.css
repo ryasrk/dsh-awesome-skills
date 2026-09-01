@@ -35,6 +35,14 @@
   border-color: var(--dsw-alias-brand-primary);
 }
 
+/* Search block: the field and its hint move as one unit; the gap is the
+   explicit sibling spacing the old negative margin approximated. */
+.searchBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .searchRow {
   position: relative;
   display: flex;
@@ -175,7 +183,7 @@
 }
 
 .hint {
-  margin: -10px 0 0;
+  margin: 0;
   font-size: 12px;
   line-height: 1.5;
   color: var(--dsw-alias-label-tertiary);
@@ -248,18 +256,6 @@
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-.pin {
-  margin-left: 6px;
-  border-radius: 4px;
-  padding: 0 5px;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 15px;
-  background: var(--dsw-alias-bg-module-platform);
-  color: var(--dsw-alias-label-secondary);
-  white-space: nowrap;
 }
 
 .score {
@@ -343,19 +339,4 @@
   font-size: 12px;
   line-height: 1.5;
   color: var(--dsw-alias-label-error);
-}
-
-/* Band break between the explorer and the configuration card. */
-.divider {
-  border: none;
-  border-top: 1px solid var(--dsw-alias-border-l2);
-  margin: 0;
-}
-
-.configHeading {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--dsw-alias-label-primary);
-  margin: 0 0 8px;
 }

@@ -310,13 +310,6 @@
   color: var(--dsw-alias-label-success, var(--dsw-alias-label-secondary));
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px 14px;
-}
-
 /* The squint test: at a glance the card must read as title, then a stack of
    labeled rows, then actions — three visual bands, nothing else. */
 @media (max-width: 420px) {
