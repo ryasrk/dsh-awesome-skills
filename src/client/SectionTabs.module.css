@@ -92,3 +92,11 @@
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 2px;
 }
+
+/* Muted status line (loading / paused-editing placeholder in the pane). */
+.state {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}

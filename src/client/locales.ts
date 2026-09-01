@@ -83,11 +83,14 @@ export const en = {
   prioritySaved: 'All changes applied',
   priorityDiscard: 'Discard',
   prioritySaveFailed: 'Save failed — your edits are kept; retry',
+  priorityAssignFailed: 'Couldn’t apply that change — try again',
   retry: 'Retry',
   priorityLoadFailed: 'Could not load your lists. Editing is paused until they load.',
 } as const
 
-export const zh = {
+/** Record<keyof typeof en, string> makes the zh mirror a compile contract:
+    a key missing from either side is a type error, not a blank label. */
+export const zh: Record<keyof typeof en, string> = {
   sectionTitle: '技能',
   searchPlaceholder: '用你想做的事搜索 1.6 万个技能…',
   clear: '清除搜索',
@@ -166,6 +169,7 @@ export const zh = {
   prioritySaved: '所有更改已应用',
   priorityDiscard: '放弃',
   prioritySaveFailed: '保存失败 — 更改已保留，可重试',
+  priorityAssignFailed: '未能应用该更改 — 请重试',
   retry: '重试',
   priorityLoadFailed: '无法加载你的列表。加载完成前暂停编辑。',
-} as const
+}

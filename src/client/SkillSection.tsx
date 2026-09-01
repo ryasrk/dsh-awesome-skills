@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import css from './SectionTabs.module.css'
 import { SkillExplorer, type SkillExplorerProps } from './SkillExplorer.tsx'
 import { SettingsCard, type SettingsCardProps } from './SettingsCard.tsx'
-import { PrioritySkills, type PrioritySkillsProps, type PriorityState } from './PrioritySkills.tsx'
+import { PrioritySkills, type PriorityState } from './PrioritySkills.tsx'
 
 /** Shape of the priority route's response. */
 interface PriorityResponse {
@@ -40,8 +40,6 @@ export interface SkillSectionProps {
   labels: Record<SectionTab, string> & { section: string }
   /** Explorer props, forwarded; its hits feed the priority picker. */
   explorer: Omit<SkillExplorerProps, 'onHits'>
-  /** Priority props, forwarded. */
-  priority: Omit<PrioritySkillsProps, 't'>
 }
 
 /**
@@ -49,7 +47,7 @@ export interface SkillSectionProps {
  * @param props - locale, scope, labels, and the forwarded pane props.
  */
 export function SkillSection(props: SkillSectionProps) {
-  const { t, scope, labels, explorer, priority } = props
+  const { t, scope, labels, explorer } = props
   const [tab, setTab] = useState<SectionTab>('search')
   const [pending, setPending] = useState(false)
   /** The explorer's latest hits, offered to the priority picker. */
@@ -58,7 +56,7 @@ export function SkillSection(props: SkillSectionProps) {
   /** Applied priority lists, as the route returns them. */
   const [applied, setApplied] = useState<PriorityState>({ prio: [], blacklist: [], whitelist: [] })
   /** True once the initial load has answered (ok or failed), so optimistic
-      edits never build on an unloaded base (lost-update hole). */
+   *  edits never build on an unloaded base (lost-update hole). */
   const [loaded, setLoaded] = useState(false)
   /** Initial-load failure: editing pauses until Retry succeeds. */
   const [loadFailed, setLoadFailed] = useState(false)
@@ -98,8 +96,31 @@ export function SkillSection(props: SkillSectionProps) {
     setPending(false)
   }, [])
 
+  /** The one loader for the applied lists: used by the mount effect and the
+   *  Retry button, so their success predicate and error handling cannot
+   *  drift. Sequence-guarded, so a stale answer never paints. */
+  const loadSeq = useRef(0)
+  const loadPriority = useCallback(async (): Promise<void> => {
+    const seq = ++loadSeq.current
+    setLoadFailed(false)
+    try {
+      const response = await fetch(api('/dsh-awesome-skills/priority'))
+      const body = (await response.json()) as PriorityResponse
+      if (seq !== loadSeq.current) return
+      if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) {
+        throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
+      }
+      setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
+      setLoaded(true)
+    } catch {
+      if (seq === loadSeq.current) setLoadFailed(true)
+    }
+  }, [])
+
+  useEffect(() => { void loadPriority() }, [loadPriority])
+
   const savePriority = useCallback(async (): Promise<void> => {
-    if (staged === undefined) return
+    if (staged === undefined || !loaded) return
     setSaveFailed(false)
     try {
       const response = await fetch(api('/dsh-awesome-skills/priority'), {
@@ -119,13 +140,15 @@ export function SkillSection(props: SkillSectionProps) {
       // The staged edits stand so Retry re-posts them unchanged.
       setSaveFailed(true)
     }
-  }, [staged])
+  }, [staged, loaded])
 
   /**
    * One skill, one list, one click: add or remove a path in a single list and
-   * commit it immediately. The POST is the same writer the Priority tab's Save
-   * uses, so the two surfaces cannot disagree; the applied state updates from
-   * the route's answer, and a failed call rolls the optimistic edit back and
+   * commit it immediately. The POST carries every staged edit plus the chip
+   * change, so it is the same writer the Priority tab's Save is — the two
+   * surfaces cannot disagree about what the server's lists are. The applied
+   * state updates from the route's answer; a failed call rolls back to the
+   * pre-click truth (staged edits stay staged, applied lists revert) and
    * shows a retry line instead of leaving the row lying about its state.
    *
    * Guards: assigns wait for the initial load (otherwise an edit built on an
@@ -140,30 +163,36 @@ export function SkillSection(props: SkillSectionProps) {
     remove: boolean,
   ): Promise<void> => {
     if (!loaded) return
-    const base = staged ?? applied
+    const hadStaged = staged !== undefined
+    const prevApplied = applied
+    const base = hadStaged ? { ...staged, [key]: Array.isArray(staged[key]) ? staged[key] : [] } : applied
     const current = Array.isArray(base[key]) ? base[key] : []
     const nextList = remove ? current.filter(p => p !== path) : [...current, path]
+    const body = { ...base, [key]: nextList }
     const seq = ++assignSeq.current
     // Optimistic: paint the new chip state before the round trip.
-    setApplied({ ...base, [key]: nextList })
-    setStaged(undefined)
+    setApplied(body)
+    if (hadStaged) setStaged(undefined)
+    setPending(false)
     setAssignFailed(false)
     try {
       const response = await fetch(api('/dsh-awesome-skills/priority'), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ [key]: nextList }),
+        body: JSON.stringify(body),
       })
-      const body = (await response.json()) as PriorityResponse
+      const result = (await response.json()) as PriorityResponse
       if (seq !== assignSeq.current) return // a newer assign owns the state now
-      if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) {
-        throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
+      if (!response.ok || !result.ok || !Array.isArray(result.prio) || !Array.isArray(result.blacklist) || !Array.isArray(result.whitelist)) {
+        throw new Error(result.ok === false && typeof result.error === 'string' ? result.error : `HTTP ${response.status}`)
       }
-      setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
+      setApplied({ prio: result.prio, blacklist: result.blacklist, whitelist: result.whitelist })
     } catch {
       if (seq !== assignSeq.current) return
-      // Roll the optimistic paint back; the next click re-reads applied.
-      setApplied(base)
+      // Roll back to the pre-click truth: applied lists revert and staged
+      // edits (if any) stay staged, so nothing unsaved reads as applied.
+      setApplied(prevApplied)
+      if (hadStaged) setStaged(base)
       setAssignFailed(true)
     }
   }, [applied, staged, loaded])
@@ -197,25 +226,10 @@ export function SkillSection(props: SkillSectionProps) {
       {loadFailed && (
         <div className={css.loadError} role="alert">
           <span>{t('priorityLoadFailed')}</span>
-          <button type="button" className={css.retryBtn} onClick={() => {
-            // Re-run the load effect by remounting this section's state via a
-            // keyless retry: flip loadFailed off and re-fetch inline.
-            setLoadFailed(false)
-            void (async () => {
-              try {
-                const response = await fetch(api('/dsh-awesome-skills/priority'))
-                const body = (await response.json()) as PriorityResponse
-                if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) throw new Error('retry failed')
-                setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
-                setLoaded(true)
-              } catch {
-                setLoadFailed(true)
-              }
-            })()
-          }}>{t('retry')}</button>
+          <button type="button" className={css.retryBtn} onClick={() => { void loadPriority() }}>{t('retry')}</button>
         </div>
       )}
-      {assignFailed && <div className={css.loadError} role="alert">{t('error')}</div>}
+      {assignFailed && <div className={css.loadError} role="alert">{t('priorityAssignFailed')}</div>}
 
       {tab === 'search' && (
         <SkillExplorer
@@ -226,17 +240,20 @@ export function SkillSection(props: SkillSectionProps) {
           onUnassign={(key, path) => { void assign(key, path, true) }}
         />
       )}
-      {tab === 'priority' && (
-        <PrioritySkills
-          t={t}
-          state={staged ?? applied}
-          onChange={(next) => { setStaged(next); setPending(true) }}
-          suggestions={hits}
-          onApply={savePriority}
-          applied={applied}
-          saveFailed={saveFailed}
-          onDiscard={discardPriority}
-        />
+      {tab === 'priority' && (loaded
+        ? (
+          <PrioritySkills
+            t={t}
+            state={staged ?? applied}
+            onChange={(next) => { setStaged(next); setPending(true) }}
+            suggestions={hits}
+            onApply={savePriority}
+            applied={applied}
+            saveFailed={saveFailed}
+            onDiscard={discardPriority}
+          />
+        )
+        : <p className={css.state}>{loadFailed ? t('priorityLoadFailed') : t('loading')}</p>
       )}
       {tab === 'config' && <SettingsCard scope={scope} />}
     </div>

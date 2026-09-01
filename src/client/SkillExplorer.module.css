@@ -286,6 +286,13 @@
   word-break: break-all;
 }
 
+/* Same box while inert, so the live region never enters or leaves the tree. */
+.pathInert {
+  composes: path;
+  color: transparent;
+  user-select: none;
+}
+
 /* Copy failure reads as an error, not a mysterious empty path line. */
 .copyError {
   composes: path;

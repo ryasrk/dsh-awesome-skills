@@ -23,11 +23,13 @@ interface FieldState {
   overridden: boolean
 }
 
-/** Field descriptor: key, copy keys, control kind, and numeric bounds.
-    Both `key` and the copy keys are typed so a missing dictionary key or a
-    key/FieldKey mismatch is a compile error, not a blank control at runtime. */
-type FieldDescriptor<K extends FieldKey = FieldKey> = {
-  key: K
+/**
+ * Field descriptor: key, copy keys, control kind, and numeric bounds.
+ * Both `key` and the copy keys are typed so a missing dictionary key or a
+ * key/FieldKey mismatch is a compile error, not a blank control at runtime.
+ */
+type FieldDescriptor = {
+  key: FieldKey
   label: keyof typeof DICT['en']
   hint: keyof typeof DICT['en']
   kind: 'toggle' | 'number' | 'scope'
@@ -49,8 +51,9 @@ const FIELDS: readonly FieldDescriptor[] = [
 type FieldKey = 'semantic' | 'defaultK' | 'pool' | 'wLex' | 'wGram' | 'autoRoute' | 'whitelistOnly'
 
 /** Localized copy. zh mirrors en key-for-key so a missing key is a typo, not a gap. */
-const DICT = {
-  en: {    cardTitle: 'dsh-awesome-skills',
+const DICT: { en: Record<string, string>; zh: Record<keyof typeof DICT['en'], string> } = {
+  en: {
+    cardTitle: 'dsh-awesome-skills',
     cardDescription: 'Semantic search over the local 16,000-skill corpus',
     fieldSemantic: 'Semantic lane',
     fieldSemanticHint: 'Vector similarity (wasm). Off falls back to lexical + n-gram only',
@@ -93,7 +96,7 @@ const DICT = {
     save: '保存', discard: '放弃', saved: '已保存', failed: '保存失败 — 重试',
     overridden: '已覆盖', revert: '还原',
   },
-} as const
+}
 
 export interface SettingsCardProps {
   /** The bound settings scope for this plugin's namespace. */

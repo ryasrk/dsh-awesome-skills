@@ -92,7 +92,6 @@ export function apply(ctx: ClientContext): void {
               config: t('tabConfig'),
             }}
             explorer={{ t: t as never }}
-            priority={{} as never}
           />
         ),
       ))

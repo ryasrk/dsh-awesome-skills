@@ -214,11 +214,15 @@ export function SkillExplorer(props: SkillExplorerProps) {
       )}
 
       {failed && <p className={css.error} role="alert">{t('error')}</p>}
-      {loading && <p className={css.state} aria-live="polite">{t('loading')}</p>}
+      {/* A live region must exist in the DOM before its text changes to be
+          announced reliably, so this one stays mounted and swaps content. */}
+      <p className={css.state} role="status" aria-live="polite">
+        {loading ? t('loading') : ''}
+      </p>
 
       {!loading && !failed && results !== undefined && (
         <>
-          <p className={css.meta} aria-live="polite">
+          <p className={css.meta}>
             {template(t('results'), list.length)}
             {count > 0 && ` · ${template(t('corpusCount'), count)}`}
           </p>
@@ -275,15 +279,19 @@ export function SkillExplorer(props: SkillExplorerProps) {
                       })}
                     </>
                   ) : null}
-                  {copied !== undefined && copied.path === hit.path && (
-                    <span
-                      className={copied.ok ? css.path : css.copyError}
-                      role="status"
-                      aria-live="polite"
-                    >
-                      {copied.ok ? hit.path : t('copyFailed')}
-                    </span>
-                  )}
+                  {/* Kept mounted so the live region exists before its text
+                      changes; empty text is nothing to announce. */}
+                  <span
+                    className={copied !== undefined && copied.path === hit.path
+                      ? (copied.ok ? css.path : css.copyError)
+                      : css.pathInert}
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {copied !== undefined && copied.path === hit.path
+                      ? (copied.ok ? hit.path : t('copyFailed'))
+                      : ''}
+                  </span>
                 </div>
               </div>
             ))}
