@@ -343,3 +343,37 @@
   line-height: 1.5;
   color: var(--dsw-alias-label-error);
 }
+
+/* Search failure with its recovery action, one row. */
+.errorRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-error);
+}
+
+.retryBtn {
+  appearance: none;
+  border: 1px solid var(--dsw-alias-label-error);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.retryBtn:hover {
+  background: var(--dsw-alias-interactive-bg-hover-danger, var(--dsw-alias-interactive-bg-hover));
+}
+
+.retryBtn:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}

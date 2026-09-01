@@ -189,6 +189,15 @@
   outline-offset: -2px;
 }
 
+/* Filtered-down-to-nothing note inside the open combobox. */
+.noMatch {
+  margin: 0;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}
+
 /* The list-target choice: the host's segmented-control vocabulary. */
 .segGroup {
   display: inline-flex;

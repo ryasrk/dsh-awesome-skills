@@ -13,17 +13,17 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"tab": "jsPfLW_tab",
-	"tabs": "jsPfLW_tabs",
+	"loadError": "jsPfLW_loadError",
 	"retryBtn": "jsPfLW_retryBtn",
 	"state": "jsPfLW_state",
 	"tabOn": "jsPfLW_tabOn",
 	"dot": "jsPfLW_dot",
-	"loadError": "jsPfLW_loadError"
+	"tabs": "jsPfLW_tabs",
+	"tab": "jsPfLW_tab"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
-const css$3 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_searchBlock{flex-direction:column;gap:8px;display:flex}.vc1x0a_searchRow{align-items:center;display:flex;position:relative}.vc1x0a_searchIcon{color:var(--dsw-alias-label-tertiary);pointer-events:none;display:inline-flex;position:absolute;left:10px}.vc1x0a_search{padding-left:32px;padding-right:38px}.vc1x0a_clear{-webkit-appearance:none;appearance:none;background:var(--dsw-alias-bg-module-platform);width:24px;height:24px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:999px;justify-content:center;align-items:center;font-size:14px;line-height:1;display:inline-flex;position:absolute;right:8px}.vc1x0a_clear:hover{color:var(--dsw-alias-label-primary)}.vc1x0a_clear:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_search{padding-right:38px}.vc1x0a_filterBar{flex-wrap:wrap;gap:6px;display:flex}.vc1x0a_filterBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:999px;padding:3px 12px;font-size:12px;line-height:1.5}.vc1x0a_filterBtn:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_filterBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_filterOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.vc1x0a_rowActions{flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;display:flex}.vc1x0a_chip{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:7px;padding:3px 10px;font-size:11px;font-weight:500;line-height:1.4;transition:background .15s,color .15s,border-color .15s}.vc1x0a_chip:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_chip:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_chipPrimary{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);font-weight:600;}.vc1x0a_chipPrimary:hover{background:var(--dsw-alias-button-primary-hover)}.vc1x0a_chipOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-style:dashed;}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{animation:.18s cubic-bezier(.16,1,.3,1) both vc1x0a_resultIn}.vc1x0a_result:hover{background:var(--dsw-alias-interactive-bg-hover)}@keyframes vc1x0a_resultIn{0%{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.vc1x0a_result{animation:none}}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_pathInert{color:#0000;-webkit-user-select:none;user-select:none;}.vc1x0a_copyError{color:var(--dsw-alias-label-error);}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_empty{text-align:center;border:1px dashed var(--dsw-alias-border-l2);border-radius:10px;flex-direction:column;gap:4px;padding:28px 16px;display:flex}.vc1x0a_emptyTitle{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.vc1x0a_emptyBody{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}";
+const css$3 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_searchBlock{flex-direction:column;gap:8px;display:flex}.vc1x0a_searchRow{align-items:center;display:flex;position:relative}.vc1x0a_searchIcon{color:var(--dsw-alias-label-tertiary);pointer-events:none;display:inline-flex;position:absolute;left:10px}.vc1x0a_search{padding-left:32px;padding-right:38px}.vc1x0a_clear{-webkit-appearance:none;appearance:none;background:var(--dsw-alias-bg-module-platform);width:24px;height:24px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:999px;justify-content:center;align-items:center;font-size:14px;line-height:1;display:inline-flex;position:absolute;right:8px}.vc1x0a_clear:hover{color:var(--dsw-alias-label-primary)}.vc1x0a_clear:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_search{padding-right:38px}.vc1x0a_filterBar{flex-wrap:wrap;gap:6px;display:flex}.vc1x0a_filterBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:999px;padding:3px 12px;font-size:12px;line-height:1.5}.vc1x0a_filterBtn:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_filterBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_filterOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.vc1x0a_rowActions{flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;display:flex}.vc1x0a_chip{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:7px;padding:3px 10px;font-size:11px;font-weight:500;line-height:1.4;transition:background .15s,color .15s,border-color .15s}.vc1x0a_chip:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_chip:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_chipPrimary{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);font-weight:600;}.vc1x0a_chipPrimary:hover{background:var(--dsw-alias-button-primary-hover)}.vc1x0a_chipOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-style:dashed;}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{animation:.18s cubic-bezier(.16,1,.3,1) both vc1x0a_resultIn}.vc1x0a_result:hover{background:var(--dsw-alias-interactive-bg-hover)}@keyframes vc1x0a_resultIn{0%{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.vc1x0a_result{animation:none}}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_pathInert{color:#0000;-webkit-user-select:none;user-select:none;}.vc1x0a_copyError{color:var(--dsw-alias-label-error);}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_empty{text-align:center;border:1px dashed var(--dsw-alias-border-l2);border-radius:10px;flex-direction:column;gap:4px;padding:28px 16px;display:flex}.vc1x0a_emptyTitle{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.vc1x0a_emptyBody{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_errorRow{color:var(--dsw-alias-label-error);align-items:center;gap:10px;margin:8px 0 0;font-size:12px;line-height:1.5;display:flex}.vc1x0a_retryBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-label-error);color:inherit;font:inherit;cursor:pointer;background:0 0;border-radius:6px;padding:5px 10px;font-size:12px;font-weight:600;line-height:1}.vc1x0a_retryBtn:hover{background:var(--dsw-alias-interactive-bg-hover-danger,var(--dsw-alias-interactive-bg-hover))}.vc1x0a_retryBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}";
 const tagId$3 = "dsh-awesome-skills/SkillExplorer_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 	const tag = document.createElement("style");
@@ -33,36 +33,38 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
+	"search": "vc1x0a_search",
+	"resultIn": "vc1x0a_resultIn",
+	"searchIcon": "vc1x0a_searchIcon",
+	"searchRow": "vc1x0a_searchRow",
 	"state": "vc1x0a_state",
 	"emptyBody": "vc1x0a_emptyBody",
-	"error": "vc1x0a_error",
+	"retryBtn": "vc1x0a_retryBtn",
+	"chipOn": "vc1x0a_chipOn",
+	"path": "vc1x0a_path",
 	"pathInert": "vc1x0a_pathInert",
 	"copyError": "vc1x0a_copyError",
-	"result": "vc1x0a_result",
 	"hint": "vc1x0a_hint",
-	"path": "vc1x0a_path",
+	"chip": "vc1x0a_chip",
+	"result": "vc1x0a_result",
+	"error": "vc1x0a_error",
+	"errorRow": "vc1x0a_errorRow",
+	"filterOn": "vc1x0a_filterOn",
+	"empty": "vc1x0a_empty",
+	"description": "vc1x0a_description",
+	"rowActions": "vc1x0a_rowActions",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"resultHead": "vc1x0a_resultHead",
+	"section": "vc1x0a_section",
+	"meta": "vc1x0a_meta",
+	"clear": "vc1x0a_clear",
+	"filterBar": "vc1x0a_filterBar",
+	"name": "vc1x0a_name",
+	"filterBtn": "vc1x0a_filterBtn",
+	"results": "vc1x0a_results",
 	"score": "vc1x0a_score",
 	"emptyTitle": "vc1x0a_emptyTitle",
-	"searchBlock": "vc1x0a_searchBlock",
-	"chipOn": "vc1x0a_chipOn",
-	"resultIn": "vc1x0a_resultIn",
-	"meta": "vc1x0a_meta",
-	"search": "vc1x0a_search",
-	"searchRow": "vc1x0a_searchRow",
-	"filterOn": "vc1x0a_filterOn",
-	"section": "vc1x0a_section",
-	"rowActions": "vc1x0a_rowActions",
-	"chip": "vc1x0a_chip",
-	"chipPrimary": "vc1x0a_chipPrimary",
-	"description": "vc1x0a_description",
-	"empty": "vc1x0a_empty",
-	"resultHead": "vc1x0a_resultHead",
-	"filterBar": "vc1x0a_filterBar",
-	"searchIcon": "vc1x0a_searchIcon",
-	"results": "vc1x0a_results",
-	"filterBtn": "vc1x0a_filterBtn",
-	"clear": "vc1x0a_clear",
-	"name": "vc1x0a_name"
+	"searchBlock": "vc1x0a_searchBlock"
 };
 //#endregion
 //#region src/client/icons.tsx
@@ -305,10 +307,34 @@ function SkillExplorer(props) {
 					children: t(key === "all" ? "filterAll" : key === "prio" ? "filterPrio" : key === "blacklist" ? "filterBlack" : "filterWhite")
 				}, key))
 			}),
-			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-				className: _dsh_css_SkillExplorer_module_css_default.error,
+			failed && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SkillExplorer_module_css_default.errorRow,
 				role: "alert",
-				children: t("error")
+				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: t("error") }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: _dsh_css_SkillExplorer_module_css_default.retryBtn,
+					onClick: () => {
+						setQuery((current) => current);
+						const trimmed = query.trim();
+						if (trimmed === "") return;
+						setLoading(true);
+						const seq = ++seqRef.current;
+						runQuery(trimmed, 8).then((body) => {
+							if (seq !== seqRef.current) return;
+							if (body.ok) {
+								setResults(body.results);
+								setCount(body.count);
+								setFailed(false);
+								onHits?.(body.results.map((r) => ({
+									path: r.path,
+									name: r.name
+								})));
+							} else setFailed(true);
+							setLoading(false);
+						});
+					},
+					children: t("retry")
+				})]
 			}),
 			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 				className: _dsh_css_SkillExplorer_module_css_default.state,
@@ -319,6 +345,8 @@ function SkillExplorer(props) {
 			!loading && !failed && results !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
 				/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", {
 					className: _dsh_css_SkillExplorer_module_css_default.meta,
+					role: "status",
+					"aria-live": "polite",
 					children: [template(t("results"), list.length), count > 0 && ` · ${template(t("corpusCount"), count)}`]
 				}),
 				list.length === 0 && query.trim() !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -401,32 +429,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
+	"revert": "alOFIW_revert",
+	"alert": "alOFIW_alert",
+	"body": "alOFIW_body",
+	"spacer": "alOFIW_spacer",
 	"badge": "alOFIW_badge",
-	"segOn": "alOFIW_segOn",
-	"label": "alOFIW_label",
-	"name": "alOFIW_name",
-	"segmented": "alOFIW_segmented",
+	"field": "alOFIW_field",
+	"control": "alOFIW_control",
 	"inputInvalid": "alOFIW_inputInvalid",
+	"card": "alOFIW_card",
+	"label": "alOFIW_label",
+	"description": "alOFIW_description",
+	"head": "alOFIW_head",
+	"invalid": "alOFIW_invalid",
+	"segOn": "alOFIW_segOn",
+	"segmented": "alOFIW_segmented",
 	"actions": "alOFIW_actions",
 	"header": "alOFIW_header",
-	"field": "alOFIW_field",
-	"invalid": "alOFIW_invalid",
-	"seg": "alOFIW_seg",
-	"input": "alOFIW_input",
-	"spacer": "alOFIW_spacer",
-	"description": "alOFIW_description",
+	"toggle": "alOFIW_toggle",
+	"button": "alOFIW_button",
+	"hint": "alOFIW_hint",
 	"primary": "alOFIW_primary",
-	"alert": "alOFIW_alert",
-	"control": "alOFIW_control",
 	"saved": "alOFIW_saved",
 	"dshasSpin": "alOFIW_dshasSpin",
-	"head": "alOFIW_head",
-	"revert": "alOFIW_revert",
-	"hint": "alOFIW_hint",
-	"card": "alOFIW_card",
-	"button": "alOFIW_button",
-	"body": "alOFIW_body",
-	"toggle": "alOFIW_toggle"
+	"name": "alOFIW_name",
+	"input": "alOFIW_input",
+	"seg": "alOFIW_seg"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -774,7 +802,7 @@ function validNumber(draft, min, max) {
 }
 //#endregion
 //#region \0dsh-css:PrioritySkills_module_css.mjs
-const css$1 = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_block+.bm5jra_block{border-top:1px solid var(--dsw-alias-border-l2);margin-top:24px;padding-top:20px}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;transition:background .15s;display:flex}.bm5jra_row:hover{background:var(--dsw-alias-bg-layer-2)}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_combo{flex:1;min-width:220px;position:relative}.bm5jra_options{z-index:10;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);box-shadow:0 4px 16px var(--dsw-alias-shadow-popover,#0003);border-radius:8px;max-height:220px;margin:0;padding:4px;list-style:none;position:absolute;top:calc(100% + 4px);left:0;right:0;overflow:auto}.bm5jra_option{-webkit-appearance:none;appearance:none;width:100%;font:inherit;text-align:left;color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;border:0;border-radius:6px;padding:6px 8px;font-size:12px;line-height:1.5;display:block}.bm5jra_option:hover,.bm5jra_optionOn{background:var(--dsw-alias-interactive-bg-hover)}.bm5jra_option:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px}.bm5jra_segGroup{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:8px;gap:2px;padding:2px;display:inline-flex}.bm5jra_seg{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;border-radius:6px;align-items:center;gap:6px;padding:4px 10px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_seg input{clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;margin:-1px;position:absolute;overflow:hidden}.bm5jra_seg:hover{color:var(--dsw-alias-label-primary)}.bm5jra_segOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_seg:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_seg:has(input:focus-visible){outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_vh{clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;margin:-1px;position:absolute;overflow:hidden}.bm5jra_warn{color:var(--dsw-alias-label-error);margin:6px 0 0;font-size:12px;line-height:1.5}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_danger{border-color:var(--dsw-alias-label-error);color:var(--dsw-alias-label-error);background:0 0;}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}.bm5jra_diff{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);font-size:12px;line-height:1.5}";
+const css$1 = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_block+.bm5jra_block{border-top:1px solid var(--dsw-alias-border-l2);margin-top:24px;padding-top:20px}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;transition:background .15s;display:flex}.bm5jra_row:hover{background:var(--dsw-alias-bg-layer-2)}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_combo{flex:1;min-width:220px;position:relative}.bm5jra_options{z-index:10;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);box-shadow:0 4px 16px var(--dsw-alias-shadow-popover,#0003);border-radius:8px;max-height:220px;margin:0;padding:4px;list-style:none;position:absolute;top:calc(100% + 4px);left:0;right:0;overflow:auto}.bm5jra_option{-webkit-appearance:none;appearance:none;width:100%;font:inherit;text-align:left;color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;border:0;border-radius:6px;padding:6px 8px;font-size:12px;line-height:1.5;display:block}.bm5jra_option:hover,.bm5jra_optionOn{background:var(--dsw-alias-interactive-bg-hover)}.bm5jra_option:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px}.bm5jra_noMatch{color:var(--dsw-alias-label-tertiary);margin:0;padding:6px 8px;font-size:12px;line-height:1.5}.bm5jra_segGroup{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:8px;gap:2px;padding:2px;display:inline-flex}.bm5jra_seg{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;border-radius:6px;align-items:center;gap:6px;padding:4px 10px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_seg input{clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;margin:-1px;position:absolute;overflow:hidden}.bm5jra_seg:hover{color:var(--dsw-alias-label-primary)}.bm5jra_segOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_seg:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_seg:has(input:focus-visible){outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_vh{clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;margin:-1px;position:absolute;overflow:hidden}.bm5jra_warn{color:var(--dsw-alias-label-error);margin:6px 0 0;font-size:12px;line-height:1.5}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_danger{border-color:var(--dsw-alias-label-error);color:var(--dsw-alias-label-error);background:0 0;}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}.bm5jra_diff{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);font-size:12px;line-height:1.5}";
 const tagId$1 = "dsh-awesome-skills/PrioritySkills_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 	const tag = document.createElement("style");
@@ -784,35 +812,36 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"optionOn": "bm5jra_optionOn",
-	"primary": "bm5jra_primary",
-	"state": "bm5jra_state",
-	"block": "bm5jra_block",
-	"button": "bm5jra_button",
-	"segOn": "bm5jra_segOn",
-	"danger": "bm5jra_danger",
-	"hint": "bm5jra_hint",
-	"input": "bm5jra_input",
-	"empty": "bm5jra_empty",
-	"path": "bm5jra_path",
-	"row": "bm5jra_row",
-	"heading": "bm5jra_heading",
-	"segGroup": "bm5jra_segGroup",
-	"ctl": "bm5jra_ctl",
-	"grow": "bm5jra_grow",
-	"option": "bm5jra_option",
 	"diff": "bm5jra_diff",
 	"list": "bm5jra_list",
+	"noMatch": "bm5jra_noMatch",
+	"root": "bm5jra_root",
+	"ctl": "bm5jra_ctl",
+	"path": "bm5jra_path",
+	"optionOn": "bm5jra_optionOn",
+	"segOn": "bm5jra_segOn",
+	"segGroup": "bm5jra_segGroup",
+	"state": "bm5jra_state",
+	"primary": "bm5jra_primary",
+	"block": "bm5jra_block",
+	"options": "bm5jra_options",
+	"controls": "bm5jra_controls",
+	"seg": "bm5jra_seg",
+	"input": "bm5jra_input",
+	"empty": "bm5jra_empty",
+	"vh": "bm5jra_vh",
+	"hint": "bm5jra_hint",
+	"danger": "bm5jra_danger",
 	"rank": "bm5jra_rank",
-	"combo": "bm5jra_combo",
+	"addRow": "bm5jra_addRow",
 	"warn": "bm5jra_warn",
 	"actions": "bm5jra_actions",
-	"addRow": "bm5jra_addRow",
-	"controls": "bm5jra_controls",
-	"vh": "bm5jra_vh",
-	"root": "bm5jra_root",
-	"options": "bm5jra_options",
-	"seg": "bm5jra_seg"
+	"heading": "bm5jra_heading",
+	"row": "bm5jra_row",
+	"option": "bm5jra_option",
+	"button": "bm5jra_button",
+	"grow": "bm5jra_grow",
+	"combo": "bm5jra_combo"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -1128,52 +1157,60 @@ function PrioritySkills(props) {
 						className: _dsh_css_PrioritySkills_module_css_default.addRow,
 						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 							className: _dsh_css_PrioritySkills_module_css_default.combo,
-							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-								id: "dshas-combo-input",
-								className: _dsh_css_PrioritySkills_module_css_default.input,
-								value: draft,
-								placeholder: t("pathPlaceholder"),
-								role: "combobox",
-								"aria-labelledby": "dshas-add-heading",
-								"aria-expanded": open && options.length > 0,
-								"aria-controls": "dshas-combo-list",
-								"aria-autocomplete": "list",
-								"aria-activedescendant": open && activeIndex >= 0 && options[activeIndex] !== void 0 ? `dshas-combo-opt-${activeIndex}` : void 0,
-								autoComplete: "off",
-								spellCheck: false,
-								onChange: (e) => {
-									setDraft(e.target.value);
-									setOpen(true);
-									setActiveIndex(-1);
-									setAddNote(void 0);
-								},
-								onFocus: () => setOpen(true),
-								onBlur: () => {
-									setOpen(false);
-									setActiveIndex(-1);
-								},
-								onKeyDown: onPickerKeyDown
-							}), open && options.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ul", {
-								className: _dsh_css_PrioritySkills_module_css_default.options,
-								id: "dshas-combo-list",
-								role: "listbox",
-								children: options.map((option, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("li", {
-									role: "presentation",
-									children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-										type: "button",
-										role: "option",
-										id: `dshas-combo-opt-${index}`,
-										"aria-selected": index === activeIndex,
-										className: index === activeIndex ? _dsh_css_PrioritySkills_module_css_default.optionOn : _dsh_css_PrioritySkills_module_css_default.option,
-										onMouseDown: (event) => {
-											event.preventDefault();
-											pick(option.path);
-										},
-										onMouseEnter: () => setActiveIndex(index),
-										children: option.name
-									})
-								}, option.path))
-							})]
+							children: [
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+									id: "dshas-combo-input",
+									className: _dsh_css_PrioritySkills_module_css_default.input,
+									value: draft,
+									placeholder: t("pathPlaceholder"),
+									role: "combobox",
+									"aria-labelledby": "dshas-add-heading",
+									"aria-expanded": open && options.length > 0,
+									"aria-controls": "dshas-combo-list",
+									"aria-autocomplete": "list",
+									"aria-activedescendant": open && activeIndex >= 0 && options[activeIndex] !== void 0 ? `dshas-combo-opt-${activeIndex}` : void 0,
+									autoComplete: "off",
+									spellCheck: false,
+									onChange: (e) => {
+										setDraft(e.target.value);
+										setOpen(true);
+										setActiveIndex(-1);
+										setAddNote(void 0);
+									},
+									onFocus: () => setOpen(true),
+									onBlur: () => {
+										setOpen(false);
+										setActiveIndex(-1);
+									},
+									onKeyDown: onPickerKeyDown
+								}),
+								open && options.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("ul", {
+									className: _dsh_css_PrioritySkills_module_css_default.options,
+									id: "dshas-combo-list",
+									role: "listbox",
+									children: options.map((option, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("li", {
+										role: "presentation",
+										children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+											type: "button",
+											role: "option",
+											id: `dshas-combo-opt-${index}`,
+											"aria-selected": index === activeIndex,
+											className: index === activeIndex ? _dsh_css_PrioritySkills_module_css_default.optionOn : _dsh_css_PrioritySkills_module_css_default.option,
+											onMouseDown: (event) => {
+												event.preventDefault();
+												pick(option.path);
+											},
+											onMouseEnter: () => setActiveIndex(index),
+											children: option.name
+										})
+									}, option.path))
+								}),
+								open && options.length === 0 && suggestions.length > 0 && draft.trim() !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+									className: _dsh_css_PrioritySkills_module_css_default.noMatch,
+									role: "status",
+									children: t("noMatch")
+								})
+							]
 						}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
 							className: _dsh_css_PrioritySkills_module_css_default.segGroup,
 							role: "radiogroup",
@@ -1320,62 +1357,24 @@ function SkillSection(props) {
 	(0, react.useEffect)(() => {
 		loadPriority();
 	}, [loadPriority]);
-	const savePriority = (0, react.useCallback)(async () => {
-		if (staged === void 0 || !loaded) return;
-		setSaveFailed(false);
-		try {
-			const response = await fetch(api("/dsh-awesome-skills/priority"), {
-				method: "POST",
-				headers: { "content-type": "application/json" },
-				body: JSON.stringify(staged)
-			});
-			const body = await response.json();
-			if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) throw new Error(body.ok === false && typeof body.error === "string" ? body.error : `HTTP ${response.status}`);
-			setApplied({
-				prio: body.prio,
-				blacklist: body.blacklist,
-				whitelist: body.whitelist
-			});
-			setStaged(void 0);
-			setPending(false);
-			setLoaded(true);
-		} catch {
-			setSaveFailed(true);
-		}
-	}, [staged, loaded]);
 	/**
-	* One skill, one list, one click: add or remove a path in a single list and
-	* commit it immediately. The POST carries every staged edit plus the chip
-	* change, so it is the same writer the Priority tab's Save is — the two
-	* surfaces cannot disagree about what the server's lists are. The applied
-	* state updates from the route's answer; a failed call rolls back to the
-	* pre-click truth (staged edits stay staged, applied lists revert) and
-	* shows a retry line instead of leaving the row lying about its state.
-	*
-	* Guards: assigns wait for the initial load (otherwise an edit built on an
-	* unloaded base would overwrite the server's lists), and a sequence counter
-	* makes a slow earlier POST unable to overwrite the answer to a newer one.
+	* Every write to the priority route — Save and chip assigns — draws from
+	* one sequence counter, so a slow earlier write can never overwrite the
+	* answer to a newer one, whichever surface issued it.
 	*/
-	const assignSeq = (0, react.useRef)(0);
+	const writeSeq = (0, react.useRef)(0);
 	const [assignFailed, setAssignFailed] = (0, react.useState)(false);
 	const assign = (0, react.useCallback)(async (key, path, remove) => {
 		if (!loaded) return;
-		const hadStaged = staged !== void 0;
 		const prevApplied = applied;
-		const base = hadStaged ? {
-			...staged,
-			[key]: Array.isArray(staged[key]) ? staged[key] : []
-		} : applied;
-		const current = Array.isArray(base[key]) ? base[key] : [];
+		const current = Array.isArray(applied[key]) ? applied[key] : [];
 		const nextList = remove ? current.filter((p) => p !== path) : [...current, path];
 		const body = {
-			...base,
+			...applied,
 			[key]: nextList
 		};
-		const seq = ++assignSeq.current;
+		const seq = ++writeSeq.current;
 		setApplied(body);
-		if (hadStaged) setStaged(void 0);
-		setPending(false);
 		setAssignFailed(false);
 		try {
 			const response = await fetch(api("/dsh-awesome-skills/priority"), {
@@ -1384,24 +1383,47 @@ function SkillSection(props) {
 				body: JSON.stringify(body)
 			});
 			const result = await response.json();
-			if (seq !== assignSeq.current) return;
+			if (seq !== writeSeq.current) return;
 			if (!response.ok || !result.ok || !Array.isArray(result.prio) || !Array.isArray(result.blacklist) || !Array.isArray(result.whitelist)) throw new Error(result.ok === false && typeof result.error === "string" ? result.error : `HTTP ${response.status}`);
 			setApplied({
 				prio: result.prio,
 				blacklist: result.blacklist,
 				whitelist: result.whitelist
 			});
+			setWhitelistOnly(result.whitelistOnly === true);
 		} catch {
-			if (seq !== assignSeq.current) return;
+			if (seq !== writeSeq.current) return;
 			setApplied(prevApplied);
-			if (hadStaged) setStaged(base);
 			setAssignFailed(true);
 		}
-	}, [
-		applied,
-		staged,
-		loaded
-	]);
+	}, [applied, loaded]);
+	const savePriority = (0, react.useCallback)(async () => {
+		if (staged === void 0 || !loaded) return;
+		setSaveFailed(false);
+		const seq = ++writeSeq.current;
+		try {
+			const response = await fetch(api("/dsh-awesome-skills/priority"), {
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify(staged)
+			});
+			const body = await response.json();
+			if (seq !== writeSeq.current) return;
+			if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) throw new Error(body.ok === false && typeof body.error === "string" ? body.error : `HTTP ${response.status}`);
+			setApplied({
+				prio: body.prio,
+				blacklist: body.blacklist,
+				whitelist: body.whitelist
+			});
+			setWhitelistOnly(body.whitelistOnly === true);
+			setStaged(void 0);
+			setPending(false);
+			setLoaded(true);
+		} catch {
+			if (seq !== writeSeq.current) return;
+			setSaveFailed(true);
+		}
+	}, [staged, loaded]);
 	const tabs = (0, react.useMemo)(() => [
 		{
 			id: "search",
@@ -1495,15 +1517,15 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillPickDetails_module_css_default = {
+	"head": "AWa8SG_head",
+	"duration": "AWa8SG_duration",
+	"stateError": "AWa8SG_stateError",
+	"fallback": "AWa8SG_fallback",
+	"stateRunning": "AWa8SG_stateRunning",
 	"pre": "AWa8SG_pre",
 	"root": "AWa8SG_root",
 	"sectionLabel": "AWa8SG_sectionLabel",
-	"stateRunning": "AWa8SG_stateRunning",
-	"stateError": "AWa8SG_stateError",
-	"name": "AWa8SG_name",
-	"head": "AWa8SG_head",
-	"fallback": "AWa8SG_fallback",
-	"duration": "AWa8SG_duration"
+	"name": "AWa8SG_name"
 };
 //#endregion
 //#region src/client/SkillPickDetails.tsx
@@ -1799,6 +1821,7 @@ const en = {
 	duplicateSkill: "Already in {list}",
 	targetLabel: "Add to list",
 	diffReordered: "Reordered",
+	noMatch: "No suggestion matches — press Enter to add the path as typed",
 	whitelistEmptyWarn: "Search scope is “Whitelist only”, so an empty whitelist hides every skill. Add to the whitelist or switch the scope in Config.",
 	retry: "Retry",
 	priorityLoadFailed: "Could not load your lists. Editing is paused until they load."
@@ -1887,6 +1910,7 @@ const zh = {
 	duplicateSkill: "已在{list}中",
 	targetLabel: "添加到列表",
 	diffReordered: "已重新排序",
+	noMatch: "没有匹配的建议 — 按回车加入所输入的路径",
 	whitelistEmptyWarn: "搜索范围为“仅白名单”，白名单为空时会隐藏所有技能。请添加到白名单，或在配置中切换范围。",
 	retry: "重试",
 	priorityLoadFailed: "无法加载你的列表。加载完成前暂停编辑。"

@@ -103,43 +103,12 @@ export function SkillSection(props: SkillSectionProps) {
 
   useEffect(() => { void loadPriority() }, [loadPriority])
 
-  const savePriority = useCallback(async (): Promise<void> => {
-    if (staged === undefined || !loaded) return
-    setSaveFailed(false)
-    try {
-      const response = await fetch(api('/dsh-awesome-skills/priority'), {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(staged),
-      })
-      const body = (await response.json()) as PriorityResponse
-      if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) {
-        throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
-      }
-      setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
-      setStaged(undefined)
-      setPending(false)
-      setLoaded(true)
-    } catch {
-      // The staged edits stand so Retry re-posts them unchanged.
-      setSaveFailed(true)
-    }
-  }, [staged, loaded])
-
   /**
-   * One skill, one list, one click: add or remove a path in a single list and
-   * commit it immediately. The POST carries every staged edit plus the chip
-   * change, so it is the same writer the Priority tab's Save is — the two
-   * surfaces cannot disagree about what the server's lists are. The applied
-   * state updates from the route's answer; a failed call rolls back to the
-   * pre-click truth (staged edits stay staged, applied lists revert) and
-   * shows a retry line instead of leaving the row lying about its state.
-   *
-   * Guards: assigns wait for the initial load (otherwise an edit built on an
-   * unloaded base would overwrite the server's lists), and a sequence counter
-   * makes a slow earlier POST unable to overwrite the answer to a newer one.
+   * Every write to the priority route — Save and chip assigns — draws from
+   * one sequence counter, so a slow earlier write can never overwrite the
+   * answer to a newer one, whichever surface issued it.
    */
-  const assignSeq = useRef(0)
+  const writeSeq = useRef(0)
   const [assignFailed, setAssignFailed] = useState(false)
   const assign = useCallback(async (
     key: 'prio' | 'blacklist' | 'whitelist',
@@ -147,17 +116,14 @@ export function SkillSection(props: SkillSectionProps) {
     remove: boolean,
   ): Promise<void> => {
     if (!loaded) return
-    const hadStaged = staged !== undefined
     const prevApplied = applied
-    const base = hadStaged ? { ...staged, [key]: Array.isArray(staged[key]) ? staged[key] : [] } : applied
-    const current = Array.isArray(base[key]) ? base[key] : []
+    const current = Array.isArray(applied[key]) ? applied[key] : []
     const nextList = remove ? current.filter(p => p !== path) : [...current, path]
-    const body = { ...base, [key]: nextList }
-    const seq = ++assignSeq.current
-    // Optimistic: paint the new chip state before the round trip.
+    const body = { ...applied, [key]: nextList }
+    const seq = ++writeSeq.current
+    // Optimistic: paint the new chip state before the round trip. Staged
+    // edits are untouched — this surface commits only its own change.
     setApplied(body)
-    if (hadStaged) setStaged(undefined)
-    setPending(false)
     setAssignFailed(false)
     try {
       const response = await fetch(api('/dsh-awesome-skills/priority'), {
@@ -166,20 +132,47 @@ export function SkillSection(props: SkillSectionProps) {
         body: JSON.stringify(body),
       })
       const result = (await response.json()) as PriorityResponse
-      if (seq !== assignSeq.current) return // a newer assign owns the state now
+      if (seq !== writeSeq.current) return // a newer write owns the state now
       if (!response.ok || !result.ok || !Array.isArray(result.prio) || !Array.isArray(result.blacklist) || !Array.isArray(result.whitelist)) {
         throw new Error(result.ok === false && typeof result.error === 'string' ? result.error : `HTTP ${response.status}`)
       }
       setApplied({ prio: result.prio, blacklist: result.blacklist, whitelist: result.whitelist })
+      setWhitelistOnly(result.whitelistOnly === true)
     } catch {
-      if (seq !== assignSeq.current) return
-      // Roll back to the pre-click truth: applied lists revert and staged
-      // edits (if any) stay staged, so nothing unsaved reads as applied.
+      if (seq !== writeSeq.current) return
+      // Roll the optimistic paint back to the pre-click applied truth; the
+      // staged pane is untouched, so nothing unsaved reads as applied.
       setApplied(prevApplied)
-      if (hadStaged) setStaged(base)
       setAssignFailed(true)
     }
-  }, [applied, staged, loaded])
+  }, [applied, loaded])
+
+  const savePriority = useCallback(async (): Promise<void> => {
+    if (staged === undefined || !loaded) return
+    setSaveFailed(false)
+    const seq = ++writeSeq.current
+    try {
+      const response = await fetch(api('/dsh-awesome-skills/priority'), {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(staged),
+      })
+      const body = (await response.json()) as PriorityResponse
+      if (seq !== writeSeq.current) return // a newer write owns the state now
+      if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) {
+        throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
+      }
+      setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
+      setWhitelistOnly(body.whitelistOnly === true)
+      setStaged(undefined)
+      setPending(false)
+      setLoaded(true)
+    } catch {
+      if (seq !== writeSeq.current) return
+      // The staged edits stand so Retry re-posts them unchanged.
+      setSaveFailed(true)
+    }
+  }, [staged, loaded])
 
 
   const tabs = useMemo(() => ([

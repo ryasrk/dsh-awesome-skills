@@ -214,7 +214,38 @@ export function SkillExplorer(props: SkillExplorerProps) {
         </div>
       )}
 
-      {failed && <p className={css.error} role="alert">{t('error')}</p>}
+      {failed && (
+        <div className={css.errorRow} role="alert">
+          <span>{t('error')}</span>
+          <button
+            type="button"
+            className={css.retryBtn}
+            onClick={() => {
+              // Re-issue the last query immediately instead of waiting for
+              // the user to retype it.
+              setQuery((current) => current)
+              const trimmed = query.trim()
+              if (trimmed === '') return
+              setLoading(true)
+              const seq = ++seqRef.current
+              void runQuery(trimmed, 8).then((body) => {
+                if (seq !== seqRef.current) return
+                if (body.ok) {
+                  setResults(body.results)
+                  setCount(body.count)
+                  setFailed(false)
+                  onHits?.(body.results.map(r => ({ path: r.path, name: r.name })))
+                } else {
+                  setFailed(true)
+                }
+                setLoading(false)
+              })
+            }}
+          >
+            {t('retry')}
+          </button>
+        </div>
+      )}
       {/* A live region must exist in the DOM before its text changes to be
           announced reliably, so this one stays mounted and swaps content. */}
       <p className={css.state} role="status" aria-live="polite">
@@ -223,7 +254,8 @@ export function SkillExplorer(props: SkillExplorerProps) {
 
       {!loading && !failed && results !== undefined && (
         <>
-          <p className={css.meta}>
+          {/* Result arrival is announced: this region persists and swaps. */}
+          <p className={css.meta} role="status" aria-live="polite">
             {template(t('results'), list.length)}
             {count > 0 && ` · ${template(t('corpusCount'), count)}`}
           </p>

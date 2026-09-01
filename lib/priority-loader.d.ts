@@ -15,6 +15,23 @@
  * unconditionally would duplicate; keying on content alone would let the
  * instructions fall out of a sliding window and silently stop applying.
  */
+/** The downstream decision a pre-step listener either returns or delegates to. */
+export type PreStepDecision = {
+    kind: 'reject';
+} | {
+    kind: 'enter';
+    messages: Array<{
+        content: unknown;
+        id?: string;
+    }>;
+};
+/**
+ * Structural pre-step contract this module needs (no harness imports).
+ * The hook is a Cordis waterfall: each listener is `(payload, next)`, where
+ * `next` is a separate second argument, not a method on the payload. `agent` is
+ * what the payload carries; its session surface and event log are how the
+ * visibility check mirrors the harness's own catalog history logic.
+ */
 /** The knob subset the loader reads. */
 export interface PriorityKnobs {
     prio: string[];

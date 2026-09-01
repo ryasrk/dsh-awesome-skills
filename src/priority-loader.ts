@@ -20,23 +20,28 @@ import { readFileSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { join } from 'node:path'
 
-/**
- * Structural pre-step contract this module needs (no harness imports).
- * `agent` is what the payload carries; its session surface and event log are
- * how the visibility check mirrors the harness's own catalog history logic.
- */
-interface PreStepEvent {
+/** The host's `agent/pre-step` payload: the agent plus step position and signal. */
+interface PreStepPayload {
   agent?: {
     session?: {
       surface?: { nodes?: Map<unknown, unknown> }
       events?: ReadonlyArray<{ type: string; seq: number; data?: { source?: { kind?: string; digest?: string } } }>
     }
   }
-  next: () => Promise<
-    { kind: 'reject' }
-    | { kind: 'enter'; messages: Array<{ content: unknown; id?: string }> }
-  >
 }
+
+/** The downstream decision a pre-step listener either returns or delegates to. */
+export type PreStepDecision =
+  | { kind: 'reject' }
+  | { kind: 'enter'; messages: Array<{ content: unknown; id?: string }> }
+
+/**
+ * Structural pre-step contract this module needs (no harness imports).
+ * The hook is a Cordis waterfall: each listener is `(payload, next)`, where
+ * `next` is a separate second argument, not a method on the payload. `agent` is
+ * what the payload carries; its session surface and event log are how the
+ * visibility check mirrors the harness's own catalog history logic.
+ */
 
 /** The knob subset the loader reads. */
 export interface PriorityKnobs {
@@ -105,7 +110,7 @@ export function installPriorityLoader(
   }
   const on = ctx.on as unknown as (
     event: string,
-    handler: (event: PreStepEvent) => Promise<unknown>,
+    handler: (payload: PreStepPayload, next: () => Promise<PreStepDecision>) => Promise<unknown>,
   ) => (() => void) | void
 
   let warnedMissing = new Set<string>()
@@ -118,7 +123,7 @@ export function installPriorityLoader(
    * priority list re-injects even while the old copy is still on screen.
    */
   const lastInjection = (
-    agent: PreStepEvent['agent'],
+    agent: PreStepPayload['agent'],
   ): { digest: string; visible: boolean } | undefined => {
     const events = agent?.session?.events
     const visible = agent?.session?.surface?.nodes
@@ -137,67 +142,71 @@ export function installPriorityLoader(
     return undefined
   }
 
-  const dispose = on.call(ctx, 'agent/pre-step', async (event: PreStepEvent) => {
-    const downstream = await event.next()
-    if (downstream.kind === 'reject') return downstream
+  const dispose = on.call(
+    ctx,
+    'agent/pre-step',
+    async (event: PreStepPayload, next: () => Promise<PreStepDecision>): Promise<unknown> => {
+      const downstream = await next()
+      if (downstream.kind === 'reject') return downstream
 
-    const prio = getKnobs().prio
-    if (prio.length === 0) return downstream
+      const prio = getKnobs().prio
+      if (prio.length === 0) return downstream
 
-    const parts: string[] = []
-    for (const path of prio) {
-      const file = join(corpusDir, path, 'SKILL.md')
-      if (!existsSync(file)) {
-        if (!warnedMissing.has(path)) {
-          warnedMissing.add(path)
-          log.warn(`dsh-awesome-skills: priority skill not found in corpus: ${path}`)
+      const parts: string[] = []
+      for (const path of prio) {
+        const file = join(corpusDir, path, 'SKILL.md')
+        if (!existsSync(file)) {
+          if (!warnedMissing.has(path)) {
+            warnedMissing.add(path)
+            log.warn(`dsh-awesome-skills: priority skill not found in corpus: ${path}`)
+          }
+          continue
         }
-        continue
-      }
-      let raw: string
-      try {
-        raw = readFileSync(file, 'utf8')
-      } catch (error) {
-        if (!warnedMissing.has(path)) {
-          warnedMissing.add(path)
-          log.warn(`dsh-awesome-skills: priority skill unreadable (${path}): ${
-            error instanceof Error ? error.message : String(error)}`)
+        let raw: string
+        try {
+          raw = readFileSync(file, 'utf8')
+        } catch (error) {
+          if (!warnedMissing.has(path)) {
+            warnedMissing.add(path)
+            log.warn(`dsh-awesome-skills: priority skill unreadable (${path}): ${
+              error instanceof Error ? error.message : String(error)}`)
+          }
+          continue
         }
-        continue
+        parts.push(renderPrioritySkill(path, raw))
       }
-      parts.push(renderPrioritySkill(path, raw))
-    }
 
-    if (parts.length === 0) return downstream
+      if (parts.length === 0) return downstream
 
-    const text = [
-      '<system-reminder>',
-      'The following priority skills are loaded at the start of every turn by the dsh-awesome-skills plugin. They are already in effect: follow them for this turn without calling the `skill` tool for them, and do not load them again.',
-      '',
-      ...parts,
-      '</system-reminder>',
-    ].join('\n')
+      const text = [
+        '<system-reminder>',
+        'The following priority skills are loaded at the start of every turn by the dsh-awesome-skills plugin. They are already in effect: follow them for this turn without calling the `skill` tool for them, and do not load them again.',
+        '',
+        ...parts,
+        '</system-reminder>',
+      ].join('\n')
 
-    // Skip only when the payload is unchanged AND its earlier copy is still on
-    // screen. Either a changed priority list or a scrolled-out message means
-    // the model is no longer seeing what it should.
-    const digest = createHash('sha1').update(text).digest('hex')
-    const previous = lastInjection(event.agent)
-    if (previous !== undefined && previous.digest === digest && previous.visible) {
-      return downstream
-    }
+      // Skip only when the payload is unchanged AND its earlier copy is still on
+      // screen. Either a changed priority list or a scrolled-out message means
+      // the model is no longer seeing what it should.
+      const digest = createHash('sha1').update(text).digest('hex')
+      const previous = lastInjection(event.agent)
+      if (previous !== undefined && previous.digest === digest && previous.visible) {
+        return downstream
+      }
 
-    return {
-      ...downstream,
-      messages: [
-        ...downstream.messages,
-        {
-          content: [{ type: 'text' as const, text }],
-          source: { kind: 'priority-skills', digest },
-        } as InjectedMessage,
-      ],
-    }
-  })
+      return {
+        ...downstream,
+        messages: [
+          ...downstream.messages,
+          {
+            content: [{ type: 'text' as const, text }],
+            source: { kind: 'priority-skills', digest },
+          } as InjectedMessage,
+        ],
+      }
+    },
+  )
 
   return typeof dispose === 'function' ? dispose : undefined
 }

@@ -325,6 +325,9 @@ export function PrioritySkills(props: PrioritySkillsProps) {
                 ))}
               </ul>
             )}
+            {open && options.length === 0 && suggestions.length > 0 && draft.trim() !== '' && (
+              <p className={css.noMatch} role="status">{t('noMatch')}</p>
+            )}
           </div>
           <div className={css.segGroup} role="radiogroup" aria-label={t('targetLabel')}>
             {TARGETS.map(key => (
