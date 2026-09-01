@@ -13,6 +13,12 @@
   gap: 8px;
 }
 
+.block + .block {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+}
+
 .heading {
   margin: 0;
   font-size: 13px;
@@ -184,8 +190,8 @@
   font: inherit;
   font-size: 13px;
   font-weight: 500;
-  background: var(--dsw-alias-brand-primary);
-  color: #fff;
+  background: var(--dsw-alias-button-primary-fill);
+  color: var(--dsw-alias-label-primary-foreground);
   cursor: pointer;
 }
 

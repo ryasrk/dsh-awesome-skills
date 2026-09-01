@@ -3,7 +3,6 @@
    rather than a bolt-on. Tokens come from the host's alias scale. */
 
 .card {
-  border: 1px solid var(--dsw-alias-border-l2);
   border-radius: 12px;
   background: var(--dsw-alias-bg-layer-3);
   overflow: hidden;
@@ -13,7 +12,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 14px 16px;
+  padding: 16px 16px 14px;
   border-bottom: 1px solid var(--dsw-alias-border-l2);
 }
 
@@ -184,7 +183,7 @@
 
 .toggle:checked::after {
   transform: translateX(16px);
-  background: #fff;
+  background: var(--dsw-alias-label-primary-foreground);
 }
 
 .toggle:focus-visible {
@@ -286,13 +285,13 @@
 
 .primary {
   composes: button;
-  background: var(--dsw-alias-brand-primary);
-  border-color: var(--dsw-alias-brand-primary);
-  color: #fff;
+  background: var(--dsw-alias-button-primary-fill);
+  border-color: transparent;
+  color: var(--dsw-alias-label-primary-foreground);
 }
 
 .primary:hover:not(:disabled) {
-  filter: brightness(1.06);
+  background: var(--dsw-alias-button-primary-hover);
 }
 
 .alert {

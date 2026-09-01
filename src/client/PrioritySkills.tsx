@@ -10,6 +10,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import css from './PrioritySkills.module.css'
+import { IconChevronDown, IconChevronUp, IconClose } from './icons.tsx'
 
 /** One ordered list's shape as the route returns it. */
 export interface PriorityState {
@@ -103,13 +104,13 @@ export function PrioritySkills(props: PrioritySkillsProps) {
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} disabled={index === 0}
                       onClick={() => onChange({ ...state, prio: move(state.prio, index, -1) })}
-                      aria-label={t('moveUp')}>↑</button>
+                      aria-label={t('moveUp')}><IconChevronUp /></button>
                     <button type="button" className={css.ctl}
                       disabled={index === state.prio.length - 1}
                       onClick={() => onChange({ ...state, prio: move(state.prio, index, 1) })}
-                      aria-label={t('moveDown')}>↓</button>
+                      aria-label={t('moveDown')}><IconChevronDown /></button>
                     <button type="button" className={css.ctl} onClick={() => removeFrom('prio', index)}
-                      aria-label={t('remove')}>×</button>
+                      aria-label={t('remove')}><IconClose /></button>
                   </span>
                 </li>
               ))}
@@ -147,7 +148,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
                   <code className={css.path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} onClick={() => removeFrom('blacklist', index)}
-                      aria-label={t('remove')}>×</button>
+                      aria-label={t('remove')}><IconClose /></button>
                   </span>
                 </li>
               ))}
@@ -168,7 +169,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
                   <code className={css.path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} onClick={() => removeFrom('whitelist', index)}
-                      aria-label={t('remove')}>×</button>
+                      aria-label={t('remove')}><IconClose /></button>
                   </span>
                 </li>
               ))}

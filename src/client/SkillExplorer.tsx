@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SearchHit } from '../search.js'
 import type { en } from './locales.ts'
 import css from './SkillExplorer.module.css'
+import { IconClose } from './icons.tsx'
 
 /** One dictionary of the plugin's locale, whichever language is active. */
 export type Dict = typeof en
@@ -215,7 +216,12 @@ export function SkillExplorer(props: SkillExplorerProps) {
             {template(t('results'), list.length)}
             {count > 0 && ` · ${template(t('corpusCount'), count)}`}
           </p>
-          {list.length === 0 && query.trim() !== '' && <p className={css.state}>{t('noResults')}</p>}
+          {list.length === 0 && query.trim() !== '' && (
+            <div className={css.empty}>
+              <p className={css.emptyTitle}>{t('noResultsTitle')}</p>
+              <p className={css.emptyBody}>{t('noResults')}</p>
+            </div>
+          )}
           <div className={css.results}>
             {list.map((hit) => (
               <div className={css.result} key={hit.path}>
@@ -244,7 +250,8 @@ export function SkillExplorer(props: SkillExplorerProps) {
                             onClick={() => onUnassign(key, hit.path)}
                             title={t('remove')}
                           >
-                            {t(key === 'prio' ? 'chipPrio' : key === 'blacklist' ? 'chipBlack' : 'chipWhite')} ×
+                            {t(key === 'prio' ? 'chipPrio' : key === 'blacklist' ? 'chipBlack' : 'chipWhite')}
+                            <IconClose size={10} />
                           </button>
                         ) : (
                           <button

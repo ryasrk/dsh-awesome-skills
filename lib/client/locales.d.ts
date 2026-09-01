@@ -95,7 +95,8 @@ export declare const zh: {
     readonly corpusCount: "已索引 {n} 个技能";
     readonly copyPath: "复制路径";
     readonly copied: "已复制";
-    readonly noResults: "没有匹配的技能。";
+    readonly noResultsTitle: "没有匹配的技能";
+    readonly noResults: "换个说法再试 — 语料按意图匹配，而不是精确名称。";
     readonly error: "搜索失败，请重试。";
     readonly loading: "搜索中…";
     readonly cardTitle: "dsh-awesome-skills";
