@@ -49,14 +49,14 @@ const PKG_ROOT = (() => {
  */
 const ROUTER_SKILL = `---
 name: skill-router
-description: Search a local corpus of ~4,000 curated agent skills (testing, frontend, backend, cloud, data, writing, security, research, media) BEFORE doing any concrete task. Use at the START of any build/fix/test/deploy/configure/refactor/review request, unprompted - query the corpus with the task's goal, read the best-matching playbook, and follow it. Default is ROUTE; skip only for pure chat.
+description: Search a local corpus of ~6,000 curated agent skills (testing, frontend, backend, cloud, data, writing, security, research, media) BEFORE doing any concrete task. Use at the START of any build/fix/test/deploy/configure/refactor/review request, unprompted - call skills_search with the task's goal, read the best-matching playbook with skills_read, and follow it. Default is ROUTE; skip only for pure chat.
 disable-model-invocation: false
 user-invocable: true
 ---
 
 # Skill router
 
-You have access to a local corpus of **~4,000 specialized agent skills** that
+You have access to a local corpus of **~6,000 specialized agent skills** that
 is NOT in your catalog. It is vector-indexed and searchable in about a second.
 A vetted playbook almost always beats improvising from general knowledge - so
 search BEFORE planning, not after.
@@ -85,49 +85,54 @@ this skill exists to prevent.
 Write the query the way you would explain the task to a colleague - a goal,
 not a keyword list. Semantic matching does the rest.
 
+Call the \`skills_search\` tool with \`query\` (and \`k\` if you want more than
+5 hits). Each result carries \`path\`, \`score\` (0-1), \`name\`, and a one-line
+\`description\`.
+
+If this host has no \`skills_search\` tool, fall back to the CLI once:
+
 \`\`\`bash
 printf '%s' '{"query":"<goal in plain words>","k":5}' | node "__QUERY_BIN__"
 \`\`\`
 
-Each result carries \`path\`, \`score\` (0-1), \`name\`, and a one-line
-\`description\`.
-
 ### Reading the scores
 
-Calibrated on 45 hand-labeled task queries: top hits at 0.7+ were relevant
-12/12 times, mid-band hits ~85%, weak-band hits rarely. Trust the bands:
+Calibrated on labeled task queries: top hits at 0.6+ were relevant
+nearly every time, mid-band hits ~85%, weak-band hits rarely. Trust the bands:
 
-- **0.7+** strong match - read it.
-- **0.4-0.7** plausible - read the top 2-3 descriptions, not just the first
-  line; the best playbook for the task is often at rank 2-3 (measured: ~85%
-  of top hits in this band are relevant, and when one is not, a relevant one
-  usually sits just below).
-- **< 0.4** weak - likely no good playbook for this exact task.
+- **0.6+** strong match - read it.
+- **0.35-0.6** plausible - read the top 2-3 descriptions, not
+  just the first line; the best playbook for the task is often at rank 2-3.
+- **< 0.35** weak - likely no good playbook for this exact task.
 
 ### When one query is not enough
 
 - **Broad request** ("build me a dashboard") → run 2-3 queries for its
   distinct facets (e.g. "frontend dashboard layout", "charts data
   visualization", "deploy static site") and take the best hit from each.
-- **First results all score < 0.4** → rephrase ONCE with different wording
-  ("auth" → "login session cookie"). A second miss means the corpus likely
-  has nothing; move on without guilt.
-- **Multiple hits with the same trailing name** from different repos (e.g.
-  three \`tdd\` skills) → they are alternative takes. Prefer the one whose
+- **First results all score < 0.35** → rephrase ONCE with different
+  wording ("auth" → "login session cookie"). A second miss means the corpus
+  likely has nothing; move on without guilt.
+- **Multiple hits with the same trailing name** from different sources
+  (e.g. several \`tdd\` skills, or duplicates across
+  \`a5c-ai/babysitter/<domain>/\` specializations) → they are alternative
+  takes. The full \`path\` distinguishes them. Prefer the one whose
   description fits the user's stack; when they look equivalent, prefer the
   higher score and read just one.
 
 ### Decision points, don't drift
 
-- Task is one clear domain and a hit scores 0.7+ → read exactly one skill and
-  follow it.
+- Task is one clear domain and a hit scores 0.6+ → read exactly one
+  skill and follow it.
 - Task genuinely spans domains (e.g. "add OAuth to my FastAPI app") → read at
   most two skills (one per domain), name which is primary, and follow the
   primary for the overall shape.
 
 ## How to read a hit
 
-Use the \`path\` field (**never** the display \`name\` - paths are unique):
+Call the \`skills_read\` tool with the hit's \`path\` (**never** the display
+\`name\` - paths are unique) to load its SKILL.md. If this host has no
+\`skills_read\` tool, fall back:
 
 \`\`\`bash
 sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
@@ -135,9 +140,9 @@ sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
 
 A skill's directory holds its complete playbook: reference files, templates,
 examples, and scripts live beside the SKILL.md. When the SKILL.md says "read
-tests.md" or points at \`references/\` or \`scripts/\`, read those files too -
-they are part of the skill, not optional decoration. List them first if the
-SKILL.md references several:
+tests.md" or points at \`references/\` or \`scripts/\`, load those with
+\`skills_read\` (path + \`file\`) too - they are part of the skill, not optional
+decoration. If \`skills_read\` is unavailable, list them first:
 
 \`\`\`bash
 ls "__CORPUS_DIR__/<path>/"
