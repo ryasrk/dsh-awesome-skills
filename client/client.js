@@ -3,8 +3,25 @@ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
 //#region \0dsh-css:SectionTabs_module_css.mjs
-const css$3 = ".jsPfLW_tabs{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:flex-end;gap:2px;margin-bottom:16px;display:flex}.jsPfLW_tab{-webkit-appearance:none;appearance:none;font:inherit;white-space:nowrap;cursor:pointer;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-bottom:2px solid #0000;margin-bottom:-1px;padding:7px 12px;font-size:13px;line-height:1.5}.jsPfLW_tab:hover{color:var(--dsw-alias-label-primary)}.jsPfLW_tab:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px;border-radius:4px}.jsPfLW_tabOn{color:var(--dsw-alias-brand-primary);border-bottom-color:var(--dsw-alias-brand-primary);font-weight:600;}.jsPfLW_dot{background:var(--dsw-alias-brand-primary);vertical-align:2px;border-radius:999px;width:6px;height:6px;margin-left:6px;display:inline-block}";
-const tagId$3 = "dsh-awesome-skills/SectionTabs_module_css";
+const css$4 = ".jsPfLW_tabs{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:flex-end;gap:2px;margin:4px 0 16px;display:flex}.jsPfLW_tab{-webkit-appearance:none;appearance:none;font:inherit;white-space:nowrap;cursor:pointer;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-bottom:2px solid #0000;margin-bottom:-1px;padding:7px 12px;font-size:13px;line-height:1.5}.jsPfLW_tab:hover{color:var(--dsw-alias-label-primary)}.jsPfLW_tab:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px;border-radius:4px}.jsPfLW_tabOn{color:var(--dsw-alias-brand-primary);border-bottom-color:var(--dsw-alias-brand-primary);font-weight:600;}.jsPfLW_dot{background:var(--dsw-alias-brand-primary);vertical-align:2px;border-radius:999px;width:6px;height:6px;margin-left:6px;display:inline-block}";
+const tagId$4 = "dsh-awesome-skills/SectionTabs_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$4) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId$4;
+	tag.textContent = css$4;
+	document.head.appendChild(tag);
+}
+var _dsh_css_SectionTabs_module_css_default = {
+	"tabOn": "jsPfLW_tabOn",
+	"dot": "jsPfLW_dot",
+	"tab": "jsPfLW_tab",
+	"tabs": "jsPfLW_tabs"
+};
+//#endregion
+//#region \0dsh-css:SkillExplorer_module_css.mjs
+const css$3 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_searchRow{align-items:center;display:flex;position:relative}.vc1x0a_searchIcon{color:var(--dsw-alias-label-tertiary);pointer-events:none;display:inline-flex;position:absolute;left:10px}.vc1x0a_search{padding-left:32px;padding-right:38px}.vc1x0a_clear{-webkit-appearance:none;appearance:none;background:var(--dsw-alias-bg-module-platform);width:24px;height:24px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:999px;font-size:14px;line-height:1;position:absolute;right:8px}.vc1x0a_clear:hover{color:var(--dsw-alias-label-primary)}.vc1x0a_clear:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_search{padding-right:38px}.vc1x0a_filterBar{flex-wrap:wrap;gap:6px;display:flex}.vc1x0a_filterBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:999px;padding:3px 12px;font-size:12px;line-height:1.5}.vc1x0a_filterBtn:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_filterBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_filterOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.vc1x0a_rowActions{flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;display:flex}.vc1x0a_chip{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:7px;padding:3px 10px;font-size:11px;font-weight:500;line-height:1.4;transition:background .15s,color .15s,border-color .15s}.vc1x0a_chip:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_chip:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_chipPrimary{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);font-weight:600;}.vc1x0a_chipPrimary:hover{background:var(--dsw-alias-button-primary-hover)}.vc1x0a_chipOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-style:dashed;}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{animation:.18s cubic-bezier(.16,1,.3,1) both vc1x0a_resultIn}.vc1x0a_result:hover{background:var(--dsw-alias-interactive-bg-hover)}@keyframes vc1x0a_resultIn{0%{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.vc1x0a_result{animation:none}}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_pin{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);white-space:nowrap;border-radius:4px;margin-left:6px;padding:0 5px;font-size:10px;font-weight:600;line-height:15px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_empty{text-align:center;border:1px dashed var(--dsw-alias-border-l2);border-radius:10px;flex-direction:column;gap:4px;padding:28px 16px;display:flex}.vc1x0a_emptyTitle{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.vc1x0a_emptyBody{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
+const tagId$3 = "dsh-awesome-skills/SkillExplorer_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 	const tag = document.createElement("style");
 	tag.dataset.plugin = "dsh-awesome-skills";
@@ -12,53 +29,37 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	tag.textContent = css$3;
 	document.head.appendChild(tag);
 }
-var _dsh_css_SectionTabs_module_css_default = {
-	"tab": "jsPfLW_tab",
-	"dot": "jsPfLW_dot",
-	"tabs": "jsPfLW_tabs",
-	"tabOn": "jsPfLW_tabOn"
-};
-//#endregion
-//#region \0dsh-css:SkillExplorer_module_css.mjs
-const css$2 = ".vc1x0a_section{flex-direction:column;gap:16px;max-width:720px;padding:4px 0 16px;display:flex}.vc1x0a_search{box-sizing:border-box;width:100%;height:38px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:10px;padding:0 14px;font-size:14px;line-height:1.5}.vc1x0a_search::placeholder{color:var(--dsw-alias-label-tertiary)}.vc1x0a_search:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.vc1x0a_searchRow{align-items:center;display:flex;position:relative}.vc1x0a_clear{-webkit-appearance:none;appearance:none;background:var(--dsw-alias-bg-module-platform);width:24px;height:24px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:999px;font-size:14px;line-height:1;position:absolute;right:8px}.vc1x0a_clear:hover{color:var(--dsw-alias-label-primary)}.vc1x0a_clear:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_search{padding-right:38px}.vc1x0a_filterBar{flex-wrap:wrap;gap:6px;display:flex}.vc1x0a_filterBtn{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:999px;padding:3px 12px;font-size:12px;line-height:1.5}.vc1x0a_filterBtn:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_filterBtn:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_filterOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.vc1x0a_rowActions{flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;display:flex}.vc1x0a_chip{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border-radius:7px;padding:3px 10px;font-size:11px;font-weight:500;line-height:1.4;transition:background .15s,color .15s,border-color .15s}.vc1x0a_chip:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.vc1x0a_chip:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.vc1x0a_chipPrimary{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);font-weight:600;}.vc1x0a_chipPrimary:hover{background:var(--dsw-alias-button-primary-hover)}.vc1x0a_chipOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-style:dashed;}.vc1x0a_hint{color:var(--dsw-alias-label-tertiary);margin:-10px 0 0;font-size:12px;line-height:1.5}.vc1x0a_results{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;display:flex}.vc1x0a_result{animation:.18s cubic-bezier(.16,1,.3,1) both vc1x0a_resultIn}@keyframes vc1x0a_resultIn{0%{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.vc1x0a_result{animation:none}}.vc1x0a_result{border-bottom:1px solid var(--dsw-alias-border-l2);padding:10px 2px}.vc1x0a_result:last-child{border-bottom:none}.vc1x0a_resultHead{align-items:baseline;gap:10px;display:flex}.vc1x0a_name{-webkit-appearance:none;appearance:none;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:0;flex:1;min-width:0;padding:0;font-size:14px;font-weight:600;line-height:1.4;overflow:hidden}.vc1x0a_name:hover{text-decoration:underline}.vc1x0a_name:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px;border-radius:4px}.vc1x0a_pin{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);white-space:nowrap;border-radius:4px;margin-left:6px;padding:0 5px;font-size:10px;font-weight:600;line-height:15px}.vc1x0a_score{font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-secondary);flex:none;font-size:12px}.vc1x0a_description{color:var(--dsw-alias-label-secondary);margin:2px 0 0;font-size:12px;line-height:1.5}.vc1x0a_path{font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-tertiary);word-break:break-all;margin:4px 0 0;font-size:11px;line-height:1.5}.vc1x0a_meta{color:var(--dsw-alias-label-tertiary);margin:0 0 8px;font-size:12px;line-height:1.5}.vc1x0a_empty{text-align:center;border:1px dashed var(--dsw-alias-border-l2);border-radius:10px;flex-direction:column;gap:4px;padding:28px 16px;display:flex}.vc1x0a_emptyTitle{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.vc1x0a_emptyBody{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.vc1x0a_state{color:var(--dsw-alias-label-tertiary);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_error{color:var(--dsw-alias-label-error);margin:8px 0 0;font-size:12px;line-height:1.5}.vc1x0a_divider{border:none;border-top:1px solid var(--dsw-alias-border-l2);margin:0}.vc1x0a_configHeading{color:var(--dsw-alias-label-primary);margin:0 0 8px;font-size:13px;font-weight:600;line-height:1.5}";
-const tagId$2 = "dsh-awesome-skills/SkillExplorer_module_css";
-if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
-	const tag = document.createElement("style");
-	tag.dataset.plugin = "dsh-awesome-skills";
-	tag.dataset.pluginCss = tagId$2;
-	tag.textContent = css$2;
-	document.head.appendChild(tag);
-}
 var _dsh_css_SkillExplorer_module_css_default = {
-	"emptyTitle": "vc1x0a_emptyTitle",
-	"filterBtn": "vc1x0a_filterBtn",
-	"hint": "vc1x0a_hint",
-	"score": "vc1x0a_score",
 	"empty": "vc1x0a_empty",
-	"error": "vc1x0a_error",
-	"searchRow": "vc1x0a_searchRow",
-	"divider": "vc1x0a_divider",
-	"clear": "vc1x0a_clear",
-	"search": "vc1x0a_search",
-	"filterOn": "vc1x0a_filterOn",
-	"chip": "vc1x0a_chip",
+	"filterBtn": "vc1x0a_filterBtn",
 	"description": "vc1x0a_description",
-	"configHeading": "vc1x0a_configHeading",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"result": "vc1x0a_result",
+	"emptyBody": "vc1x0a_emptyBody",
+	"clear": "vc1x0a_clear",
+	"chip": "vc1x0a_chip",
+	"score": "vc1x0a_score",
+	"meta": "vc1x0a_meta",
 	"section": "vc1x0a_section",
+	"chipOn": "vc1x0a_chipOn",
+	"pin": "vc1x0a_pin",
+	"resultIn": "vc1x0a_resultIn",
+	"filterBar": "vc1x0a_filterBar",
+	"search": "vc1x0a_search",
+	"state": "vc1x0a_state",
+	"emptyTitle": "vc1x0a_emptyTitle",
+	"configHeading": "vc1x0a_configHeading",
+	"divider": "vc1x0a_divider",
+	"rowActions": "vc1x0a_rowActions",
+	"error": "vc1x0a_error",
+	"searchIcon": "vc1x0a_searchIcon",
 	"resultHead": "vc1x0a_resultHead",
 	"name": "vc1x0a_name",
-	"chipPrimary": "vc1x0a_chipPrimary",
-	"results": "vc1x0a_results",
-	"rowActions": "vc1x0a_rowActions",
-	"result": "vc1x0a_result",
-	"pin": "vc1x0a_pin",
 	"path": "vc1x0a_path",
-	"filterBar": "vc1x0a_filterBar",
-	"state": "vc1x0a_state",
-	"emptyBody": "vc1x0a_emptyBody",
-	"resultIn": "vc1x0a_resultIn",
-	"meta": "vc1x0a_meta",
-	"chipOn": "vc1x0a_chipOn"
+	"hint": "vc1x0a_hint",
+	"filterOn": "vc1x0a_filterOn",
+	"searchRow": "vc1x0a_searchRow",
+	"results": "vc1x0a_results"
 };
 //#endregion
 //#region src/client/icons.tsx
@@ -89,6 +90,23 @@ function IconClose({ size = 12 }) {
 	return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("svg", {
 		...base(size),
 		children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("path", { d: "M4 4l8 8M12 4l-8 8" })
+	});
+}
+function IconSpinner({ size = 12 }) {
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("svg", {
+		...base(size),
+		className: "dshas-spin",
+		children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("path", { d: "M8 1.5a6.5 6.5 0 1 1-6.5 6.5" })
+	});
+}
+function IconSearch({ size = 14 }) {
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("svg", {
+		...base(size),
+		children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("circle", {
+			cx: "7",
+			cy: "7",
+			r: "4.5"
+		}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("path", { d: "M10.5 10.5L13.5 13.5" })]
 	});
 }
 //#endregion
@@ -232,23 +250,30 @@ function SkillExplorer(props) {
 		children: [
 			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 				className: _dsh_css_SkillExplorer_module_css_default.searchRow,
-				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-					ref: inputRef,
-					className: _dsh_css_SkillExplorer_module_css_default.search,
-					value: query,
-					placeholder: t("searchPlaceholder"),
-					onChange: (event) => setQuery(event.target.value),
-					onKeyDown: (event) => {
-						if (event.key === "Escape") setQuery("");
-					},
-					"aria-label": t("searchPlaceholder")
-				}), query !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-					type: "button",
-					className: _dsh_css_SkillExplorer_module_css_default.clear,
-					onClick: () => setQuery(""),
-					"aria-label": t("clear"),
-					children: "×"
-				})]
+				children: [
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+						className: _dsh_css_SkillExplorer_module_css_default.searchIcon,
+						children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(IconSearch, {})
+					}),
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
+						ref: inputRef,
+						className: _dsh_css_SkillExplorer_module_css_default.search,
+						value: query,
+						placeholder: t("searchPlaceholder"),
+						onChange: (event) => setQuery(event.target.value),
+						onKeyDown: (event) => {
+							if (event.key === "Escape") setQuery("");
+						},
+						"aria-label": t("searchPlaceholder")
+					}),
+					query !== "" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: _dsh_css_SkillExplorer_module_css_default.clear,
+						onClick: () => setQuery(""),
+						"aria-label": t("clear"),
+						children: "×"
+					})
+				]
 			}),
 			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
 				className: _dsh_css_SkillExplorer_module_css_default.hint,
@@ -350,42 +375,43 @@ function SkillExplorer(props) {
 }
 //#endregion
 //#region \0dsh-css:SettingsCard_module_css.mjs
-const css$1 = ".alOFIW_card{background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:16px 16px 14px;display:flex}.alOFIW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:var(--dsw-alias-label-primary-foreground);transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_segmented{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:8px;gap:2px;padding:2px;display:inline-flex}.alOFIW_seg{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;border-radius:6px;align-items:center;gap:6px;padding:4px 12px;font-size:12px;line-height:1.5;display:inline-flex}.alOFIW_seg input{accent-color:var(--dsw-alias-brand-primary);margin:0}.alOFIW_seg:hover{color:var(--dsw-alias-label-primary)}.alOFIW_segOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.alOFIW_seg:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);border-color:#0000;}.alOFIW_primary:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}";
-const tagId$1 = "dsh-awesome-skills/SettingsCard_module_css";
-if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
+const css$2 = ".alOFIW_card{background:var(--dsw-alias-bg-layer-3);border-radius:12px;overflow:hidden}.alOFIW_header{border-bottom:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:4px;padding:16px 16px 14px;display:flex}.alOFIW_name{letter-spacing:-.01em;color:var(--dsw-alias-label-primary);font-size:14px;font-weight:600;line-height:1.4}.alOFIW_description{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:1.5}.alOFIW_body{padding:4px 16px 16px}.alOFIW_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.alOFIW_field+.alOFIW_field{border-top:1px solid var(--dsw-alias-border-l2)}.alOFIW_head{align-items:center;gap:8px;min-height:20px;display:flex}.alOFIW_label{min-width:0;font:var(--dsw-font-xs-13,13px/1.5 inherit);color:var(--dsw-alias-label-primary);flex:1}.alOFIW_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.alOFIW_revert{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.alOFIW_revert:hover{color:var(--dsw-alias-label-primary)}.alOFIW_revert:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_hint{font:var(--dsw-font-xxs-12,12px/1.5 inherit);color:var(--dsw-alias-label-tertiary);margin:0}.alOFIW_control{align-items:center;gap:8px;max-width:260px;display:flex}.alOFIW_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;width:100%;min-width:0;padding:0 12px;font-size:13px;line-height:1.5}.alOFIW_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.alOFIW_inputInvalid{border-color:var(--dsw-alias-label-error);}.alOFIW_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.alOFIW_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_toggle{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:999px;flex:none;width:36px;height:20px;margin:0;padding:0;transition:background .16s,border-color .16s;position:relative}.alOFIW_toggle:after{content:\"\";background:var(--dsw-alias-label-tertiary);border-radius:999px;width:14px;height:14px;transition:transform .16s,background .16s;position:absolute;top:2px;left:2px}.alOFIW_toggle:checked{background:var(--dsw-alias-brand-primary);border-color:var(--dsw-alias-brand-primary)}.alOFIW_toggle:checked:after{background:var(--dsw-alias-label-primary-foreground);transform:translate(16px)}.alOFIW_toggle:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_toggle:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_toggle:disabled{cursor:default;opacity:.55}.alOFIW_segmented{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:8px;gap:2px;padding:2px;display:inline-flex}.alOFIW_seg{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;border-radius:6px;align-items:center;gap:6px;padding:4px 12px;font-size:12px;line-height:1.5;display:inline-flex}.alOFIW_seg input{accent-color:var(--dsw-alias-brand-primary);margin:0}.alOFIW_seg:hover{color:var(--dsw-alias-label-primary)}.alOFIW_segOn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.alOFIW_seg:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;margin-top:2px;padding-top:14px;display:flex}.alOFIW_spacer{flex:1}.alOFIW_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;cursor:pointer;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 14px;font-size:13px;font-weight:500;line-height:1;transition:border-color .16s,background .16s}.alOFIW_button:hover:not(:disabled){border-color:var(--dsw-alias-label-dimmed)}.alOFIW_button:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.alOFIW_button:disabled{opacity:.5;cursor:default}.alOFIW_primary{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);border-color:#0000;}.alOFIW_primary:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.alOFIW_alert{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.alOFIW_saved{color:var(--dsw-alias-label-success,var(--dsw-alias-label-secondary));margin:0;font-size:12px;line-height:1.5}.alOFIW_footer{align-items:center;gap:8px;padding:0 16px 14px;display:flex}@media (max-width:420px){.alOFIW_control{max-width:none}}@keyframes alOFIW_dshasSpin{to{transform:rotate(360deg)}}.dshas-spin{animation:.8s linear infinite alOFIW_dshasSpin}@media (prefers-reduced-motion:reduce){.dshas-spin{animation:none}}";
+const tagId$2 = "dsh-awesome-skills/SettingsCard_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 	const tag = document.createElement("style");
 	tag.dataset.plugin = "dsh-awesome-skills";
-	tag.dataset.pluginCss = tagId$1;
-	tag.textContent = css$1;
+	tag.dataset.pluginCss = tagId$2;
+	tag.textContent = css$2;
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"segmented": "alOFIW_segmented",
-	"toggle": "alOFIW_toggle",
-	"card": "alOFIW_card",
-	"description": "alOFIW_description",
-	"revert": "alOFIW_revert",
-	"saved": "alOFIW_saved",
-	"header": "alOFIW_header",
-	"footer": "alOFIW_footer",
-	"spacer": "alOFIW_spacer",
-	"name": "alOFIW_name",
-	"actions": "alOFIW_actions",
-	"control": "alOFIW_control",
-	"head": "alOFIW_head",
 	"seg": "alOFIW_seg",
-	"primary": "alOFIW_primary",
-	"field": "alOFIW_field",
-	"hint": "alOFIW_hint",
-	"inputInvalid": "alOFIW_inputInvalid",
-	"segOn": "alOFIW_segOn",
 	"input": "alOFIW_input",
-	"button": "alOFIW_button",
-	"alert": "alOFIW_alert",
+	"header": "alOFIW_header",
 	"badge": "alOFIW_badge",
 	"invalid": "alOFIW_invalid",
+	"segOn": "alOFIW_segOn",
+	"spacer": "alOFIW_spacer",
+	"card": "alOFIW_card",
+	"dshasSpin": "alOFIW_dshasSpin",
+	"control": "alOFIW_control",
+	"button": "alOFIW_button",
+	"head": "alOFIW_head",
+	"description": "alOFIW_description",
+	"segmented": "alOFIW_segmented",
+	"body": "alOFIW_body",
+	"primary": "alOFIW_primary",
+	"actions": "alOFIW_actions",
+	"field": "alOFIW_field",
+	"revert": "alOFIW_revert",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"alert": "alOFIW_alert",
+	"saved": "alOFIW_saved",
+	"footer": "alOFIW_footer",
+	"hint": "alOFIW_hint",
 	"label": "alOFIW_label",
-	"body": "alOFIW_body"
+	"toggle": "alOFIW_toggle",
+	"name": "alOFIW_name"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -692,7 +718,7 @@ function SettingsCard(props) {
 						onClick: () => {
 							save();
 						},
-						children: saving ? "…" : t("save")
+						children: saving ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)(IconSpinner, {}) : t("save")
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 						type: "button",
@@ -724,39 +750,39 @@ function validNumber(draft, min, max) {
 }
 //#endregion
 //#region \0dsh-css:PrioritySkills_module_css.mjs
-const css = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_block+.bm5jra_block{border-top:1px solid var(--dsw-alias-border-l2);margin-top:24px;padding-top:20px}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;display:flex}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_pickers{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_picker{max-width:320px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;align-self:flex-start;padding:0 10px;font-size:12px}.bm5jra_picker:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_modeRow{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_mode{font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);cursor:pointer;border-radius:8px;align-items:center;gap:7px;padding:6px 12px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_mode:hover{border-color:var(--dsw-alias-label-dimmed)}.bm5jra_modeOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_mode input{accent-color:var(--dsw-alias-brand-primary);margin:0}.bm5jra_mode:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}";
-const tagId = "dsh-awesome-skills/PrioritySkills_module_css";
-if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
+const css$1 = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_block+.bm5jra_block{border-top:1px solid var(--dsw-alias-border-l2);margin-top:24px;padding-top:20px}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;transition:background .15s;display:flex}.bm5jra_row:hover{background:var(--dsw-alias-bg-layer-2)}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_pickers{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_picker{max-width:320px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;align-self:flex-start;padding:0 10px;font-size:12px}.bm5jra_picker:hover{border-color:var(--dsw-alias-label-dimmed)}.bm5jra_picker:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_modeRow{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_mode{font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);cursor:pointer;border-radius:8px;align-items:center;gap:7px;padding:6px 12px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_mode:hover{border-color:var(--dsw-alias-label-dimmed)}.bm5jra_modeOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_mode input{accent-color:var(--dsw-alias-brand-primary);margin:0}.bm5jra_mode:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}";
+const tagId$1 = "dsh-awesome-skills/PrioritySkills_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 	const tag = document.createElement("style");
 	tag.dataset.plugin = "dsh-awesome-skills";
-	tag.dataset.pluginCss = tagId;
-	tag.textContent = css;
+	tag.dataset.pluginCss = tagId$1;
+	tag.textContent = css$1;
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"mode": "bm5jra_mode",
-	"list": "bm5jra_list",
-	"path": "bm5jra_path",
-	"controls": "bm5jra_controls",
-	"rank": "bm5jra_rank",
-	"hint": "bm5jra_hint",
-	"pickers": "bm5jra_pickers",
-	"row": "bm5jra_row",
-	"primary": "bm5jra_primary",
-	"modeRow": "bm5jra_modeRow",
-	"ctl": "bm5jra_ctl",
-	"modeOn": "bm5jra_modeOn",
-	"picker": "bm5jra_picker",
 	"button": "bm5jra_button",
-	"empty": "bm5jra_empty",
-	"root": "bm5jra_root",
 	"input": "bm5jra_input",
+	"rank": "bm5jra_rank",
+	"empty": "bm5jra_empty",
+	"ctl": "bm5jra_ctl",
+	"pickers": "bm5jra_pickers",
+	"block": "bm5jra_block",
+	"hint": "bm5jra_hint",
+	"modeRow": "bm5jra_modeRow",
+	"mode": "bm5jra_mode",
+	"row": "bm5jra_row",
+	"list": "bm5jra_list",
+	"controls": "bm5jra_controls",
 	"grow": "bm5jra_grow",
-	"state": "bm5jra_state",
 	"actions": "bm5jra_actions",
 	"addRow": "bm5jra_addRow",
-	"block": "bm5jra_block",
-	"heading": "bm5jra_heading"
+	"root": "bm5jra_root",
+	"picker": "bm5jra_picker",
+	"modeOn": "bm5jra_modeOn",
+	"heading": "bm5jra_heading",
+	"path": "bm5jra_path",
+	"state": "bm5jra_state",
+	"primary": "bm5jra_primary"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -1038,7 +1064,7 @@ function PrioritySkills(props) {
 							setSaving(true);
 							onApply().finally(() => setSaving(false));
 						},
-						children: saving ? "…" : t("save")
+						children: saving ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)(IconSpinner, {}) : t("save")
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { className: _dsh_css_PrioritySkills_module_css_default.grow }),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
@@ -1209,18 +1235,33 @@ function SkillSection(props) {
 	] });
 }
 //#endregion
+//#region \0dsh-css:SkillPickDetails_module_css.mjs
+const css = ".AWa8SG_root{font-size:var(--dsw-font-xs-13,13px);flex-direction:column;gap:8px;display:flex}.AWa8SG_head{align-items:baseline;gap:8px;display:flex}.AWa8SG_name{color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;margin:0;font-size:13px;font-weight:600;line-height:1.4}.AWa8SG_duration{font-size:var(--dsw-font-xxs-12,12px);font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-tertiary);flex:none;margin-left:auto}.AWa8SG_stateRunning{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary);border-radius:999px;flex:none;margin-left:auto;padding:1px 8px;font-size:10px;font-weight:600;line-height:16px}.AWa8SG_stateError{background:var(--dsw-alias-state-error-primary);color:var(--dsw-alias-label-primary-foreground);border-radius:999px;flex:none;padding:1px 8px;font-size:10px;font-weight:600;line-height:16px}.AWa8SG_sectionLabel{letter-spacing:.06em;text-transform:uppercase;color:var(--dsw-alias-label-tertiary);margin:0;font-size:10px;font-weight:600}.AWa8SG_pre{font-family:var(--dsw-font-mono,ui-monospace, SFMono-Regular, Menlo, monospace);white-space:pre-wrap;word-break:break-word;background:var(--dsw-alias-markdown-code-block);color:var(--dsw-alias-label-primary);border-radius:8px;max-height:240px;margin:4px 0 0;padding:8px 10px;font-size:11px;line-height:1.55;overflow:auto}.AWa8SG_pre[data-error]{color:var(--dsw-alias-state-error-primary)}.AWa8SG_output{white-space:pre-wrap;word-break:break-word;background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-secondary);border-radius:8px;max-height:200px;margin:4px 0 0;padding:8px 10px;font-size:12px;line-height:1.55;overflow:auto}.AWa8SG_truncated{color:var(--dsw-alias-label-tertiary);margin:2px 0 0;font-size:10px}.AWa8SG_fallback{color:var(--dsw-alias-label-secondary);overflow-wrap:anywhere;margin:0;font-size:12px;line-height:1.5}";
+const tagId = "dsh-awesome-skills/SkillPickDetails_module_css";
+if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
+	const tag = document.createElement("style");
+	tag.dataset.plugin = "dsh-awesome-skills";
+	tag.dataset.pluginCss = tagId;
+	tag.textContent = css;
+	document.head.appendChild(tag);
+}
+var _dsh_css_SkillPickDetails_module_css_default = {
+	"duration": "AWa8SG_duration",
+	"head": "AWa8SG_head",
+	"root": "AWa8SG_root",
+	"name": "AWa8SG_name",
+	"output": "AWa8SG_output",
+	"fallback": "AWa8SG_fallback",
+	"pre": "AWa8SG_pre",
+	"truncated": "AWa8SG_truncated",
+	"sectionLabel": "AWa8SG_sectionLabel",
+	"stateRunning": "AWa8SG_stateRunning",
+	"stateError": "AWa8SG_stateError"
+};
+//#endregion
 //#region src/client/SkillPickDetails.tsx
 /** Longest rendered arguments text before truncation in the generic fallback. */
 const ARGS_LIMIT = 2e3;
-/** Shared monospace block styling (inline until a CSS module lands). */
-const preStyle = {
-	margin: "4px 0",
-	padding: "6px 8px",
-	fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-	fontSize: "0.85em",
-	whiteSpace: "pre-wrap",
-	wordBreak: "break-word"
-};
 /**
 * Render the selected call: the skill card for `skill` picks, the generic
 * fallback for every other tool, and a one-line placeholder when the block
@@ -1230,67 +1271,100 @@ const preStyle = {
 */
 function SkillPickDetails(props) {
 	const { block, t } = props;
-	if (block === null || typeof block !== "object") return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailUnknownTool") });
+	if (block === null || typeof block !== "object") return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+		className: _dsh_css_SkillPickDetails_module_css_default.root,
+		children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+			className: _dsh_css_SkillPickDetails_module_css_default.fallback,
+			children: t("detailUnknownTool")
+		})
+	});
 	const result = isResultBlock(block) ? block : null;
 	const running = result === null && isRunningBlock(block) ? block : null;
-	if (result === null && running === null) return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailUnknownTool") });
+	if (result === null && running === null) return /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+		className: _dsh_css_SkillPickDetails_module_css_default.root,
+		children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+			className: _dsh_css_SkillPickDetails_module_css_default.fallback,
+			children: t("detailUnknownTool")
+		})
+	});
 	const toolName = result ? result.call === null ? void 0 : result.call.name : running?.name;
 	const argsRaw = result ? result.call === null ? void 0 : result.call.argsRaw : running?.argsRaw;
 	const pretty = prettyJson(argsRaw);
 	const duration = result === null ? void 0 : formatDuration(result, t);
-	if (toolName !== "skill") return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-		/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-			t("detailTool"),
-			": ",
-			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: toolName ?? t("detailUnknownTool") })
-		] }),
-		result === null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailRunning") }) : null,
-		duration !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-			t("detailDuration"),
-			": ",
-			duration
-		] }) : null,
-		pretty !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
-			style: preStyle,
-			children: truncate(pretty, t("detailTruncated"))
-		}) : null,
-		result !== null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
-			style: preStyle,
-			"data-error": result.isError || void 0,
-			children: resultText(result.content)
-		}) : null,
-		result !== null && result.isError ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-			role: "alert",
-			children: errorLine(result, t)
-		}) : null
-	] });
+	if (toolName !== "skill") return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_SkillPickDetails_module_css_default.root,
+		children: [
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SkillPickDetails_module_css_default.head,
+				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+					className: _dsh_css_SkillPickDetails_module_css_default.name,
+					children: toolName ?? t("detailUnknownTool")
+				}), result === null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SkillPickDetails_module_css_default.stateRunning,
+					children: t("detailRunning")
+				}) : duration !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SkillPickDetails_module_css_default.duration,
+					children: duration
+				}) : null]
+			}),
+			pretty !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
+				className: _dsh_css_SkillPickDetails_module_css_default.pre,
+				children: truncate(pretty, t("detailTruncated"))
+			}) : null,
+			result !== null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
+				className: _dsh_css_SkillPickDetails_module_css_default.pre,
+				"data-error": result.isError || void 0,
+				children: resultText(result.content)
+			}) : null,
+			result !== null && result.isError ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillPickDetails_module_css_default.fallback,
+				role: "alert",
+				children: errorLine(result, t)
+			}) : null
+		]
+	});
 	const skillName = parseSkillName(argsRaw);
-	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-		/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-			t("detailSkillTitle"),
-			": ",
-			/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: skillName !== void 0 ? skillName : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("em", { children: t("detailUnknownName") }) })
-		] }),
-		result === null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailRunning") }) : null,
-		duration !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-			t("detailDuration"),
-			": ",
-			duration
-		] }) : null,
-		pretty !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailArgs") }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
-			style: preStyle,
-			children: pretty
-		})] }) : null,
-		result !== null && result.isError ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-			role: "alert",
-			children: errorLine(result, t)
-		}) : null,
-		result !== null ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", { children: t("detailOutput") }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
-			style: preStyle,
-			"data-error": result.isError || void 0,
-			children: resultText(result.content)
-		})] }) : null
-	] });
+	return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_SkillPickDetails_module_css_default.root,
+		children: [
+			/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+				className: _dsh_css_SkillPickDetails_module_css_default.head,
+				children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+					className: _dsh_css_SkillPickDetails_module_css_default.name,
+					children: skillName !== void 0 ? skillName : t("detailUnknownName")
+				}), result === null ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SkillPickDetails_module_css_default.stateRunning,
+					children: t("detailRunning")
+				}) : result.isError ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SkillPickDetails_module_css_default.stateError,
+					children: t("detailError")
+				}) : duration !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+					className: _dsh_css_SkillPickDetails_module_css_default.duration,
+					children: duration
+				}) : null]
+			}),
+			pretty !== void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillPickDetails_module_css_default.sectionLabel,
+				children: t("detailArgs")
+			}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
+				className: _dsh_css_SkillPickDetails_module_css_default.pre,
+				children: pretty
+			})] }) : null,
+			result !== null && result.isError ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillPickDetails_module_css_default.fallback,
+				role: "alert",
+				children: errorLine(result, t)
+			}) : null,
+			result !== null ? /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SkillPickDetails_module_css_default.sectionLabel,
+				children: t("detailOutput")
+			}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("pre", {
+				className: _dsh_css_SkillPickDetails_module_css_default.pre,
+				"data-error": result.isError || void 0,
+				children: resultText(result.content)
+			})] }) : null
+		]
+	});
 }
 /** Settled-call discriminator: only the result node carries `kind`. */
 function isResultBlock(value) {

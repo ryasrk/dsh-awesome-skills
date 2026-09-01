@@ -35,6 +35,14 @@ export function IconClose({ size = 12 }: IconProps): JSX.Element {
   return <svg {...base(size)}><path d="M4 4l8 8M12 4l-8 8" /></svg>
 }
 
+export function IconSpinner({ size = 12 }: IconProps): JSX.Element {
+  return (
+    <svg {...base(size)} className="dshas-spin">
+      <path d="M8 1.5a6.5 6.5 0 1 1-6.5 6.5" />
+    </svg>
+  )
+}
+
 export function IconSearch({ size = 14 }: IconProps): JSX.Element {
   return (
     <svg {...base(size)}>

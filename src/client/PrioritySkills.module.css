@@ -59,6 +59,11 @@
   gap: 8px;
   padding: 8px 10px;
   background: var(--dsw-alias-bg-layer-3);
+  transition: background .15s;
+}
+
+.row:hover {
+  background: var(--dsw-alias-bg-layer-2);
 }
 
 .row + .row {
@@ -144,6 +149,10 @@
   background: var(--dsw-alias-bg-layer-3);
   color: var(--dsw-alias-label-primary);
   cursor: pointer;
+}
+
+.picker:hover {
+  border-color: var(--dsw-alias-label-dimmed);
 }
 
 .picker:focus-visible {

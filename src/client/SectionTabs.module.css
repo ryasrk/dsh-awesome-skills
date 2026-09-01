@@ -6,7 +6,7 @@
   align-items: flex-end;
   gap: 2px;
   border-bottom: 1px solid var(--dsw-alias-border-l2);
-  margin-bottom: 16px;
+  margin: 4px 0 16px;
 }
 
 .tab {

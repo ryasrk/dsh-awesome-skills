@@ -10,7 +10,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import css from './PrioritySkills.module.css'
-import { IconChevronDown, IconChevronUp, IconClose } from './icons.tsx'
+import { IconChevronDown, IconChevronUp, IconClose, IconSpinner } from './icons.tsx'
 
 /** One ordered list's shape as the route returns it. */
 export interface PriorityState {
@@ -210,7 +210,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
             disabled={!isDirty || saving}
             onClick={() => { setSaving(true); void onApply().finally(() => setSaving(false)) }}
           >
-            {saving ? '…' : t('save')}
+            {saving ? <IconSpinner /> : t('save')}
           </button>
           <span className={css.grow} />
           <span className={css.state}>{isDirty ? t('priorityUnsaved') : t('prioritySaved')}</span>

@@ -12,6 +12,7 @@
 import { useEffect, useState } from 'react'
 import type { SettingsScope, SettingsScopeSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
 import css from './SettingsCard.module.css'
+import { IconSpinner } from './icons.tsx'
 
 /** Namespace both the Host registration and this card key themselves to. */
 const NS = 'dsh-awesome-skills'
@@ -238,7 +239,7 @@ export function SettingsCard(props: SettingsCardProps) {
           disabled={!dirty || invalid || saving || !snapshot.writable}
           onClick={() => { void save() }}
         >
-          {saving ? '…' : t('save')}
+          {saving ? <IconSpinner /> : t('save')}
         </button>
         <button type="button" className={css.button} disabled={!dirty || saving} onClick={discard}>{t('discard')}</button>
         <span className={css.spacer} />

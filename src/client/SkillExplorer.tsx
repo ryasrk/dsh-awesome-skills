@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SearchHit } from '../search.js'
 import type { en } from './locales.ts'
 import css from './SkillExplorer.module.css'
-import { IconClose } from './icons.tsx'
+import { IconClose, IconSearch } from './icons.tsx'
 
 /** One dictionary of the plugin's locale, whichever language is active. */
 export type Dict = typeof en
@@ -175,6 +175,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
   return (
     <div className={css.section}>
       <div className={css.searchRow}>
+        <span className={css.searchIcon}><IconSearch /></span>
         <input
           ref={inputRef}
           className={css.search}

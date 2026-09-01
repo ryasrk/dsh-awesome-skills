@@ -1,0 +1,114 @@
+/* Details panel body: dense by nature (it overlays the transcript), so the
+   type scale sits one step down and every block is separated by hairlines
+   rather than nested cards. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--dsw-font-xs-13, 13px);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dsw-alias-label-primary);
+  overflow-wrap: anywhere;
+}
+
+.duration {
+  flex: none;
+  margin-left: auto;
+  font-size: var(--dsw-font-xxs-12, 12px);
+  font-variant-numeric: tabular-nums;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.stateRunning {
+  flex: none;
+  margin-left: auto;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-secondary);
+}
+
+.stateError {
+  flex: none;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  background: var(--dsw-alias-state-error-primary);
+  color: var(--dsw-alias-label-primary-foreground);
+}
+
+.sectionLabel {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* Code blocks carry the host's own code-block token instead of a bare gray,
+   so they read as code in both themes. */
+.pre {
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  font-family: var(--dsw-font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--dsw-alias-markdown-code-block);
+  color: var(--dsw-alias-label-primary);
+  border-radius: 8px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.pre[data-error] {
+  color: var(--dsw-alias-state-error-primary);
+}
+
+.output {
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-secondary);
+  border-radius: 8px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.truncated {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.fallback {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-secondary);
+  overflow-wrap: anywhere;
+}

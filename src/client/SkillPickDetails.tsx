@@ -8,8 +8,9 @@
  * loses its details body.
  */
 
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { en } from './locales.ts'
+import css from './SkillPickDetails.module.css'
 
 /** Localized copy seat for the details card. */
 type Translate = (key: keyof typeof en) => string
@@ -47,16 +48,6 @@ interface SkillPickDetailsProps {
 /** Longest rendered arguments text before truncation in the generic fallback. */
 const ARGS_LIMIT = 2000
 
-/** Shared monospace block styling (inline until a CSS module lands). */
-const preStyle: CSSProperties = {
-  margin: '4px 0',
-  padding: '6px 8px',
-  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
-  fontSize: '0.85em',
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-word',
-}
-
 /**
  * Render the selected call: the skill card for `skill` picks, the generic
  * fallback for every other tool, and a one-line placeholder when the block
@@ -66,11 +57,11 @@ const preStyle: CSSProperties = {
  */
 export function SkillPickDetails(props: SkillPickDetailsProps): ReactNode {
   const { block, t } = props
-  if (block === null || typeof block !== 'object') return <div>{t('detailUnknownTool')}</div>
+  if (block === null || typeof block !== 'object') return <div className={css.root}><p className={css.fallback}>{t('detailUnknownTool')}</p></div>
 
   const result = isResultBlock(block) ? block : null
   const running = result === null && isRunningBlock(block) ? block : null
-  if (result === null && running === null) return <div>{t('detailUnknownTool')}</div>
+  if (result === null && running === null) return <div className={css.root}><p className={css.fallback}>{t('detailUnknownTool')}</p></div>
 
   const toolName = result ? (result.call === null ? undefined : result.call.name) : running?.name
   const argsRaw = result ? (result.call === null ? undefined : result.call.argsRaw) : running?.argsRaw
@@ -79,42 +70,46 @@ export function SkillPickDetails(props: SkillPickDetailsProps): ReactNode {
 
   if (toolName !== 'skill') {
     return (
-      <div>
-        <div>
-          {t('detailTool')}: <strong>{toolName ?? t('detailUnknownTool')}</strong>
+      <div className={css.root}>
+        <div className={css.head}>
+          <p className={css.name}>{toolName ?? t('detailUnknownTool')}</p>
+          {result === null
+            ? <span className={css.stateRunning}>{t('detailRunning')}</span>
+            : duration !== undefined ? <span className={css.duration}>{duration}</span> : null}
         </div>
-        {result === null ? <div>{t('detailRunning')}</div> : null}
-        {duration !== undefined ? <div>{t('detailDuration')}: {duration}</div> : null}
-        {pretty !== undefined ? <pre style={preStyle}>{truncate(pretty, t('detailTruncated'))}</pre> : null}
+        {pretty !== undefined ? <pre className={css.pre}>{truncate(pretty, t('detailTruncated'))}</pre> : null}
         {result !== null ? (
-          <pre style={preStyle} data-error={result.isError || undefined}>
+          <pre className={css.pre} data-error={result.isError || undefined}>
             {resultText(result.content)}
           </pre>
         ) : null}
-        {result !== null && result.isError ? <div role="alert">{errorLine(result, t)}</div> : null}
+        {result !== null && result.isError ? <p className={css.fallback} role="alert">{errorLine(result, t)}</p> : null}
       </div>
     )
   }
 
   const skillName = parseSkillName(argsRaw)
   return (
-    <div>
-      <div>
-        {t('detailSkillTitle')}: <strong>{skillName !== undefined ? skillName : <em>{t('detailUnknownName')}</em>}</strong>
+    <div className={css.root}>
+      <div className={css.head}>
+        <p className={css.name}>{skillName !== undefined ? skillName : t('detailUnknownName')}</p>
+        {result === null
+          ? <span className={css.stateRunning}>{t('detailRunning')}</span>
+          : result.isError
+            ? <span className={css.stateError}>{t('detailError')}</span>
+            : duration !== undefined ? <span className={css.duration}>{duration}</span> : null}
       </div>
-      {result === null ? <div>{t('detailRunning')}</div> : null}
-      {duration !== undefined ? <div>{t('detailDuration')}: {duration}</div> : null}
       {pretty !== undefined ? (
         <section>
-          <div>{t('detailArgs')}</div>
-          <pre style={preStyle}>{pretty}</pre>
+          <p className={css.sectionLabel}>{t('detailArgs')}</p>
+          <pre className={css.pre}>{pretty}</pre>
         </section>
       ) : null}
-      {result !== null && result.isError ? <div role="alert">{errorLine(result, t)}</div> : null}
+      {result !== null && result.isError ? <p className={css.fallback} role="alert">{errorLine(result, t)}</p> : null}
       {result !== null ? (
         <section>
-          <div>{t('detailOutput')}</div>
-          <pre style={preStyle} data-error={result.isError || undefined}>
+          <p className={css.sectionLabel}>{t('detailOutput')}</p>
+          <pre className={css.pre} data-error={result.isError || undefined}>
             {resultText(result.content)}
           </pre>
         </section>
