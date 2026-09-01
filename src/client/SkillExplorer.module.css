@@ -68,6 +68,9 @@
   right: 8px;
   width: 24px;
   height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 999px;
   background: var(--dsw-alias-bg-module-platform);

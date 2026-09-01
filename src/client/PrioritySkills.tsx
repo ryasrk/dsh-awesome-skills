@@ -204,7 +204,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   }
 
   const targetLabel = (key: Target): string =>
-    t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'addBlack' : 'addWhite')
+    t(key === 'prio' ? 'filterPrio' : key === 'blacklist' ? 'filterBlack' : 'filterWhite')
 
   return (
     <div className={css.root}>
