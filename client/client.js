@@ -13,10 +13,10 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
+	"tabs": "jsPfLW_tabs",
 	"dot": "jsPfLW_dot",
-	"tab": "jsPfLW_tab",
 	"tabOn": "jsPfLW_tabOn",
-	"tabs": "jsPfLW_tabs"
+	"tab": "jsPfLW_tab"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -30,19 +30,19 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"state": "vc1x0a_state",
-	"description": "vc1x0a_description",
-	"result": "vc1x0a_result",
-	"search": "vc1x0a_search",
-	"results": "vc1x0a_results",
-	"name": "vc1x0a_name",
-	"resultHead": "vc1x0a_resultHead",
-	"path": "vc1x0a_path",
-	"divider": "vc1x0a_divider",
-	"section": "vc1x0a_section",
-	"meta": "vc1x0a_meta",
 	"hint": "vc1x0a_hint",
+	"meta": "vc1x0a_meta",
+	"section": "vc1x0a_section",
+	"state": "vc1x0a_state",
+	"search": "vc1x0a_search",
+	"result": "vc1x0a_result",
+	"path": "vc1x0a_path",
 	"score": "vc1x0a_score",
+	"name": "vc1x0a_name",
+	"divider": "vc1x0a_divider",
+	"results": "vc1x0a_results",
+	"resultHead": "vc1x0a_resultHead",
+	"description": "vc1x0a_description",
 	"error": "vc1x0a_error",
 	"pin": "vc1x0a_pin",
 	"configHeading": "vc1x0a_configHeading"
@@ -245,29 +245,29 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"body": "alOFIW_body",
-	"head": "alOFIW_head",
-	"hint": "alOFIW_hint",
-	"toggle": "alOFIW_toggle",
-	"badge": "alOFIW_badge",
-	"control": "alOFIW_control",
-	"inputInvalid": "alOFIW_inputInvalid",
-	"field": "alOFIW_field",
-	"header": "alOFIW_header",
-	"label": "alOFIW_label",
 	"revert": "alOFIW_revert",
-	"invalid": "alOFIW_invalid",
+	"actions": "alOFIW_actions",
 	"spacer": "alOFIW_spacer",
 	"primary": "alOFIW_primary",
-	"alert": "alOFIW_alert",
-	"input": "alOFIW_input",
-	"saved": "alOFIW_saved",
-	"footer": "alOFIW_footer",
+	"invalid": "alOFIW_invalid",
 	"name": "alOFIW_name",
-	"actions": "alOFIW_actions",
-	"card": "alOFIW_card",
+	"footer": "alOFIW_footer",
+	"hint": "alOFIW_hint",
 	"button": "alOFIW_button",
-	"description": "alOFIW_description"
+	"body": "alOFIW_body",
+	"label": "alOFIW_label",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"saved": "alOFIW_saved",
+	"field": "alOFIW_field",
+	"header": "alOFIW_header",
+	"description": "alOFIW_description",
+	"alert": "alOFIW_alert",
+	"card": "alOFIW_card",
+	"control": "alOFIW_control",
+	"input": "alOFIW_input",
+	"badge": "alOFIW_badge",
+	"head": "alOFIW_head",
+	"toggle": "alOFIW_toggle"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -591,27 +591,27 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 }
 var _dsh_css_PrioritySkills_module_css_default = {
 	"ctl": "bm5jra_ctl",
-	"picker": "bm5jra_picker",
-	"mode": "bm5jra_mode",
-	"grow": "bm5jra_grow",
-	"root": "bm5jra_root",
-	"input": "bm5jra_input",
-	"rank": "bm5jra_rank",
-	"path": "bm5jra_path",
-	"primary": "bm5jra_primary",
-	"modeRow": "bm5jra_modeRow",
-	"controls": "bm5jra_controls",
-	"actions": "bm5jra_actions",
-	"state": "bm5jra_state",
-	"heading": "bm5jra_heading",
 	"addRow": "bm5jra_addRow",
+	"path": "bm5jra_path",
+	"button": "bm5jra_button",
+	"modeRow": "bm5jra_modeRow",
 	"modeOn": "bm5jra_modeOn",
 	"row": "bm5jra_row",
-	"block": "bm5jra_block",
+	"input": "bm5jra_input",
+	"picker": "bm5jra_picker",
+	"state": "bm5jra_state",
+	"root": "bm5jra_root",
+	"mode": "bm5jra_mode",
+	"rank": "bm5jra_rank",
 	"hint": "bm5jra_hint",
-	"list": "bm5jra_list",
+	"primary": "bm5jra_primary",
 	"empty": "bm5jra_empty",
-	"button": "bm5jra_button"
+	"heading": "bm5jra_heading",
+	"controls": "bm5jra_controls",
+	"grow": "bm5jra_grow",
+	"actions": "bm5jra_actions",
+	"list": "bm5jra_list",
+	"block": "bm5jra_block"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx

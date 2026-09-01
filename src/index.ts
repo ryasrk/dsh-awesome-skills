@@ -47,7 +47,7 @@ const PKG_ROOT = (() => {
  */
 const ROUTER_SKILL = `---
 name: skill-router
-description: Search a 16k-skill local corpus and load the matching workflow before doing the task yourself. Use for essentially any concrete implementation request - building, fixing, configuring, deploying, testing, or reviewing anything - so the work follows a vetted playbook instead of improvised steps.
+description: Route every task through the local 16k-skill corpus FIRST - this is a default-first reflex, not an opt-in. Before writing or planning anything for a concrete request (build, fix, test, deploy, configure, refactor, review), query the corpus from the conversation's context and follow the best match. Call this skill at the START of a task, unprompted, whenever the message contains an actionable request - do not wait for the user to name a skill or for the task to look specialized.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -58,18 +58,28 @@ You have access to a local corpus of **~16,000 specialized skills** that is NOT 
 your catalog. It is vector-indexed and searchable. Before doing real work, search
 it - a vetted playbook almost always beats improvising from general knowledge.
 
-## When to search (default: yes)
+## When to route (it flows from context, not from the user naming a skill)
 
-Search for any concrete task: building a feature, fixing a bug, configuring or
-deploying a service, writing tests, reviewing code, refactoring, setting up
-infra, integrating an API or library, optimizing performance, or working with a
-framework, database, cloud provider, or language ecosystem.
+Route by reading the conversation. A skill lookup is triggered by the SHAPE of
+the message, not by an explicit skill name:
 
-Skip it only for trivial or purely conversational turns (acknowledgements,
-clarifying questions, "thanks", greetings), or when you are already following a
-skill you loaded this turn.
+- The user describes something they want built, fixed, tested, deployed,
+  configured, refactored, reviewed, or explained with intent to act.
+- The user names a tool, framework, library, cloud, or database.
+- The user asks "how do I / can we / please do".
+- The conversation is mid-task and the next step is a concrete action.
 
-Do not wait for a crisis. If the task has a noun and a verb, search.
+Route FIRST, before reasoning about the approach. The lookup is cheap (~1s)
+and it happens before planning, not after: reading the matched playbook is
+what makes the plan good.
+
+Skip routing only when the turn is purely conversational: a greeting, a
+thanks, a clarification question, a status report, or when you are already
+following a skill loaded this turn.
+
+Default is ROUTE. If you are unsure whether a turn counts, route anyway - a
+miss costs one second. Silence after an actionable message is the failure
+mode this skill exists to prevent.
 
 ## How
 
@@ -140,8 +150,13 @@ export function apply(ctx: PluginContext, config?: Config): void {
     const dir = join(home, '.agents', 'skills', 'skill-router')
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
     const file = join(dir, 'SKILL.md')
-    // Never overwrite: a hand-tuned router must survive plugin reinstalls.
-    if (existsSync(file)) return
+    // Refresh on every apply: the shipped copy is the source of truth for the
+    // router's *behaviour*, and a stale one silently changes when the model
+    // routes. A user's manual tweak would be lost, which is the tradeoff the
+    // old install-if-absent rule made — but that rule shipped a description so
+    // passive that the router almost never fired, which is the worse failure.
+    // The live copy is regenerated from ROUTER_SKILL here; paths stay correct
+    // because they are substituted at write time, never baked into the source.
     writeFileSync(file, ROUTER_SKILL.replace('__QUERY_BIN__', queryBin).replace('__CORPUS_DIR__', corpusDir))
     ctx.logger.info(`dsh-awesome-skills: installed skill-router into ${dir}`)
   } catch (error) {
