@@ -1,14 +1,14 @@
 ---
-description: "Semantic vector search over a curated skills.sh top-100 local corpus, installed as a DeepSeek Harness bundle"
+description: "Semantic vector search over a 6,097-skill local corpus (skills.sh top 100 + the a5c-ai/babysitter library), installed as a DeepSeek Harness bundle"
 kind: "package-reference"
 ---
 
 # dsh-awesome-skills
 
 A DeepSeek Harness bundle that gives agents semantic access to a curated local
-skill corpus — the **top 100 skills on skills.sh by all-time installs** (83
-GitHub-hosted skills shipped) — without ever putting that corpus into the
-per-turn model catalog.
+skill corpus — the skills.sh top 100 (83 GitHub-hosted skills) plus the full
+a5c-ai/babysitter library (~2,100 skills) — **6,097 skills total** — without
+ever putting that corpus into the per-turn model catalog.
 
 ## Why
 
@@ -29,13 +29,13 @@ reference file it points at (examples, templates, scripts):
 
 ```
 skills/
-├── mattpocock/skills/          # 17 skills (tdd, grilling, code-review, ...)
-├── larksuite/cli/              # 22 skills (the full lark suite, zh docs)
-├── microsoft/azure-skills/     # 20 skills (incl. microsoft-foundry: 191 files)
+├── a5c-ai/babysitter/            # ~2,100 skills (specializations + methodologies incl. the domains tree)
+├── mattpocock/skills/            # 17 skills (tdd, grilling, code-review, ...)
+├── microsoft/azure-skills/       # 20 skills (incl. microsoft-foundry: 191 files)
 ├── anthropics/skills/frontend-design/
-├── vercel-labs/agent-skills/   # vercel-react-best-practices (62 rules)
-├── obra/superpowers/           # brainstorming, systematic-debugging, ...
-└── ...                         # 14 owner/repo groups, 83 skills, 1,500+ files
+├── vercel-labs/agent-skills/     # vercel-react-best-practices (62 rules)
+├── obra/superpowers/             # brainstorming, systematic-debugging, ...
+└── ...                           # 157 owner/repo groups, 6,097 skills, 17,600+ files
 ```
 
 The 17 site-only entries on the skills.sh leaderboard (the open.feishu.cn
@@ -65,6 +65,21 @@ installs the bundled `skill-router` skill into `~/.agents/skills/skill-router`.
 An existing `skill-router` is never overwritten, so a hand-tuned router
 survives reinstall.
 
+## Model-facing tools
+
+On hosts that expose the `tools` service, the plugin registers two tools that
+run in-process with host authority — the standard-permission-mode path to the
+corpus, since the agent needs no Bash or out-of-workspace Read:
+
+- `skills_search(query, k?)` — the calibrated hybrid search; settings knobs
+  (prio/blacklist/whitelist) apply.
+- `skills_read(path, file?)` — one file from a hit's directory, guarded to the
+  corpus root (no traversal), text extensions only, 64 KiB cap.
+
+The `skill-router` skill teaches the tool-first flow and keeps the
+`printf | node query.js` CLI as a one-paragraph fallback for hosts without
+the tools service.
+
 ## Ranking
 
 Three lanes are fused, then re-ranked over a candidate pool:
@@ -81,17 +96,19 @@ score = (1 - WEIGHT) * semantic + WEIGHT * lexical + GRAM_WEIGHT * char-3-gram
 
 `WEIGHT` 0.55, `GRAM_WEIGHT` 0.5, pool 1200. These were calibrated on the
 16k-skill corpus the plugin originally shipped (45 held-out cases, R@5 51%,
-MRR 0.376); the weights carry over unchanged to the smaller curated corpus,
-where brute-force scoring makes pool size moot below ~100 skills.
+MRR 0.376), then re-checked on the shipped corpus (Task 7 recalibration,
+10 new + 4 regression domain labels); the weights carry over unchanged, and
+brute-force scoring makes pool size moot at any realistic k.
 
 ## Speed
 
-Measured on the 83-skill corpus (small enough that every row is scored):
+Measured on the shipped 6,097-skill corpus (brute force still scores every
+row; the per-process model load dominates):
 
 | Path | Latency |
 |---|---|
-| Cold (model load) | ~0.9s |
-| Warm (query cache hit) | ~0.4s |
+| Cold (model load) | ~0.7s |
+| Warm (query cache hit) | ~0.6s |
 
 Derived caches (per-skill char grams, query embeddings) live next to the
 corpus and are keyed by a corpus fingerprint, so a corpus change invalidates

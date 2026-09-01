@@ -42,7 +42,7 @@ const PKG_ROOT = (() => {
 })()
 
 /**
- * The one thing an agent cannot discover on its own: that a 4,000-skill
+ * The one thing an agent cannot discover on its own: that a 6,000-skill
  * corpus exists at all. Installing a single small skill into the agents home
  * is what makes the corpus reachable, and it is the only skill this plugin
  * puts into the model-facing catalog - the rest stay out of it.
