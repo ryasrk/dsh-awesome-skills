@@ -66,8 +66,11 @@ function resolveReadTarget(corpusDir: string, path: string, file?: string): { pa
     if (size > MAX_READ_BYTES) {
       return { error: `file is ${size} bytes; the read cap is ${MAX_READ_BYTES}` }
     }
-  } catch {
-    return { error: `not found: ${path}${file === undefined ? '' : `/${file}`}` }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      return { error: `not found: ${path}${file === undefined ? '' : `/${file}`}` }
+    }
+    return { error: `unreadable: ${error instanceof Error ? error.message : String(error)}` }
   }
   return resolved
 }
@@ -195,8 +198,12 @@ export function registerSkillsTools(ctx: PluginContext, search: SkillsSearch, co
       ctx.logger.warn('dsh-awesome-skills: host tools service missing or lacks register(); corpus tools unavailable')
       return
     }
-    tools.register(searchTool(search))
-    tools.register(readTool(corpusDir))
-    ctx.logger.info('dsh-awesome-skills: corpus tools registered (skills_search, skills_read)')
+    try {
+      tools.register(searchTool(search))
+      tools.register(readTool(corpusDir))
+      ctx.logger.info('dsh-awesome-skills: corpus tools registered (skills_search, skills_read)')
+    } catch (error) {
+      ctx.logger.warn(`dsh-awesome-skills: tool registration failed; corpus tools unavailable (${error instanceof Error ? error.message : String(error)})`)
+    }
   })
 }
