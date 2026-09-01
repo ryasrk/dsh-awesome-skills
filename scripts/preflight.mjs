@@ -69,8 +69,12 @@ if (presentScripts.length > 0) {
 }
 
 // 7. .gitignore must not hide shipped artifacts: lib/ and client/ are
-// committed on purpose.
-const ignoreLines = fs.readFileSync('.gitignore', 'utf8').split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+// committed on purpose. The file never ships in the pack (pnpm packs by
+// `files`), so an installed copy has none — there the rule is satisfied by
+// construction and the check exists to guard the dev tree only.
+const ignoreLines = fs.existsSync('.gitignore')
+  ? fs.readFileSync('.gitignore', 'utf8').split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+  : []
 const ignoresLib = ignoreLines.includes('lib/')
 const ignoresClient = ignoreLines.some(line => /^client\/?$/.test(line))
 if (ignoresLib || ignoresClient) {
