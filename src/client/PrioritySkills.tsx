@@ -117,15 +117,20 @@ export function PrioritySkills(props: PrioritySkillsProps) {
           )}
 
         {available.length > 0 && (
-          <select
-            className={css.picker}
-            value=""
-            onChange={e => add('prio', e.target.value)}
-            aria-label={t('addPrio')}
-          >
-            <option value="">{t('addPrio')}</option>
-            {available.map(s => <option key={s.path} value={s.path}>{s.name}</option>)}
-          </select>
+          <div className={css.pickers}>
+            {(['prio', 'blacklist', 'whitelist'] as const).map(key => (
+              <select
+                key={key}
+                className={css.picker}
+                value=""
+                onChange={e => add(key, e.target.value)}
+                aria-label={t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}
+              >
+                <option value="">{t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}</option>
+                {available.map(s => <option key={s.path} value={s.path}>{s.name}</option>)}
+              </select>
+            ))}
+          </div>
         )}
       </section>
 

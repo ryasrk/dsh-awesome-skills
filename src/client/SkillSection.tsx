@@ -92,6 +92,37 @@ export function SkillSection(props: SkillSectionProps) {
     } catch { /* keep the staged edits; a retry re-posts them */ }
   }, [staged])
 
+  /**
+   * One skill, one list, one click: add or remove a path in a single list and
+   * commit it immediately. The POST is the same writer the Priority tab's Save
+   * uses, so the two surfaces cannot disagree; the applied state updates from
+   * the route's answer, and a failed call leaves the optimistic edit in place
+   * for a retry.
+   */
+  const assign = useCallback(async (
+    key: 'prio' | 'blacklist' | 'whitelist',
+    path: string,
+    remove: boolean,
+  ): Promise<void> => {
+    const base = staged ?? applied
+    const current = Array.isArray(base[key]) ? base[key] : []
+    const nextList = remove ? current.filter(p => p !== path) : [...current, path]
+    // Optimistic: paint the new chip state before the round trip.
+    setApplied({ ...base, [key]: nextList })
+    setStaged(undefined)
+    try {
+      const response = await fetch(api('/dsh-awesome-skills/priority'), {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ [key]: nextList }),
+      })
+      const body = (await response.json()) as PriorityResponse
+      if (body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) {
+        setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
+      }
+    } catch { /* the optimistic state stands; a retry re-posts it */ }
+  }, [applied, staged])
+
 
   const tabs = useMemo(() => ([
     { id: 'search' as const, label: labels.search },

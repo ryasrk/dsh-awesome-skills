@@ -120,6 +120,12 @@
   cursor: default;
 }
 
+.pickers {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .picker {
   align-self: flex-start;
   max-width: 320px;

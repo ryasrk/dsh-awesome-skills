@@ -13,10 +13,10 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"tabs": "jsPfLW_tabs",
+	"tab": "jsPfLW_tab",
 	"dot": "jsPfLW_dot",
-	"tabOn": "jsPfLW_tabOn",
-	"tab": "jsPfLW_tab"
+	"tabs": "jsPfLW_tabs",
+	"tabOn": "jsPfLW_tabOn"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -30,31 +30,31 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"state": "vc1x0a_state",
-	"filterBtn": "vc1x0a_filterBtn",
-	"name": "vc1x0a_name",
-	"description": "vc1x0a_description",
+	"meta": "vc1x0a_meta",
+	"hint": "vc1x0a_hint",
+	"divider": "vc1x0a_divider",
+	"filterBar": "vc1x0a_filterBar",
+	"clear": "vc1x0a_clear",
+	"results": "vc1x0a_results",
+	"chip": "vc1x0a_chip",
 	"searchRow": "vc1x0a_searchRow",
 	"pin": "vc1x0a_pin",
 	"chipPrimary": "vc1x0a_chipPrimary",
-	"error": "vc1x0a_error",
-	"chip": "vc1x0a_chip",
-	"clear": "vc1x0a_clear",
-	"score": "vc1x0a_score",
-	"results": "vc1x0a_results",
-	"result": "vc1x0a_result",
 	"rowActions": "vc1x0a_rowActions",
-	"search": "vc1x0a_search",
-	"resultHead": "vc1x0a_resultHead",
-	"path": "vc1x0a_path",
-	"divider": "vc1x0a_divider",
-	"configHeading": "vc1x0a_configHeading",
-	"filterOn": "vc1x0a_filterOn",
-	"filterBar": "vc1x0a_filterBar",
+	"description": "vc1x0a_description",
+	"score": "vc1x0a_score",
 	"chipOn": "vc1x0a_chipOn",
+	"path": "vc1x0a_path",
+	"name": "vc1x0a_name",
+	"error": "vc1x0a_error",
 	"section": "vc1x0a_section",
-	"hint": "vc1x0a_hint",
-	"meta": "vc1x0a_meta"
+	"result": "vc1x0a_result",
+	"configHeading": "vc1x0a_configHeading",
+	"search": "vc1x0a_search",
+	"filterBtn": "vc1x0a_filterBtn",
+	"filterOn": "vc1x0a_filterOn",
+	"resultHead": "vc1x0a_resultHead",
+	"state": "vc1x0a_state"
 };
 //#endregion
 //#region src/client/SkillExplorer.tsx
@@ -319,32 +319,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"button": "alOFIW_button",
-	"field": "alOFIW_field",
+	"segmented": "alOFIW_segmented",
 	"primary": "alOFIW_primary",
 	"alert": "alOFIW_alert",
-	"name": "alOFIW_name",
-	"footer": "alOFIW_footer",
-	"revert": "alOFIW_revert",
-	"description": "alOFIW_description",
-	"segmented": "alOFIW_segmented",
 	"saved": "alOFIW_saved",
-	"spacer": "alOFIW_spacer",
-	"control": "alOFIW_control",
-	"badge": "alOFIW_badge",
-	"toggle": "alOFIW_toggle",
-	"body": "alOFIW_body",
-	"card": "alOFIW_card",
-	"header": "alOFIW_header",
-	"invalid": "alOFIW_invalid",
-	"seg": "alOFIW_seg",
-	"head": "alOFIW_head",
-	"label": "alOFIW_label",
+	"footer": "alOFIW_footer",
 	"segOn": "alOFIW_segOn",
-	"hint": "alOFIW_hint",
+	"revert": "alOFIW_revert",
+	"seg": "alOFIW_seg",
+	"button": "alOFIW_button",
 	"inputInvalid": "alOFIW_inputInvalid",
+	"badge": "alOFIW_badge",
+	"description": "alOFIW_description",
+	"header": "alOFIW_header",
+	"field": "alOFIW_field",
+	"name": "alOFIW_name",
+	"head": "alOFIW_head",
+	"control": "alOFIW_control",
 	"input": "alOFIW_input",
-	"actions": "alOFIW_actions"
+	"invalid": "alOFIW_invalid",
+	"body": "alOFIW_body",
+	"actions": "alOFIW_actions",
+	"spacer": "alOFIW_spacer",
+	"label": "alOFIW_label",
+	"card": "alOFIW_card",
+	"hint": "alOFIW_hint",
+	"toggle": "alOFIW_toggle"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -683,7 +683,7 @@ function validNumber(draft, min, max) {
 }
 //#endregion
 //#region \0dsh-css:PrioritySkills_module_css.mjs
-const css = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;display:flex}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_picker{max-width:320px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;align-self:flex-start;padding:0 10px;font-size:12px}.bm5jra_picker:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-brand-primary);color:#fff;cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_modeRow{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_mode{font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);cursor:pointer;border-radius:8px;align-items:center;gap:7px;padding:6px 12px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_mode:hover{border-color:var(--dsw-alias-label-dimmed)}.bm5jra_modeOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_mode input{accent-color:var(--dsw-alias-brand-primary);margin:0}.bm5jra_mode:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}";
+const css = ".bm5jra_root{flex-direction:column;gap:20px;display:flex}.bm5jra_block{flex-direction:column;gap:8px;display:flex}.bm5jra_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:13px;font-weight:600;line-height:1.5}.bm5jra_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}.bm5jra_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;font-style:italic;line-height:1.5}.bm5jra_list{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;flex-direction:column;margin:0;padding:0;list-style:none;display:flex;overflow:hidden}.bm5jra_row{background:var(--dsw-alias-bg-layer-3);align-items:center;gap:8px;padding:8px 10px;display:flex}.bm5jra_row+.bm5jra_row{border-top:1px solid var(--dsw-alias-border-l2)}.bm5jra_rank{background:var(--dsw-alias-bg-module-platform);min-width:18px;height:18px;color:var(--dsw-alias-label-secondary);border-radius:9px;flex:none;justify-content:center;align-items:center;font-size:11px;font-weight:600;display:inline-flex}.bm5jra_path{min-width:0;font-family:var(--dsw-alias-font-mono,ui-monospace, monospace);color:var(--dsw-alias-label-primary);overflow-wrap:anywhere;flex:1;font-size:12px;line-height:1.5}.bm5jra_controls{flex:none;gap:4px;display:inline-flex}.bm5jra_ctl{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);width:24px;height:24px;font:inherit;cursor:pointer;border-radius:6px;padding:0;font-size:13px;line-height:1}.bm5jra_ctl:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.bm5jra_ctl:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_ctl:disabled{opacity:.4;cursor:default}.bm5jra_pickers{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_picker{max-width:320px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;align-self:flex-start;padding:0 10px;font-size:12px}.bm5jra_picker:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_addRow{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.bm5jra_input{min-width:220px;height:32px;font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);box-sizing:border-box;border-radius:8px;flex:1;padding:0 12px;font-size:13px}.bm5jra_input::placeholder{color:var(--dsw-alias-label-tertiary)}.bm5jra_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.bm5jra_primary{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-brand-primary);height:32px;font:inherit;background:var(--dsw-alias-brand-primary);color:#fff;cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_primary:disabled{opacity:.5;cursor:default}.bm5jra_button{-webkit-appearance:none;appearance:none;border:1px solid var(--dsw-alias-border-l2);height:32px;font:inherit;background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:8px;padding:0 14px;font-size:13px;font-weight:500}.bm5jra_button:disabled{opacity:.5;cursor:default}.bm5jra_modeRow{flex-wrap:wrap;gap:8px;display:flex}.bm5jra_mode{font:inherit;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);color:var(--dsw-alias-label-secondary);cursor:pointer;border-radius:8px;align-items:center;gap:7px;padding:6px 12px;font-size:12px;line-height:1.5;display:inline-flex}.bm5jra_mode:hover{border-color:var(--dsw-alias-label-dimmed)}.bm5jra_modeOn{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-weight:600;}.bm5jra_mode input{accent-color:var(--dsw-alias-brand-primary);margin:0}.bm5jra_mode:focus-within{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.bm5jra_actions{border-top:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding-top:14px;display:flex}.bm5jra_grow{flex:1}.bm5jra_state{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:1.5}";
 const tagId = "dsh-awesome-skills/PrioritySkills_module_css";
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 	const tag = document.createElement("style");
@@ -693,28 +693,29 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
+	"rank": "bm5jra_rank",
 	"addRow": "bm5jra_addRow",
-	"row": "bm5jra_row",
-	"heading": "bm5jra_heading",
-	"picker": "bm5jra_picker",
-	"mode": "bm5jra_mode",
-	"path": "bm5jra_path",
+	"grow": "bm5jra_grow",
 	"state": "bm5jra_state",
+	"list": "bm5jra_list",
+	"actions": "bm5jra_actions",
+	"empty": "bm5jra_empty",
+	"hint": "bm5jra_hint",
+	"row": "bm5jra_row",
+	"controls": "bm5jra_controls",
+	"picker": "bm5jra_picker",
 	"ctl": "bm5jra_ctl",
 	"modeOn": "bm5jra_modeOn",
-	"empty": "bm5jra_empty",
-	"actions": "bm5jra_actions",
+	"block": "bm5jra_block",
+	"heading": "bm5jra_heading",
+	"pickers": "bm5jra_pickers",
+	"input": "bm5jra_input",
+	"primary": "bm5jra_primary",
+	"path": "bm5jra_path",
 	"modeRow": "bm5jra_modeRow",
 	"root": "bm5jra_root",
-	"controls": "bm5jra_controls",
-	"rank": "bm5jra_rank",
-	"list": "bm5jra_list",
-	"primary": "bm5jra_primary",
-	"button": "bm5jra_button",
-	"input": "bm5jra_input",
-	"grow": "bm5jra_grow",
-	"hint": "bm5jra_hint",
-	"block": "bm5jra_block"
+	"mode": "bm5jra_mode",
+	"button": "bm5jra_button"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -842,18 +843,25 @@ function PrioritySkills(props) {
 							]
 						}, path))
 					}),
-					available.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("select", {
-						className: _dsh_css_PrioritySkills_module_css_default.picker,
-						value: "",
-						onChange: (e) => add("prio", e.target.value),
-						"aria-label": t("addPrio"),
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
+					available.length > 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+						className: _dsh_css_PrioritySkills_module_css_default.pickers,
+						children: [
+							"prio",
+							"blacklist",
+							"whitelist"
+						].map((key) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("select", {
+							className: _dsh_css_PrioritySkills_module_css_default.picker,
 							value: "",
-							children: t("addPrio")
-						}), available.map((s) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
-							value: s.path,
-							children: s.name
-						}, s.path))]
+							onChange: (e) => add(key, e.target.value),
+							"aria-label": t(key === "prio" ? "addPrio" : key === "blacklist" ? "blacklistTitle" : "whitelistTitle"),
+							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
+								value: "",
+								children: t(key === "prio" ? "addPrio" : key === "blacklist" ? "blacklistTitle" : "whitelistTitle")
+							}), available.map((s) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("option", {
+								value: s.path,
+								children: s.name
+							}, s.path))]
+						}, key))
 					})
 				]
 			}),
@@ -1073,6 +1081,35 @@ function SkillSection(props) {
 			}
 		} catch {}
 	}, [staged]);
+	/**
+	* One skill, one list, one click: add or remove a path in a single list and
+	* commit it immediately. The POST is the same writer the Priority tab's Save
+	* uses, so the two surfaces cannot disagree; the applied state updates from
+	* the route's answer, and a failed call leaves the optimistic edit in place
+	* for a retry.
+	*/
+	const assign = (0, react.useCallback)(async (key, path, remove) => {
+		const base = staged ?? applied;
+		const current = Array.isArray(base[key]) ? base[key] : [];
+		const nextList = remove ? current.filter((p) => p !== path) : [...current, path];
+		setApplied({
+			...base,
+			[key]: nextList
+		});
+		setStaged(void 0);
+		try {
+			const body = await (await fetch(api("/dsh-awesome-skills/priority"), {
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify({ [key]: nextList })
+			})).json();
+			if (body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) setApplied({
+				prio: body.prio,
+				blacklist: body.blacklist,
+				whitelist: body.whitelist
+			});
+		} catch {}
+	}, [applied, staged]);
 	const tabs = (0, react.useMemo)(() => [
 		{
 			id: "search",
