@@ -84,6 +84,9 @@ export const en = {
   priorityDiscard: 'Discard',
   prioritySaveFailed: 'Save failed — your edits are kept; retry',
   priorityAssignFailed: 'Couldn’t apply that change — try again',
+  duplicateSkill: 'Already in {list}',
+  targetLabel: 'Add to list',
+  whitelistEmptyWarn: 'Search scope is “Whitelist only”, so an empty whitelist hides every skill. Add to the whitelist or switch the scope in Config.',
   retry: 'Retry',
   priorityLoadFailed: 'Could not load your lists. Editing is paused until they load.',
 } as const
@@ -170,6 +173,9 @@ export const zh: Record<keyof typeof en, string> = {
   priorityDiscard: '放弃',
   prioritySaveFailed: '保存失败 — 更改已保留，可重试',
   priorityAssignFailed: '未能应用该更改 — 请重试',
+  duplicateSkill: '已在{list}中',
+  targetLabel: '添加到列表',
+  whitelistEmptyWarn: '搜索范围为“仅白名单”，白名单为空时会隐藏所有技能。请添加到白名单，或在配置中切换范围。',
   retry: '重试',
   priorityLoadFailed: '无法加载你的列表。加载完成前暂停编辑。',
 }

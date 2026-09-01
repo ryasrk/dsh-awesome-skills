@@ -19,6 +19,7 @@ interface PriorityResponse {
   prio?: string[]
   blacklist?: string[]
   whitelist?: string[]
+  whitelistOnly?: boolean
   error?: string
 }
 
@@ -55,6 +56,9 @@ export function SkillSection(props: SkillSectionProps) {
   const onHits = useCallback((next: { path: string; name: string }[]) => setHits(next), [])
   /** Applied priority lists, as the route returns them. */
   const [applied, setApplied] = useState<PriorityState>({ prio: [], blacklist: [], whitelist: [] })
+  /** Search scope from the same route: when true, only whitelisted skills
+   *  are visible, which makes an empty whitelist a whole-corpus blackout. */
+  const [whitelistOnly, setWhitelistOnly] = useState(false)
   /** True once the initial load has answered (ok or failed), so optimistic
    *  edits never build on an unloaded base (lost-update hole). */
   const [loaded, setLoaded] = useState(false)
@@ -64,27 +68,6 @@ export function SkillSection(props: SkillSectionProps) {
   const [saveFailed, setSaveFailed] = useState(false)
   /** Staged edits on top of `applied`, until Save commits them. */
   const [staged, setStaged] = useState<PriorityState | undefined>(undefined)
-
-  useEffect(() => {
-    let live = true
-    setLoadFailed(false)
-    void (async () => {
-      try {
-        const response = await fetch(api('/dsh-awesome-skills/priority'))
-        const body = (await response.json()) as PriorityResponse
-        if (!response.ok || !body.ok || !Array.isArray(body.prio) || !Array.isArray(body.blacklist) || !Array.isArray(body.whitelist)) {
-          throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
-        }
-        if (live) {
-          setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
-          setLoaded(true)
-        }
-      } catch {
-        if (live) setLoadFailed(true)
-      }
-    })()
-    return () => { live = false }
-  }, [])
 
   const onPriorityChange = useCallback((next: PriorityState): void => {
     setStaged(next)
@@ -111,6 +94,7 @@ export function SkillSection(props: SkillSectionProps) {
         throw new Error(body.ok === false && typeof body.error === 'string' ? body.error : `HTTP ${response.status}`)
       }
       setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
+      setWhitelistOnly(body.whitelistOnly === true)
       setLoaded(true)
     } catch {
       if (seq === loadSeq.current) setLoadFailed(true)
@@ -251,6 +235,7 @@ export function SkillSection(props: SkillSectionProps) {
             applied={applied}
             saveFailed={saveFailed}
             onDiscard={discardPriority}
+            whitelistOnly={whitelistOnly}
           />
         )
         : <p className={css.state}>{loadFailed ? t('priorityLoadFailed') : t('loading')}</p>

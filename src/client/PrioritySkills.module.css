@@ -167,6 +167,115 @@
   flex-wrap: wrap;
 }
 
+/* The add combobox: the input and its listbox share one relative box, so the
+   options overlay the flow instead of pushing the form down. */
+.combo {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-3);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
+  max-height: 220px;
+  overflow: auto;
+}
+
+.option {
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+}
+
+.option:hover,
+.optionOn {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: -2px;
+}
+
+/* The list-target choice: the host's segmented-control vocabulary. */
+.segGroup {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-3);
+}
+
+.seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-secondary);
+  cursor: pointer;
+}
+
+.seg input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.seg:hover {
+  color: var(--dsw-alias-label-primary);
+}
+
+.segOn {
+  composes: seg;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 600;
+}
+
+.seg:has(input:focus-visible) {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Inline refusals and warnings: the note names the list that holds the
+   duplicate, or the blackout an empty whitelist causes. */
+.warn {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-error);
+}
+
 .input {
   flex: 1;
   min-width: 220px;
@@ -296,4 +405,12 @@
   font-size: 12px;
   line-height: 1.5;
   color: var(--dsw-alias-label-tertiary);
+}
+
+/* The staged-diff summary: what Save will change, at a glance. */
+.diff {
+  font-size: 12px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsw-alias-label-secondary);
 }

@@ -6,9 +6,15 @@
  * checkbox grid. Mute is a flat exclusion list. Both are edited as staged
  * drafts and committed through the priority route, which is the same source
  * the search service reads.
+ *
+ * One canonical add affordance: a single typeahead combobox (the explorer's
+ * recent hits, filtered by what is typed) plus a list-target choice. The
+ * manual path input stays as the direct route for paths search has not
+ * surfaced. Adding an already-listed path is refused with an inline message,
+ * never a silent no-op.
  */
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import css from './PrioritySkills.module.css'
 import { IconChevronDown, IconChevronUp, IconClose, IconSpinner } from './icons.tsx'
 
@@ -29,10 +35,10 @@ export interface PrioritySkillsProps {
   state: PriorityState
   onChange(next: PriorityState): void
   /** Skills offered by the picker: the explorer's recent hits, so picking a
-      skill to boost does not require retyping its path. */
+   *  skill to boost does not require retyping its path. */
   suggestions: { path: string; name: string }[]
   /** Commit the staged lists; undefined leaves edits staged until the tab
-      shell saves them. */
+   *  shell saves them. */
   onApply?: () => Promise<void>
   /** The applied lists, shown as the baseline the staged edits modify. */
   applied?: PriorityState
@@ -40,14 +46,29 @@ export interface PrioritySkillsProps {
   saveFailed?: boolean
   /** Reset staged edits back to the applied lists (the Discard button). */
   onDiscard?: () => void
+  /** When search scope is whitelist-only, an empty whitelist hides the whole
+   *  corpus; the editor warns inline instead of leaving the effect a surprise. */
+  whitelistOnly?: boolean
 }
+
+/** One row of the staged-diff line: a list and how its length moves. */
+interface DiffRow {
+  label: string
+  added: number
+  removed: number
+}
+
+/** List-target choice for the add combobox, in stable display order. */
+const TARGETS = ['prio', 'blacklist', 'whitelist'] as const
+
+type Target = (typeof TARGETS)[number]
 
 /**
  * Render the priority editor.
  * @param props - locale, staged state, change handler, picker suggestions.
  */
 export function PrioritySkills(props: PrioritySkillsProps) {
-  const { t, onChange, suggestions, onApply, applied, saveFailed, onDiscard } = props
+  const { t, onChange, suggestions, onApply, applied, saveFailed, onDiscard, whitelistOnly } = props
   // Every list is read off the wire; a host or an older cached response can
   // hand us a shape missing a field, so normalize once instead of guarding
   // at each of a dozen read sites.
@@ -58,6 +79,14 @@ export function PrioritySkills(props: PrioritySkillsProps) {
   }
   const [draft, setDraft] = useState('')
   const [saving, setSaving] = useState(false)
+  /** The list the combobox's pick (or the manual input's Enter) lands in. */
+  const [target, setTarget] = useState<Target>('prio')
+  /** Refusal message for a duplicate or empty add; cleared on the next edit. */
+  const [addNote, setAddNote] = useState<string | undefined>(undefined)
+  /** Keyboard focus index inside the open combobox listbox. */
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const [open, setOpen] = useState(false)
+  const listRef = useRef<HTMLUListElement | null>(null)
 
   const isDirty = applied !== undefined
     && (['prio', 'blacklist', 'whitelist'] as const).some(key => {
@@ -65,6 +94,26 @@ export function PrioritySkills(props: PrioritySkillsProps) {
       const b = state[key]
       return a.length !== b.length || a.some((p, i) => b[i] !== p)
     })
+
+  /**
+   * The staged diff: per list, how the staged edit moves the count against
+   * the applied baseline. Zero-length moves are dropped, so the line reads
+   * as what actually changes when Save is pressed.
+   */
+  const diff = useMemo<DiffRow[]>(() => {
+    if (applied === undefined) return []
+    return TARGETS
+      .map(key => {
+        const before = Array.isArray(applied[key]) ? applied[key] : []
+        const after = state[key]
+        return {
+          label: t(key === 'prio' ? 'filterPrio' : key === 'blacklist' ? 'filterBlack' : 'filterWhite'),
+          added: after.filter(p => !before.includes(p)).length,
+          removed: before.filter(p => !after.includes(p)).length,
+        }
+      })
+      .filter(row => row.added > 0 || row.removed > 0)
+  }, [applied, state, t])
 
   const move = useCallback((list: string[], from: number, delta: number): string[] => {
     const to = from + delta
@@ -75,21 +124,63 @@ export function PrioritySkills(props: PrioritySkillsProps) {
     return next
   }, [])
 
-  const removeFrom = (key: 'prio' | 'blacklist' | 'whitelist', index: number): void => {
+  const removeFrom = (key: Target, index: number): void => {
     const next = state[key].filter((_, i) => i !== index)
     onChange({ ...state, [key]: next })
   }
 
-  const add = (key: 'prio' | 'blacklist' | 'whitelist', path: string): void => {
+  const add = (key: Target, path: string): void => {
     const value = path.trim()
     if (value === '') return
-    if (state.prio.includes(value) || state.blacklist.includes(value) || state.whitelist.includes(value)) return
+    if (state.prio.includes(value) || state.blacklist.includes(value) || state.whitelist.includes(value)) {
+      // A duplicate add is refused out loud: the draft stays for correction,
+      // and the note names the list that already holds the path.
+      const holder = state.prio.includes(value) ? 'filterPrio' : state.blacklist.includes(value) ? 'filterBlack' : 'filterWhite'
+      setAddNote(t('duplicateSkill').replace('{list}', t(holder)))
+      return
+    }
     onChange({ ...state, [key]: [...state[key], value] })
     setDraft('')
+    setAddNote(undefined)
   }
 
-  const available = suggestions.filter(s =>
-    !state.prio.includes(s.path) && !state.blacklist.includes(s.path) && !state.whitelist.includes(s.path))
+  /** Combobox options: recent hits not already in any list, filtered by the
+   *  typed text (name or path, case-insensitive). */
+  const options = useMemo(() => {
+    const query = draft.trim().toLowerCase()
+    const pool = suggestions.filter(s =>
+      !state.prio.includes(s.path) && !state.blacklist.includes(s.path) && !state.whitelist.includes(s.path))
+    const matches = query === ''
+      ? pool
+      : pool.filter(s => s.name.toLowerCase().includes(query) || s.path.toLowerCase().includes(query))
+    return matches.slice(0, 6)
+  }, [suggestions, state, draft])
+
+  const pick = (path: string): void => {
+    add(target, path)
+    setOpen(false)
+    setActiveIndex(-1)
+  }
+
+  const onPickerKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setOpen(true)
+      setActiveIndex(i => Math.min(i + 1, options.length - 1))
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setActiveIndex(i => Math.max(i - 1, -1))
+    } else if (event.key === 'Enter') {
+      event.preventDefault()
+      if (open && activeIndex >= 0 && options[activeIndex] !== undefined) pick(options[activeIndex].path)
+      else if (draft.trim() !== '') add(target, draft)
+    } else if (event.key === 'Escape') {
+      if (open) { event.stopPropagation(); setOpen(false); setActiveIndex(-1) }
+    }
+  }
+
+  const targetLabel = (key: Target): string =>
+    t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'addBlack' : 'addWhite')
 
   return (
     <div className={css.root}>
@@ -104,7 +195,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
               {state.prio.map((path, index) => (
                 <li className={css.row} key={path}>
                   <span className={css.rank}>{index + 1}</span>
-                  <code className={css.path}>{path}</code>
+                  <code className={css.path} title={path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} disabled={index === 0}
                       onClick={() => onChange({ ...state, prio: move(state.prio, index, -1) })}
@@ -120,23 +211,6 @@ export function PrioritySkills(props: PrioritySkillsProps) {
               ))}
             </ol>
           )}
-
-        {available.length > 0 && (
-          <div className={css.pickers}>
-            {(['prio', 'blacklist', 'whitelist'] as const).map(key => (
-              <select
-                key={key}
-                className={css.picker}
-                value=""
-                onChange={e => add(key, e.target.value)}
-                aria-label={t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}
-              >
-                <option value="">{t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}</option>
-                {available.map(s => <option key={s.path} value={s.path}>{s.name}</option>)}
-              </select>
-            ))}
-          </div>
-        )}
       </section>
 
       <section className={css.block}>
@@ -149,7 +223,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
             <ul className={css.list}>
               {state.blacklist.map((path, index) => (
                 <li className={css.row} key={path}>
-                  <code className={css.path}>{path}</code>
+                  <code className={css.path} title={path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} onClick={() => removeFrom('blacklist', index)}
                       aria-label={t('remove')}><IconClose /></button>
@@ -163,6 +237,9 @@ export function PrioritySkills(props: PrioritySkillsProps) {
       <section className={css.block}>
         <h3 className={css.heading}>{t('whitelistTitle')}</h3>
         <p className={css.hint}>{t('whitelistHint')}</p>
+        {whitelistOnly && state.whitelist.length === 0 && (
+          <p className={css.warn} role="alert">{t('whitelistEmptyWarn')}</p>
+        )}
 
         {state.whitelist.length === 0
           ? <p className={css.empty}>{t('whitelistEmpty')}</p>
@@ -170,7 +247,7 @@ export function PrioritySkills(props: PrioritySkillsProps) {
             <ul className={css.list}>
               {state.whitelist.map((path, index) => (
                 <li className={css.row} key={path}>
-                  <code className={css.path}>{path}</code>
+                  <code className={css.path} title={path}>{path}</code>
                   <span className={css.controls}>
                     <button type="button" className={css.ctl} onClick={() => removeFrom('whitelist', index)}
                       aria-label={t('remove')}><IconClose /></button>
@@ -181,28 +258,59 @@ export function PrioritySkills(props: PrioritySkillsProps) {
           )}
       </section>
 
+      {/* The one canonical add affordance: typeahead over the explorer's
+          recent hits plus a list-target choice. */}
       <section className={css.block}>
         <h3 className={css.heading}>{t('priorityAddManual')}</h3>
         <div className={css.addRow}>
-          <input
-            className={css.input}
-            value={draft}
-            placeholder={t('pathPlaceholder')}
-            onChange={e => setDraft(e.target.value)}
-            onKeyDown={e => {
-              if (e.key !== 'Enter') return
-              if (e.altKey) add('whitelist', draft)
-              else if (e.shiftKey) add('blacklist', draft)
-              else add('prio', draft)
-            }}
-          />
-          <button type="button" className={css.primary} disabled={draft.trim() === ''}
-            onClick={() => add('prio', draft)}>{t('addPrio')}</button>
-          <button type="button" className={css.button} disabled={draft.trim() === ''}
-            onClick={() => add('blacklist', draft)}>{t('addBlack')}</button>
-          <button type="button" className={css.button} disabled={draft.trim() === ''}
-            onClick={() => add('whitelist', draft)}>{t('addWhite')}</button>
+          <div className={css.combo}>
+            <input
+              className={css.input}
+              value={draft}
+              placeholder={t('pathPlaceholder')}
+              role="combobox"
+              aria-expanded={open && options.length > 0}
+              aria-controls="dshas-combo-list"
+              aria-autocomplete="list"
+              onChange={e => { setDraft(e.target.value); setOpen(true); setActiveIndex(-1); setAddNote(undefined) }}
+              onFocus={() => setOpen(true)}
+              onBlur={() => { setOpen(false); setActiveIndex(-1) }}
+              onKeyDown={onPickerKeyDown}
+            />
+            {open && options.length > 0 && (
+              <ul className={css.options} id="dshas-combo-list" role="listbox" ref={listRef}>
+                {options.map((option, index) => (
+                  <li key={option.path}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={index === activeIndex}
+                      className={index === activeIndex ? css.optionOn : css.option}
+                      onMouseDown={(event) => { event.preventDefault(); pick(option.path) }}
+                      onMouseEnter={() => setActiveIndex(index)}
+                    >
+                      {option.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className={css.segGroup} role="radiogroup" aria-label={t('targetLabel')}>
+            {TARGETS.map(key => (
+              <label key={key} className={target === key ? css.segOn : css.seg}>
+                <input
+                  type="radio"
+                  name="dshas-target"
+                  checked={target === key}
+                  onChange={() => setTarget(key)}
+                />
+                {targetLabel(key)}
+              </label>
+            ))}
+          </div>
         </div>
+        {addNote !== undefined && <p className={css.warn} role="alert">{addNote}</p>}
         <p className={css.hint}>{t('manualHint')}</p>
       </section>
 
@@ -227,8 +335,28 @@ export function PrioritySkills(props: PrioritySkillsProps) {
             </button>
           )}
           <span className={css.grow} />
+          {isDirty && diff.length > 0 && (
+            <span className={css.diff} aria-hidden>
+              {diff.map((row, index) => (
+                <span key={row.label}>
+                  {index > 0 && ' · '}
+                  {row.added > 0 && `+${row.added} ${row.label}`}
+                  {row.added > 0 && row.removed > 0 && ' '}
+                  {row.removed > 0 && `−${row.removed} ${row.label}`}
+                </span>
+              ))}
+            </span>
+          )}
           <span className={css.state} aria-live="polite">
-            {saveFailed ? t('prioritySaveFailed') : isDirty ? t('priorityUnsaved') : t('prioritySaved')}
+            {saveFailed
+              ? t('prioritySaveFailed')
+              : isDirty
+                ? (diff.length > 0
+                    ? `${t('priorityUnsaved')}: ${diff.map(row =>
+                        [row.added > 0 ? `+${row.added} ${row.label}` : '', row.removed > 0 ? `−${row.removed} ${row.label}` : ''].filter(Boolean).join(' ')
+                      ).join(' · ')}`
+                    : t('priorityUnsaved'))
+                : t('prioritySaved')}
           </span>
         </div>
       )}
