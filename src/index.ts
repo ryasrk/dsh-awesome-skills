@@ -19,6 +19,7 @@ import { registerSearchService, type SkillsSearch } from './search.js'
 import { installSettingsSection } from './settings-wiring.js'
 import { mountSkillRoutesOnContext } from './routes.js'
 import { installPriorityLoader } from './priority-loader.js'
+import { registerSkillsTools } from './tools.js'
 import type { PluginContext } from './cordis-types.js'
 
 export const name = 'dsh-awesome-skills'
@@ -189,6 +190,12 @@ export function apply(ctx: PluginContext, config?: Config): void {
   const setKnobs = (next: { prio?: string[]; blacklist?: string[]; whitelist?: string[]; whitelistOnly?: boolean }): void =>
     search.setKnobs(next)
   mountSkillRoutesOnContext(ctx, search, corpusDir, getKnobs, setKnobs)
+
+  // Standard-permission-mode corpus access: the model-facing tools run
+  // in-process with host authority, so routing needs no Bash or
+  // out-of-workspace Read. Missing seam -> warn; the router's bash
+  // fallback paragraph covers that host.
+  registerSkillsTools(ctx, search, corpusDir)
 
   // "Wajib diload dari awal" made literal: the priority list's skill bodies
   // are injected into every model turn. The knobs are read live through the
