@@ -13,10 +13,10 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"dot": "jsPfLW_dot",
-	"tab": "jsPfLW_tab",
 	"tabs": "jsPfLW_tabs",
-	"tabOn": "jsPfLW_tabOn"
+	"dot": "jsPfLW_dot",
+	"tabOn": "jsPfLW_tabOn",
+	"tab": "jsPfLW_tab"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -30,31 +30,31 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"section": "vc1x0a_section",
-	"filterBar": "vc1x0a_filterBar",
-	"hint": "vc1x0a_hint",
-	"pin": "vc1x0a_pin",
-	"path": "vc1x0a_path",
-	"clear": "vc1x0a_clear",
-	"filterOn": "vc1x0a_filterOn",
-	"chip": "vc1x0a_chip",
-	"chipPrimary": "vc1x0a_chipPrimary",
-	"results": "vc1x0a_results",
-	"description": "vc1x0a_description",
-	"meta": "vc1x0a_meta",
-	"score": "vc1x0a_score",
 	"state": "vc1x0a_state",
-	"error": "vc1x0a_error",
 	"filterBtn": "vc1x0a_filterBtn",
+	"name": "vc1x0a_name",
+	"description": "vc1x0a_description",
 	"searchRow": "vc1x0a_searchRow",
-	"resultHead": "vc1x0a_resultHead",
+	"pin": "vc1x0a_pin",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"error": "vc1x0a_error",
+	"chip": "vc1x0a_chip",
+	"clear": "vc1x0a_clear",
+	"score": "vc1x0a_score",
+	"results": "vc1x0a_results",
+	"result": "vc1x0a_result",
 	"rowActions": "vc1x0a_rowActions",
+	"search": "vc1x0a_search",
+	"resultHead": "vc1x0a_resultHead",
+	"path": "vc1x0a_path",
 	"divider": "vc1x0a_divider",
 	"configHeading": "vc1x0a_configHeading",
-	"result": "vc1x0a_result",
-	"search": "vc1x0a_search",
+	"filterOn": "vc1x0a_filterOn",
+	"filterBar": "vc1x0a_filterBar",
 	"chipOn": "vc1x0a_chipOn",
-	"name": "vc1x0a_name"
+	"section": "vc1x0a_section",
+	"hint": "vc1x0a_hint",
+	"meta": "vc1x0a_meta"
 };
 //#endregion
 //#region src/client/SkillExplorer.tsx
@@ -119,7 +119,12 @@ function template(text, n) {
 * @param props - the injected locale lookup.
 */
 function SkillExplorer(props) {
-	const { t, onHits, membership, onAssign, onUnassign } = props;
+	const { t, onHits, onAssign, onUnassign } = props;
+	const membership = props.membership === void 0 ? void 0 : {
+		prio: Array.isArray(props.membership.prio) ? props.membership.prio : [],
+		blacklist: Array.isArray(props.membership.blacklist) ? props.membership.blacklist : [],
+		whitelist: Array.isArray(props.membership.whitelist) ? props.membership.whitelist : []
+	};
 	const [query, setQuery] = (0, react.useState)("");
 	const [results, setResults] = (0, react.useState)(void 0);
 	const [loading, setLoading] = (0, react.useState)(false);
@@ -314,32 +319,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"actions": "alOFIW_actions",
-	"input": "alOFIW_input",
-	"spacer": "alOFIW_spacer",
-	"alert": "alOFIW_alert",
-	"hint": "alOFIW_hint",
-	"name": "alOFIW_name",
-	"body": "alOFIW_body",
-	"description": "alOFIW_description",
-	"field": "alOFIW_field",
-	"control": "alOFIW_control",
-	"toggle": "alOFIW_toggle",
-	"header": "alOFIW_header",
-	"inputInvalid": "alOFIW_inputInvalid",
-	"badge": "alOFIW_badge",
-	"revert": "alOFIW_revert",
-	"card": "alOFIW_card",
-	"saved": "alOFIW_saved",
-	"footer": "alOFIW_footer",
-	"seg": "alOFIW_seg",
 	"button": "alOFIW_button",
+	"field": "alOFIW_field",
 	"primary": "alOFIW_primary",
+	"alert": "alOFIW_alert",
+	"name": "alOFIW_name",
+	"footer": "alOFIW_footer",
+	"revert": "alOFIW_revert",
+	"description": "alOFIW_description",
+	"segmented": "alOFIW_segmented",
+	"saved": "alOFIW_saved",
+	"spacer": "alOFIW_spacer",
+	"control": "alOFIW_control",
+	"badge": "alOFIW_badge",
+	"toggle": "alOFIW_toggle",
+	"body": "alOFIW_body",
+	"card": "alOFIW_card",
+	"header": "alOFIW_header",
+	"invalid": "alOFIW_invalid",
+	"seg": "alOFIW_seg",
 	"head": "alOFIW_head",
 	"label": "alOFIW_label",
-	"invalid": "alOFIW_invalid",
-	"segmented": "alOFIW_segmented",
-	"segOn": "alOFIW_segOn"
+	"segOn": "alOFIW_segOn",
+	"hint": "alOFIW_hint",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"input": "alOFIW_input",
+	"actions": "alOFIW_actions"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -474,8 +479,8 @@ function SettingsCard(props) {
 	const dict = (typeof document !== "undefined" ? document.documentElement.lang : "en").startsWith("zh") ? DICT.zh : DICT.en;
 	const t = (key) => dict[key];
 	const value = snapshot.value;
-	const user = snapshot.user;
-	if (snapshot.status !== "ready" || value === void 0) return null;
+	const user = snapshot.user ?? {};
+	if (snapshot.status !== "ready" || value === void 0 || typeof value !== "object") return null;
 	const stateOf = (key) => {
 		const staged = drafts[key];
 		if (staged !== void 0) return staged;
@@ -688,28 +693,28 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"empty": "bm5jra_empty",
-	"input": "bm5jra_input",
-	"primary": "bm5jra_primary",
-	"modeRow": "bm5jra_modeRow",
-	"heading": "bm5jra_heading",
 	"addRow": "bm5jra_addRow",
-	"root": "bm5jra_root",
-	"button": "bm5jra_button",
-	"mode": "bm5jra_mode",
+	"row": "bm5jra_row",
+	"heading": "bm5jra_heading",
 	"picker": "bm5jra_picker",
+	"mode": "bm5jra_mode",
+	"path": "bm5jra_path",
+	"state": "bm5jra_state",
 	"ctl": "bm5jra_ctl",
+	"modeOn": "bm5jra_modeOn",
+	"empty": "bm5jra_empty",
 	"actions": "bm5jra_actions",
+	"modeRow": "bm5jra_modeRow",
+	"root": "bm5jra_root",
+	"controls": "bm5jra_controls",
+	"rank": "bm5jra_rank",
+	"list": "bm5jra_list",
+	"primary": "bm5jra_primary",
+	"button": "bm5jra_button",
+	"input": "bm5jra_input",
 	"grow": "bm5jra_grow",
 	"hint": "bm5jra_hint",
-	"path": "bm5jra_path",
-	"rank": "bm5jra_rank",
-	"modeOn": "bm5jra_modeOn",
-	"controls": "bm5jra_controls",
-	"state": "bm5jra_state",
-	"row": "bm5jra_row",
-	"block": "bm5jra_block",
-	"list": "bm5jra_list"
+	"block": "bm5jra_block"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -727,7 +732,12 @@ var _dsh_css_PrioritySkills_module_css_default = {
 * @param props - locale, staged state, change handler, picker suggestions.
 */
 function PrioritySkills(props) {
-	const { t, state, onChange, suggestions, onApply, applied } = props;
+	const { t, onChange, suggestions, onApply, applied } = props;
+	const state = {
+		prio: Array.isArray(props.state?.prio) ? props.state.prio : [],
+		blacklist: Array.isArray(props.state?.blacklist) ? props.state.blacklist : [],
+		whitelist: Array.isArray(props.state?.whitelist) ? props.state.whitelist : []
+	};
 	const [draft, setDraft] = (0, react.useState)("");
 	const [saving, setSaving] = (0, react.useState)(false);
 	const isDirty = applied !== void 0 && [
@@ -735,7 +745,7 @@ function PrioritySkills(props) {
 		"blacklist",
 		"whitelist"
 	].some((key) => {
-		const a = applied[key];
+		const a = Array.isArray(applied[key]) ? applied[key] : [];
 		const b = state[key];
 		return a.length !== b.length || a.some((p, i) => b[i] !== p);
 	});
@@ -1031,9 +1041,10 @@ function SkillSection(props) {
 		(async () => {
 			try {
 				const body = await (await fetch(api("/dsh-awesome-skills/priority"))).json();
-				if (live && body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) setApplied({
-					boosted: body.boosted,
-					muted: body.muted
+				if (live && body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) setApplied({
+					prio: body.prio,
+					blacklist: body.blacklist,
+					whitelist: body.whitelist
 				});
 			} catch {}
 		})();
@@ -1052,10 +1063,11 @@ function SkillSection(props) {
 				headers: { "content-type": "application/json" },
 				body: JSON.stringify(staged)
 			})).json();
-			if (body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) {
+			if (body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) {
 				setApplied({
-					boosted: body.boosted,
-					muted: body.muted
+					prio: body.prio,
+					blacklist: body.blacklist,
+					whitelist: body.whitelist
 				});
 				setStaged(void 0);
 			}

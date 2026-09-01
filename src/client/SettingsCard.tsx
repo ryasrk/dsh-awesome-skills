@@ -101,8 +101,8 @@ export function SettingsCard(props: SettingsCardProps) {
   const t = (key: keyof typeof DICT['en']): string => dict[key]
 
   const value = snapshot.value
-  const user = snapshot.user as Record<string, unknown> | undefined
-  if (snapshot.status !== 'ready' || value === undefined) return null
+  const user = (snapshot.user ?? {}) as Record<string, unknown>
+  if (snapshot.status !== 'ready' || value === undefined || typeof value !== 'object') return null
 
   const stateOf = (key: FieldKey): FieldState => {
     const staged = drafts[key]

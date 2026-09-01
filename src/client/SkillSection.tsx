@@ -16,8 +16,9 @@ import { PrioritySkills, type PrioritySkillsProps, type PriorityState } from './
 /** Shape of the priority route's response. */
 interface PriorityResponse {
   ok: boolean
-  boosted?: string[]
-  muted?: string[]
+  prio?: string[]
+  blacklist?: string[]
+  whitelist?: string[]
 }
 
 /** Resolve an absolute route against the page the bundle runs in. */
@@ -63,8 +64,8 @@ export function SkillSection(props: SkillSectionProps) {
       try {
         const response = await fetch(api('/dsh-awesome-skills/priority'))
         const body = (await response.json()) as PriorityResponse
-        if (live && body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) {
-          setApplied({ boosted: body.boosted, muted: body.muted })
+        if (live && body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) {
+          setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
         }
       } catch { /* the empty defaults stand; the tab still works */ }
     })()
@@ -84,8 +85,8 @@ export function SkillSection(props: SkillSectionProps) {
         body: JSON.stringify(staged),
       })
       const body = (await response.json()) as PriorityResponse
-      if (body.ok && Array.isArray(body.boosted) && Array.isArray(body.muted)) {
-        setApplied({ boosted: body.boosted, muted: body.muted })
+      if (body.ok && Array.isArray(body.prio) && Array.isArray(body.blacklist) && Array.isArray(body.whitelist)) {
+        setApplied({ prio: body.prio, blacklist: body.blacklist, whitelist: body.whitelist })
         setStaged(undefined)
       }
     } catch { /* keep the staged edits; a retry re-posts them */ }

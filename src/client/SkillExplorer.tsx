@@ -92,7 +92,14 @@ function template(text: string, n: number): string {
  * @param props - the injected locale lookup.
  */
 export function SkillExplorer(props: SkillExplorerProps) {
-  const { t, onHits, membership, onAssign, onUnassign } = props
+  const { t, onHits, onAssign, onUnassign } = props
+  // Same normalization rule as PrioritySkills: list fields arrive over the
+  // wire, so trust nothing about their shape.
+  const membership = props.membership === undefined ? undefined : {
+    prio: Array.isArray(props.membership.prio) ? props.membership.prio : [],
+    blacklist: Array.isArray(props.membership.blacklist) ? props.membership.blacklist : [],
+    whitelist: Array.isArray(props.membership.whitelist) ? props.membership.whitelist : [],
+  }
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchHit[] | undefined>(undefined)
   const [loading, setLoading] = useState(false)

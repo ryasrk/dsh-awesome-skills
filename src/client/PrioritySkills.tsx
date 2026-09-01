@@ -42,13 +42,21 @@ export interface PrioritySkillsProps {
  * @param props - locale, staged state, change handler, picker suggestions.
  */
 export function PrioritySkills(props: PrioritySkillsProps) {
-  const { t, state, onChange, suggestions, onApply, applied } = props
+  const { t, onChange, suggestions, onApply, applied } = props
+  // Every list is read off the wire; a host or an older cached response can
+  // hand us a shape missing a field, so normalize once instead of guarding
+  // at each of a dozen read sites.
+  const state: PriorityState = {
+    prio: Array.isArray(props.state?.prio) ? props.state.prio : [],
+    blacklist: Array.isArray(props.state?.blacklist) ? props.state.blacklist : [],
+    whitelist: Array.isArray(props.state?.whitelist) ? props.state.whitelist : [],
+  }
   const [draft, setDraft] = useState('')
   const [saving, setSaving] = useState(false)
 
   const isDirty = applied !== undefined
     && (['prio', 'blacklist', 'whitelist'] as const).some(key => {
-      const a = applied[key]
+      const a = Array.isArray(applied[key]) ? applied[key] : []
       const b = state[key]
       return a.length !== b.length || a.some((p, i) => b[i] !== p)
     })
