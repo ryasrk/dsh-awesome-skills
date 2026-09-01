@@ -13,13 +13,13 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"tabs": "jsPfLW_tabs",
-	"loadError": "jsPfLW_loadError",
 	"state": "jsPfLW_state",
-	"tab": "jsPfLW_tab",
-	"dot": "jsPfLW_dot",
+	"loadError": "jsPfLW_loadError",
 	"retryBtn": "jsPfLW_retryBtn",
-	"tabOn": "jsPfLW_tabOn"
+	"dot": "jsPfLW_dot",
+	"tabOn": "jsPfLW_tabOn",
+	"tabs": "jsPfLW_tabs",
+	"tab": "jsPfLW_tab"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -33,38 +33,38 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"chipOn": "vc1x0a_chipOn",
-	"rowActions": "vc1x0a_rowActions",
-	"searchRow": "vc1x0a_searchRow",
-	"score": "vc1x0a_score",
-	"searchBlock": "vc1x0a_searchBlock",
-	"emptyBody": "vc1x0a_emptyBody",
-	"chipPrimary": "vc1x0a_chipPrimary",
+	"results": "vc1x0a_results",
+	"copyError": "vc1x0a_copyError",
+	"path": "vc1x0a_path",
 	"chip": "vc1x0a_chip",
-	"resultIn": "vc1x0a_resultIn",
 	"description": "vc1x0a_description",
-	"resultHead": "vc1x0a_resultHead",
 	"empty": "vc1x0a_empty",
 	"emptyTitle": "vc1x0a_emptyTitle",
-	"state": "vc1x0a_state",
-	"results": "vc1x0a_results",
-	"pathInert": "vc1x0a_pathInert",
-	"result": "vc1x0a_result",
-	"filterBar": "vc1x0a_filterBar",
-	"errorRow": "vc1x0a_errorRow",
+	"searchRow": "vc1x0a_searchRow",
 	"search": "vc1x0a_search",
-	"filterBtn": "vc1x0a_filterBtn",
-	"error": "vc1x0a_error",
-	"path": "vc1x0a_path",
-	"section": "vc1x0a_section",
-	"name": "vc1x0a_name",
-	"meta": "vc1x0a_meta",
-	"filterOn": "vc1x0a_filterOn",
-	"searchIcon": "vc1x0a_searchIcon",
-	"hint": "vc1x0a_hint",
 	"clear": "vc1x0a_clear",
+	"chipOn": "vc1x0a_chipOn",
+	"rowActions": "vc1x0a_rowActions",
+	"filterOn": "vc1x0a_filterOn",
+	"result": "vc1x0a_result",
+	"state": "vc1x0a_state",
+	"searchIcon": "vc1x0a_searchIcon",
+	"name": "vc1x0a_name",
+	"filterBar": "vc1x0a_filterBar",
+	"meta": "vc1x0a_meta",
+	"filterBtn": "vc1x0a_filterBtn",
+	"resultHead": "vc1x0a_resultHead",
+	"emptyBody": "vc1x0a_emptyBody",
 	"retryBtn": "vc1x0a_retryBtn",
-	"copyError": "vc1x0a_copyError"
+	"section": "vc1x0a_section",
+	"pathInert": "vc1x0a_pathInert",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"score": "vc1x0a_score",
+	"error": "vc1x0a_error",
+	"resultIn": "vc1x0a_resultIn",
+	"hint": "vc1x0a_hint",
+	"searchBlock": "vc1x0a_searchBlock",
+	"errorRow": "vc1x0a_errorRow"
 };
 //#endregion
 //#region src/client/icons.tsx
@@ -429,32 +429,32 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
+	"control": "alOFIW_control",
+	"card": "alOFIW_card",
+	"segOn": "alOFIW_segOn",
 	"invalid": "alOFIW_invalid",
 	"field": "alOFIW_field",
-	"head": "alOFIW_head",
-	"toggle": "alOFIW_toggle",
-	"inputInvalid": "alOFIW_inputInvalid",
-	"name": "alOFIW_name",
-	"spacer": "alOFIW_spacer",
-	"card": "alOFIW_card",
 	"header": "alOFIW_header",
-	"label": "alOFIW_label",
-	"revert": "alOFIW_revert",
 	"description": "alOFIW_description",
-	"control": "alOFIW_control",
-	"alert": "alOFIW_alert",
-	"body": "alOFIW_body",
-	"button": "alOFIW_button",
-	"dshasSpin": "alOFIW_dshasSpin",
-	"segmented": "alOFIW_segmented",
-	"badge": "alOFIW_badge",
-	"seg": "alOFIW_seg",
 	"hint": "alOFIW_hint",
-	"primary": "alOFIW_primary",
-	"saved": "alOFIW_saved",
+	"inputInvalid": "alOFIW_inputInvalid",
 	"input": "alOFIW_input",
-	"segOn": "alOFIW_segOn",
-	"actions": "alOFIW_actions"
+	"toggle": "alOFIW_toggle",
+	"seg": "alOFIW_seg",
+	"actions": "alOFIW_actions",
+	"spacer": "alOFIW_spacer",
+	"primary": "alOFIW_primary",
+	"dshasSpin": "alOFIW_dshasSpin",
+	"name": "alOFIW_name",
+	"revert": "alOFIW_revert",
+	"segmented": "alOFIW_segmented",
+	"alert": "alOFIW_alert",
+	"saved": "alOFIW_saved",
+	"button": "alOFIW_button",
+	"head": "alOFIW_head",
+	"label": "alOFIW_label",
+	"badge": "alOFIW_badge",
+	"body": "alOFIW_body"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -812,36 +812,36 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"addRow": "bm5jra_addRow",
-	"rank": "bm5jra_rank",
-	"option": "bm5jra_option",
-	"button": "bm5jra_button",
-	"warn": "bm5jra_warn",
-	"actions": "bm5jra_actions",
-	"input": "bm5jra_input",
-	"list": "bm5jra_list",
-	"grow": "bm5jra_grow",
-	"noMatch": "bm5jra_noMatch",
-	"state": "bm5jra_state",
-	"vh": "bm5jra_vh",
-	"path": "bm5jra_path",
-	"options": "bm5jra_options",
+	"primary": "bm5jra_primary",
 	"optionOn": "bm5jra_optionOn",
-	"hint": "bm5jra_hint",
-	"controls": "bm5jra_controls",
-	"block": "bm5jra_block",
+	"grow": "bm5jra_grow",
+	"rank": "bm5jra_rank",
+	"actions": "bm5jra_actions",
 	"heading": "bm5jra_heading",
 	"combo": "bm5jra_combo",
-	"seg": "bm5jra_seg",
-	"primary": "bm5jra_primary",
-	"row": "bm5jra_row",
-	"segGroup": "bm5jra_segGroup",
+	"option": "bm5jra_option",
 	"diff": "bm5jra_diff",
-	"empty": "bm5jra_empty",
 	"segOn": "bm5jra_segOn",
+	"hint": "bm5jra_hint",
+	"options": "bm5jra_options",
 	"root": "bm5jra_root",
+	"path": "bm5jra_path",
+	"vh": "bm5jra_vh",
+	"empty": "bm5jra_empty",
+	"state": "bm5jra_state",
+	"segGroup": "bm5jra_segGroup",
+	"list": "bm5jra_list",
+	"block": "bm5jra_block",
 	"danger": "bm5jra_danger",
-	"ctl": "bm5jra_ctl"
+	"row": "bm5jra_row",
+	"controls": "bm5jra_controls",
+	"noMatch": "bm5jra_noMatch",
+	"input": "bm5jra_input",
+	"button": "bm5jra_button",
+	"addRow": "bm5jra_addRow",
+	"seg": "bm5jra_seg",
+	"ctl": "bm5jra_ctl",
+	"warn": "bm5jra_warn"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -1517,14 +1517,14 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillPickDetails_module_css_default = {
-	"root": "AWa8SG_root",
-	"pre": "AWa8SG_pre",
-	"name": "AWa8SG_name",
-	"sectionLabel": "AWa8SG_sectionLabel",
-	"head": "AWa8SG_head",
-	"stateRunning": "AWa8SG_stateRunning",
-	"stateError": "AWa8SG_stateError",
 	"duration": "AWa8SG_duration",
+	"sectionLabel": "AWa8SG_sectionLabel",
+	"name": "AWa8SG_name",
+	"stateRunning": "AWa8SG_stateRunning",
+	"pre": "AWa8SG_pre",
+	"stateError": "AWa8SG_stateError",
+	"head": "AWa8SG_head",
+	"root": "AWa8SG_root",
 	"fallback": "AWa8SG_fallback"
 };
 //#endregion

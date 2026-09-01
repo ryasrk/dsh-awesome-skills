@@ -41,28 +41,29 @@ const PKG_ROOT = (() => {
 })()
 
 /**
- * The one thing an agent cannot discover on its own: that a 16k-skill corpus
- * exists at all. Installing a single small skill into the agents home is what
- * makes the corpus reachable, and it is the only skill this plugin puts into
- * the model-facing catalog - the other 16,000 stay out of it.
+ * The one thing an agent cannot discover on its own: that a 4,000-skill
+ * corpus exists at all. Installing a single small skill into the agents home
+ * is what makes the corpus reachable, and it is the only skill this plugin
+ * puts into the model-facing catalog - the rest stay out of it.
  */
 const ROUTER_SKILL = `---
 name: skill-router
-description: Route every task through the local 16k-skill corpus FIRST - this is a default-first reflex, not an opt-in. Before writing or planning anything for a concrete request (build, fix, test, deploy, configure, refactor, review), query the corpus from the conversation's context and follow the best match. Call this skill at the START of a task, unprompted, whenever the message contains an actionable request - do not wait for the user to name a skill or for the task to look specialized.
+description: Search a local corpus of ~4,000 curated agent skills (testing, frontend, backend, cloud, data, writing, security, research, media) BEFORE doing any concrete task. Use at the START of any build/fix/test/deploy/configure/refactor/review request, unprompted - query the corpus with the task's goal, read the best-matching playbook, and follow it. Default is ROUTE; skip only for pure chat.
 disable-model-invocation: false
 user-invocable: true
 ---
 
 # Skill router
 
-You have access to a local corpus of **~16,000 specialized skills** that is NOT in
-your catalog. It is vector-indexed and searchable. Before doing real work, search
-it - a vetted playbook almost always beats improvising from general knowledge.
+You have access to a local corpus of **~4,000 specialized agent skills** that
+is NOT in your catalog. It is vector-indexed and searchable in about a second.
+A vetted playbook almost always beats improvising from general knowledge - so
+search BEFORE planning, not after.
 
-## When to route (it flows from context, not from the user naming a skill)
+## When to route
 
-Route by reading the conversation. A skill lookup is triggered by the SHAPE of
-the message, not by an explicit skill name:
+Route by reading the conversation. A lookup is triggered by the SHAPE of the
+message, not by the user naming a skill:
 
 - The user describes something they want built, fixed, tested, deployed,
   configured, refactored, reviewed, or explained with intent to act.
@@ -70,46 +71,80 @@ the message, not by an explicit skill name:
 - The user asks "how do I / can we / please do".
 - The conversation is mid-task and the next step is a concrete action.
 
-Route FIRST, before reasoning about the approach. The lookup is cheap (~1s)
-and it happens before planning, not after: reading the matched playbook is
-what makes the plan good.
+Skip only when the turn is purely conversational: a greeting, thanks, a
+clarification question, a status report - or you are already following a
+skill loaded this turn.
 
-Skip routing only when the turn is purely conversational: a greeting, a
-thanks, a clarification question, a status report, or when you are already
-following a skill loaded this turn.
+Default is ROUTE. If unsure whether a turn counts, route anyway - a miss
+costs one second. Silence after an actionable message is the failure mode
+this skill exists to prevent.
 
-Default is ROUTE. If you are unsure whether a turn counts, route anyway - a
-miss costs one second. Silence after an actionable message is the failure
-mode this skill exists to prevent.
+## How to search
 
-## How
-
-Pipe a plain-language description of the goal into the bundled search binary.
-Write it the way you would explain the request to a colleague; semantic
-similarity does the matching. If the first query misses, rephrase once.
+Write the query the way you would explain the task to a colleague - a goal,
+not a keyword list. Semantic matching does the rest.
 
 \`\`\`bash
-printf '%s' '{"query":"<what the user asked for>","k":5}' \\
-  | node "__QUERY_BIN__"
+printf '%s' '{"query":"<goal in plain words>","k":5}' | node "__QUERY_BIN__"
 \`\`\`
 
-Read the best match using its \`path\` field (**not** its display \`name\`):
+Each result carries \`path\`, \`score\` (0-1), \`name\`, and a one-line
+\`description\`.
+
+### Reading the scores
+
+- **0.7+** strong match - read it.
+- **0.4-0.7** plausible - check the description; read if it fits the task.
+- **< 0.4** weak - likely no good playbook for this exact task.
+
+### When one query is not enough
+
+- **Broad request** ("build me a dashboard") → run 2-3 queries for its
+  distinct facets (e.g. "frontend dashboard layout", "charts data
+  visualization", "deploy static site") and take the best hit from each.
+- **First results all score < 0.4** → rephrase ONCE with different wording
+  ("auth" → "login session cookie"). A second miss means the corpus likely
+  has nothing; move on without guilt.
+- **Multiple hits with the same trailing name** from different repos (e.g.
+  three \`tdd\` skills) → they are alternative takes. Prefer the one whose
+  description fits the user's stack; when they look equivalent, prefer the
+  higher score and read just one.
+
+### Decision points, don't drift
+
+- Task is one clear domain and a hit scores 0.7+ → read exactly one skill and
+  follow it.
+- Task genuinely spans domains (e.g. "add OAuth to my FastAPI app") → read at
+  most two skills (one per domain), name which is primary, and follow the
+  primary for the overall shape.
+
+## How to read a hit
+
+Use the \`path\` field (**never** the display \`name\` - paths are unique):
 
 \`\`\`bash
 sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
 \`\`\`
 
-The skill's directory may also hold reference files (examples, templates,
-scripts) the SKILL.md points at — they live beside it, so \`<path>/\` is the
-whole playbook. Read them when the SKILL.md says to.
+A skill's directory holds its complete playbook: reference files, templates,
+examples, and scripts live beside the SKILL.md. When the SKILL.md says "read
+tests.md" or points at \`references/\` or \`scripts/\`, read those files too -
+they are part of the skill, not optional decoration. List them first if the
+SKILL.md references several:
+
+\`\`\`bash
+ls "__CORPUS_DIR__/<path>/"
+\`\`\`
 
 ## Rules
 
-- Read only the selected file, and follow it. Do not load several skills and
-  blend them unless the task genuinely spans them.
+- Read before acting: search → read the match → then plan. Quoting a skill's
+  title from memory is not following it.
 - Never paste a whole skill file into the chat - read it, then act on it.
-- If nothing relevant comes back, continue normally. A miss costs one second and
-  is not a failure.
+- Follow the playbook, adapt the details. If a step genuinely does not fit
+  the user's context, say so and adapt rather than silently skipping.
+- If nothing relevant comes back after one rephrase, continue normally. A
+  miss costs one second and is not a failure.
 `
 
 export function apply(ctx: PluginContext, config?: Config): void {
