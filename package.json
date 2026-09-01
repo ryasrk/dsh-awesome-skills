@@ -46,7 +46,8 @@
     "vendor",
     "cordis.patch.yml",
     "README.md",
-    "client"
+    "client",
+    "scripts"
   ],
   "devDependencies": {
     "@types/node": "^24.13.3",
