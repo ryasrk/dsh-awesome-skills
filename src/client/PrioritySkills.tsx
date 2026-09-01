@@ -36,6 +36,10 @@ export interface PrioritySkillsProps {
   onApply?: () => Promise<void>
   /** The applied lists, shown as the baseline the staged edits modify. */
   applied?: PriorityState
+  /** True when the last save attempt failed; Retry is the apply button. */
+  saveFailed?: boolean
+  /** Reset staged edits back to the applied lists (the Discard button). */
+  onDiscard?: () => void
 }
 
 /**
@@ -43,7 +47,7 @@ export interface PrioritySkillsProps {
  * @param props - locale, staged state, change handler, picker suggestions.
  */
 export function PrioritySkills(props: PrioritySkillsProps) {
-  const { t, onChange, suggestions, onApply, applied } = props
+  const { t, onChange, suggestions, onApply, applied, saveFailed, onDiscard } = props
   // Every list is read off the wire; a host or an older cached response can
   // hand us a shape missing a field, so normalize once instead of guarding
   // at each of a dozen read sites.
@@ -206,14 +210,26 @@ export function PrioritySkills(props: PrioritySkillsProps) {
         <div className={css.actions}>
           <button
             type="button"
-            className={css.primary}
+            className={saveFailed ? css.danger : css.primary}
             disabled={!isDirty || saving}
             onClick={() => { setSaving(true); void onApply().finally(() => setSaving(false)) }}
           >
-            {saving ? <IconSpinner /> : t('save')}
+            {saving ? <IconSpinner /> : saveFailed ? t('retry') : t('save')}
           </button>
+          {onDiscard !== undefined && (
+            <button
+              type="button"
+              className={css.button}
+              disabled={!isDirty || saving}
+              onClick={onDiscard}
+            >
+              {t('priorityDiscard')}
+            </button>
+          )}
           <span className={css.grow} />
-          <span className={css.state}>{isDirty ? t('priorityUnsaved') : t('prioritySaved')}</span>
+          <span className={css.state} aria-live="polite">
+            {saveFailed ? t('prioritySaveFailed') : isDirty ? t('priorityUnsaved') : t('prioritySaved')}
+          </span>
         </div>
       )}
     </div>

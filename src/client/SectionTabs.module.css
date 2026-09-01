@@ -53,3 +53,42 @@
   margin-left: 6px;
   vertical-align: 2px;
 }
+
+/* Trust banners: initial-load failure and failed optimistic assigns. Both
+   live above the panes, so they are seen before any row claims a state. */
+.loadError {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin: 0 0 12px;
+  border: 1px solid var(--dsw-alias-label-error);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-2);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-error);
+}
+
+.retryBtn {
+  appearance: none;
+  border: 1px solid var(--dsw-alias-label-error);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.retryBtn:hover {
+  background: var(--dsw-alias-interactive-bg-hover-danger, var(--dsw-alias-interactive-bg-hover));
+}
+
+.retryBtn:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}

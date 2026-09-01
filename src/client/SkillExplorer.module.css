@@ -286,6 +286,12 @@
   word-break: break-all;
 }
 
+/* Copy failure reads as an error, not a mysterious empty path line. */
+.copyError {
+  composes: path;
+  color: var(--dsw-alias-label-error);
+}
+
 .meta {
   margin: 0 0 8px;
   font-size: 12px;

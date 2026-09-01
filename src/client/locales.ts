@@ -11,6 +11,8 @@ export const en = {
   corpusCount: '{n} skills indexed',
   copyPath: 'Copy path',
   copied: 'Copied',
+  copyFailed: 'Copy failed',
+  noResultsTitle: 'No skills matched',
   noResults: 'No skills matched.',
   error: 'Search failed. Try again.',
   loading: 'Searching…',
@@ -79,6 +81,10 @@ export const en = {
   pinnedBadge: 'pinned',
   priorityUnsaved: 'Unsaved changes',
   prioritySaved: 'All changes applied',
+  priorityDiscard: 'Discard',
+  prioritySaveFailed: 'Save failed — your edits are kept; retry',
+  retry: 'Retry',
+  priorityLoadFailed: 'Could not load your lists. Editing is paused until they load.',
 } as const
 
 export const zh = {
@@ -97,6 +103,7 @@ export const zh = {
   corpusCount: '已索引 {n} 个技能',
   copyPath: '复制路径',
   copied: '已复制',
+  copyFailed: '复制失败',
   noResultsTitle: '没有匹配的技能',
   noResults: '换个说法再试 — 语料按意图匹配，而不是精确名称。',
   error: '搜索失败，请重试。',
@@ -157,4 +164,8 @@ export const zh = {
   pinnedBadge: '置顶',
   priorityUnsaved: '有未保存的更改',
   prioritySaved: '所有更改已应用',
+  priorityDiscard: '放弃',
+  prioritySaveFailed: '保存失败 — 更改已保留，可重试',
+  retry: '重试',
+  priorityLoadFailed: '无法加载你的列表。加载完成前暂停编辑。',
 } as const

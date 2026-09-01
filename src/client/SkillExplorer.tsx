@@ -106,7 +106,8 @@ export function SkillExplorer(props: SkillExplorerProps) {
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
   const [count, setCount] = useState(0)
-  const [copied, setCopied] = useState<string | undefined>(undefined)
+  /** The path whose copy just succeeded or failed, with which it did. */
+  const [copied, setCopied] = useState<{ path: string; ok: boolean } | undefined>(undefined)
   /** Which membership slice the results show; 'all' is the unfiltered view. */
   const [filter, setFilter] = useState<'all' | 'prio' | 'blacklist' | 'whitelist'>('all')
   // Sequence-stamps each response so a slow earlier request can never
@@ -114,7 +115,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
   const seqRef = useRef(0)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
-  const inputRef = useRef<HTMLInputElement>(undefined)
+  const inputRef = useRef<HTMLInputElement | null>(null)
   useEffect(() => {
     void fetchCount().then(setCount)
     // search-ux: focus the input when the search view opens
@@ -152,17 +153,20 @@ export function SkillExplorer(props: SkillExplorerProps) {
   }, [query])
 
   const copyPath = useCallback((path: string) => {
-    const done = (): void => {
-      setCopied(path)
+    const done = (ok: boolean): void => {
+      setCopied({ path, ok })
       setTimeout(() => {
-        setCopied((current) => (current === path ? undefined : current))
+        setCopied((current) => (current !== undefined && current.path === path ? undefined : current))
       }, 1500)
     }
     if (typeof navigator !== 'undefined' && typeof navigator.clipboard?.writeText === 'function') {
-      void navigator.clipboard.writeText(path).then(done, done)
+      void navigator.clipboard.writeText(path).then(
+        () => done(true),
+        () => done(false),
+      )
       return
     }
-    done()
+    done(false)
   }, [])
 
   const list = useMemo(() => {
@@ -200,6 +204,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
               key={key}
               type="button"
               className={filter === key ? css.filterOn : css.filterBtn}
+              aria-pressed={filter === key}
               onClick={() => setFilter(key)}
             >
               {t(key === 'all' ? 'filterAll' : key === 'prio' ? 'filterPrio' : key === 'blacklist' ? 'filterBlack' : 'filterWhite')}
@@ -209,11 +214,11 @@ export function SkillExplorer(props: SkillExplorerProps) {
       )}
 
       {failed && <p className={css.error} role="alert">{t('error')}</p>}
-      {loading && <p className={css.state}>{t('loading')}</p>}
+      {loading && <p className={css.state} aria-live="polite">{t('loading')}</p>}
 
       {!loading && !failed && results !== undefined && (
         <>
-          <p className={css.meta}>
+          <p className={css.meta} aria-live="polite">
             {template(t('results'), list.length)}
             {count > 0 && ` · ${template(t('corpusCount'), count)}`}
           </p>
@@ -248,6 +253,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
                             key={key}
                             type="button"
                             className={css.chipOn}
+                            aria-pressed={true}
                             onClick={() => onUnassign(key, hit.path)}
                             title={t('remove')}
                           >
@@ -259,6 +265,7 @@ export function SkillExplorer(props: SkillExplorerProps) {
                             key={key}
                             type="button"
                             className={key === 'prio' ? css.chipPrimary : css.chip}
+                            aria-pressed={false}
                             onClick={() => onAssign(key, hit.path)}
                             title={t(key === 'prio' ? 'addPrio' : key === 'blacklist' ? 'blacklistTitle' : 'whitelistTitle')}
                           >
@@ -268,7 +275,15 @@ export function SkillExplorer(props: SkillExplorerProps) {
                       })}
                     </>
                   ) : null}
-                  {copied === hit.path && <span className={css.path}>{hit.path}</span>}
+                  {copied !== undefined && copied.path === hit.path && (
+                    <span
+                      className={copied.ok ? css.path : css.copyError}
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {copied.ok ? hit.path : t('copyFailed')}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

@@ -23,8 +23,20 @@ interface FieldState {
   overridden: boolean
 }
 
-/** Field descriptor: key, copy keys, control kind, and numeric bounds. */
-const FIELDS = [
+/** Field descriptor: key, copy keys, control kind, and numeric bounds.
+    Both `key` and the copy keys are typed so a missing dictionary key or a
+    key/FieldKey mismatch is a compile error, not a blank control at runtime. */
+type FieldDescriptor<K extends FieldKey = FieldKey> = {
+  key: K
+  label: keyof typeof DICT['en']
+  hint: keyof typeof DICT['en']
+  kind: 'toggle' | 'number' | 'scope'
+  min?: number
+  max?: number
+  step?: number
+}
+
+const FIELDS: readonly FieldDescriptor[] = [
   { key: 'semantic', label: 'fieldSemantic', hint: 'fieldSemanticHint', kind: 'toggle' },
   { key: 'defaultK', label: 'fieldDefaultK', hint: 'fieldDefaultKHint', kind: 'number', min: 1, max: 25, step: 1 },
   { key: 'pool', label: 'fieldPool', hint: 'fieldPoolHint', kind: 'number', min: 50, max: 3000, step: 50 },
@@ -32,14 +44,13 @@ const FIELDS = [
   { key: 'wGram', label: 'fieldWGram', hint: 'fieldWGramHint', kind: 'number', min: 0, max: 1, step: 0.05 },
   { key: 'autoRoute', label: 'fieldAutoRoute', hint: 'fieldAutoRouteHint', kind: 'toggle' },
   { key: 'whitelistOnly', label: 'scopeLabel', hint: 'scopeHint', kind: 'scope' },
-] as const
+]
 
-type FieldKey = (typeof FIELDS)[number]['key']
+type FieldKey = 'semantic' | 'defaultK' | 'pool' | 'wLex' | 'wGram' | 'autoRoute' | 'whitelistOnly'
 
 /** Localized copy. zh mirrors en key-for-key so a missing key is a typo, not a gap. */
 const DICT = {
-  en: {
-    cardTitle: 'dsh-awesome-skills',
+  en: {    cardTitle: 'dsh-awesome-skills',
     cardDescription: 'Semantic search over the local 16,000-skill corpus',
     fieldSemantic: 'Semantic lane',
     fieldSemanticHint: 'Vector similarity (wasm). Off falls back to lexical + n-gram only',
@@ -53,6 +64,10 @@ const DICT = {
     fieldWGramHint: 'Weight of the character-trigram lane (0-1)',
     fieldAutoRoute: 'Keep skill-router in step',
     fieldAutoRouteHint: 'Rewrite the installed skill-router when these values change',
+    scopeLabel: 'Search scope',
+    scopeAll: 'All skills',
+    scopeWhitelist: 'Whitelist only',
+    scopeHint: 'Whitelist only hides everything not whitelisted — no effect while the whitelist is empty',
     save: 'Save', discard: 'Discard', saved: 'Saved', failed: 'Save failed — retry',
     overridden: 'overridden', revert: 'revert',
   },
@@ -71,6 +86,10 @@ const DICT = {
     fieldWGramHint: '字符三元组通道的权重（0-1）',
     fieldAutoRoute: '同步 skill-router',
     fieldAutoRouteHint: '这些值变化时重写已安装的 skill-router',
+    scopeLabel: '搜索范围',
+    scopeAll: '全部技能',
+    scopeWhitelist: '仅白名单',
+    scopeHint: '“仅白名单”会隐藏所有未列入白名单的技能 — 白名单为空时无效果',
     save: '保存', discard: '放弃', saved: '已保存', failed: '保存失败 — 重试',
     overridden: '已覆盖', revert: '还原',
   },
@@ -174,7 +193,7 @@ export function SettingsCard(props: SettingsCardProps) {
           return (
             <div className={css.field} key={f.key}>
               <div className={css.head}>
-                <label className={css.label} htmlFor={id}>{t(f.label as keyof typeof DICT['en'])}</label>
+                <label className={css.label} htmlFor={id}>{t(f.label)}</label>
                 {state.overridden && <span className={css.badge}>{t('overridden')}</span>}
                 {drafts[f.key] !== undefined && (
                   <button type="button" className={css.revert} onClick={() => revert(f.key)}>{t('revert')}</button>
@@ -182,10 +201,10 @@ export function SettingsCard(props: SettingsCardProps) {
               </div>
 
               {f.kind === 'scope' ? (
-                <div className={css.segmented} role="radiogroup" aria-label={t('scopeLabel' as keyof typeof DICT['en'])}>
+                <div className={css.segmented} role="radiogroup" aria-label={t('scopeLabel')}>
                   {[
-                    { value: 'false', label: t('scopeAll' as keyof typeof DICT['en']) },
-                    { value: 'true', label: t('scopeWhitelist' as keyof typeof DICT['en']) },
+                    { value: 'false', label: t('scopeAll') },
+                    { value: 'true', label: t('scopeWhitelist') },
                   ].map(option => (
                     <label key={option.value} className={state.draft === option.value ? css.segOn : css.seg}>
                       <input
@@ -225,8 +244,8 @@ export function SettingsCard(props: SettingsCardProps) {
               )}
 
               {isInvalid
-                ? <p className={css.invalid}>{`${t(f.label as keyof typeof DICT['en'])}: ${f.min} – ${f.max}`}</p>
-                : <p className={css.hint}>{t(f.hint as keyof typeof DICT['en'])}</p>}
+                ? <p className={css.invalid}>{`${t(f.label)}: ${f.min} – ${f.max}`}</p>
+                : <p className={css.hint}>{t(f.hint)}</p>}
             </div>
           )
         })}
@@ -250,8 +269,10 @@ export function SettingsCard(props: SettingsCardProps) {
   )
 }
 
-/** A number is valid when it parses, is finite, and sits inside its bounds. */
-function validNumber(draft: string, min: number, max: number): boolean {
+/** A number is valid when it parses, is finite, and sits inside its bounds.
+    Bounds are only meaningful on number-kind fields; other kinds pass. */
+function validNumber(draft: string, min?: number, max?: number): boolean {
+  if (min === undefined || max === undefined) return true
   if (draft.trim() === '') return false
   const n = Number(draft)
   return Number.isFinite(n) && n >= min && n <= max

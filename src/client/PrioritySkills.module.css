@@ -209,6 +209,15 @@
   cursor: default;
 }
 
+/* Save-failed state: the retry button reads as an error action, so a muted
+   spinner-to-label swap never hides a failed write. */
+.danger {
+  composes: primary;
+  border-color: var(--dsw-alias-label-error);
+  background: transparent;
+  color: var(--dsw-alias-label-error);
+}
+
 .button {
   appearance: none;
   border: 1px solid var(--dsw-alias-border-l2);
