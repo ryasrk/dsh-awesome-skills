@@ -24,7 +24,9 @@ import { join } from 'node:path'
 interface PreStepPayload {
   agent?: {
     session?: {
-      surface?: { nodes?: Map<unknown, unknown> }
+      /** Iterable of visible-surface nodes; the harness wraps it in a Set for
+          membership tests (tool-skill catalogHistory). */
+      surface?: { nodes?: Iterable<unknown> }
       events?: ReadonlyArray<{ type: string; seq: number; data?: { source?: { kind?: string; digest?: string } } }>
     }
   }
@@ -126,8 +128,12 @@ export function installPriorityLoader(
     agent: PreStepPayload['agent'],
   ): { digest: string; visible: boolean } | undefined => {
     const events = agent?.session?.events
-    const visible = agent?.session?.surface?.nodes
-    if (events === undefined || visible === undefined) return undefined
+    const nodes = agent?.session?.surface?.nodes
+    if (events === undefined || nodes === undefined) return undefined
+    // `surface.nodes` is an iterable of nodes (the harness wraps it in a Set
+    // for membership tests — tool-skill catalogHistory), not a Map. Sequence
+    // ids are compared against the wrapped set of node ids.
+    const visible = new Set(nodes)
     for (let index = events.length - 1; index >= 0; index -= 1) {
       const event = events[index]
       if (event === undefined) continue
