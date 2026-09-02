@@ -95,7 +95,7 @@ score = (1 - WEIGHT) * semantic + WEIGHT * lexical + GRAM_WEIGHT * char-3-gram
   identifiers still discriminate.
 
 `WEIGHT` 0.55, `GRAM_WEIGHT` 0.5, pool 1200. Re-checked on the shipped
-corpus with a 100-label canonical set: R@1 76%, R@3 92%.
+corpus with a 150-label canonical set: R@1 80%, R@3 93%.
 
 ## Speed
 

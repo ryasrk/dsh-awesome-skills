@@ -381,3 +381,36 @@ Round 2 grew the canonical set 50 → 100 labels (frozen-50 preserved; labels100
 - **Lever 2 — vocabulary enrichment round 2 (path-keyword + body-H1 segments): REJECTED** by the benchmark gate (R@1 76→74, R@3 92→90); no commit. FAIL-path runbook executed: repo artifacts restored via `git checkout`, rebuild2.js reverted to the round-1 graphKw state, live index regenerated and sha256-verified byte-identical.
 - **Residual misses (8 of 100; ranking-lever R ceiling is therefore 98/100).** Two labels are all-dead-gold — no indexed row carries the gold name: pre-commit, pagination — so no ranking change can reach them; the other six are vocabulary gaps: accessibility/a11y, sensor-fusion, brainstorming, api-docs/technical-documentation, translation, tdd/test-driven-development. The enrich2-era miss labels TDD, brainstorming, technical-documentation, translation were already MISS at standing and did NOT regress; the three real enrich2 regressions — findings-capture (R1→MISS), security-audit/release-manager (r3→MISS), empty-states (R1→r3) — all returned to their standing ranks after the FAIL-path restore.
 - **Next levers:** (1) grow the label set beyond 100 before any further ranking change; (2) vocabulary enrichment needs selectivity — path-keywords restricted to owner/repo tokens only, or synonyms targeted at the gold vocabulary of the residual misses, not wholesale path+H1 dumps; (3) `es`-branch asymmetry in the stemmer (e.g. traces→trac vs other -es forms) is the next stemming refinement candidate.
+
+## Outcome 3 (recorded 2026-09-02)
+
+Round 3 grew the canonical set 100 → 150 labels (gold-hygienic: every new gold
+verified live at authoring; 14 dead fragments resolved; 2 carried dead labels
+remain — pre-commit, pagination — so the R ceiling is 148/150) and ran the
+selective-alias lever. Bar: R@1 ≥ 78% / R@3 ≥ 92% on n=150.
+
+- **Final shipped numbers:** **R@1 120/150 (80%), R@3 139/150 (93%), median
+  0.603** — bar met on both metrics, and met at the [base-150] baseline before
+  any lever ran. Band rule: median 0.603 ≥ 0.55 AND R@3 93% ≥ 80% → `keep 0.7 /
+  0.4` (shipped bands unchanged).
+- **Lever 1 — selective vocabulary aliases: SHIPPED but bench-neutral**
+  (`88e4e36`). 13 entries drafted, 6 survived the per-entry vector-rank probe
+  (strict-improve-into-top-3), shipped into `rebuild2.js`'s `ALIASES` table:
+  sensor-fusion (lidar/camera/radar), rate-limit (backoff/retry/429),
+  aws-cloud (s3/bucket/lifecycle), modern-python (dependencies/venv/pip),
+  frontend-a11y (modal/dialog/focus-trap), aws-solution-architect
+  (unused/cost/cleanup). Aggregate bench unchanged (80/93 → 80/93): the probes
+  improved pure-cosine rank, but the hybrid pipeline (vector + lexical + gram)
+  already recovered those labels via other lanes. Embcache pruned as planned.
+- **Lever 2 — es-family stem probe: SKIPPED.** Bar already met at baseline;
+  per the pre-registered conditional, not run. Recorded as lowest-value of the
+  remaining levers (es-branch asymmetry is currently a measured win).
+- **Re-gold decision (logged, not applied):** the Task-1 loose gold
+  `preview→environment` should become `vercel` on any future re-baseline (same
+  product domain, strictly tighter); frozen this round.
+- **Conclusion:** the corpus is at its practical ranking-lever ceiling. Every
+  indiscriminate lever (bigram boost, path/H1 dump) has proven negative EV;
+  the one precision lever (aliases) is a no-op at the aggregate. Further gains
+  would require either a new gold set beyond 150, an embedding-model swap, or
+  cross-encoder re-ranking — all out of scope. Retrieval work is closed at
+  R@1 80% / R@3 93% (n=150).

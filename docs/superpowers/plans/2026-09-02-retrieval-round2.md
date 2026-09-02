@@ -361,3 +361,10 @@ GIT_TERMINAL_PROMPT=0 git push origin main
 - Type consistency: `pathKeywords`/`bodyHeading`/`pathKw`/`h1Kw` named consistently in Task 3; `stem`/`S2_ENDS`/`SURVIVE` match 277252e exactly; bench flags `--phase base-100|stems-only|enrich2|final` consistent.
 - Cache mechanics honored: scratch OUT seeded before validation (round-1 lesson); ship rebuild expected to compute all 6,097 (texts changed globally) — determinism makes the validation numbers authoritative for the ship run.
 - Honesty: dead-gold check is report-only (no mid-flight gold edits); lever failures revert cleanly (Task 2 discards working tree, Task 3 restores artifacts + rebuild code); no bigram revival.
+
+## Erratum (recorded 2026-09-02)
+
+The Global Constraints above number the levers "Lever 2 (stems)" / "Lever 3
+(enrichment)", while the task headings use "Lever 1 — stems" / "Lever 2 —
+enrichment" (label growth not counted as a lever). Two numbering schemes, zero
+decision impact; recorded here so later round-3/4 prose is not misread.
