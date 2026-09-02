@@ -16,7 +16,7 @@ export declare const en: {
     readonly error: "Search failed. Try again.";
     readonly loading: "Searching…";
     readonly cardTitle: "dsh-awesome-skills";
-    readonly cardDescription: "Semantic search over the local 16,000-skill corpus";
+    readonly cardDescription: "Semantic search over the local skill corpus";
     readonly fieldSemantic: "Semantic lane";
     readonly fieldSemanticHint: "Vector similarity (wasm). Off falls back to lexical + n-gram only";
     readonly fieldDefaultK: "Results per search";
@@ -58,7 +58,8 @@ export declare const en: {
     readonly whitelistEmpty: "Nothing whitelisted";
     readonly addWhite: "+ Whitelisted";
     readonly priorityAddManual: "Add a skill path";
-    readonly searchPlaceholder: "Search 16,000 skills by what you want to do…";
+    readonly searchPlaceholder: "Search {n} skills by what you want to do…";
+    readonly searchPlaceholderNoCount: "Search skills by what you want to do…";
     readonly clear: "Clear search";
     readonly filterAll: "All";
     readonly filterPrio: "Priority";
@@ -87,6 +88,7 @@ export declare const en: {
     readonly diffReordered: "Reordered";
     readonly noMatch: "No suggestion matches — press Enter to add the path as typed";
     readonly whitelistEmptyWarn: "Search scope is “Whitelist only”, so an empty whitelist hides every skill. Add to the whitelist or switch the scope in Config.";
+    readonly gotoScope: "Open scope setting";
     readonly retry: "Retry";
     readonly priorityLoadFailed: "Could not load your lists. Editing is paused until they load.";
 };
