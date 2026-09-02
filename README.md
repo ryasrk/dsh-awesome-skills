@@ -94,11 +94,8 @@ score = (1 - WEIGHT) * semantic + WEIGHT * lexical + GRAM_WEIGHT * char-3-gram
 - **Char 3-gram** — script-agnostic, so CJK/Cyrillic queries and technical
   identifiers still discriminate.
 
-`WEIGHT` 0.55, `GRAM_WEIGHT` 0.5, pool 1200. These were calibrated on the
-16k-skill corpus the plugin originally shipped (45 held-out cases, R@5 51%,
-MRR 0.376), then re-checked on the shipped corpus (Task 7 recalibration,
-10 new + 4 regression domain labels); the weights carry over unchanged, and
-brute-force scoring makes pool size moot at any realistic k.
+`WEIGHT` 0.55, `GRAM_WEIGHT` 0.5, pool 1200. Re-checked on the shipped
+corpus with a 50-label canonical set: R@1 62%, R@3 88%.
 
 ## Speed
 
