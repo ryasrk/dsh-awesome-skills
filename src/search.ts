@@ -45,8 +45,25 @@ const GRAM = 3
 
 type Tokens = Map<string, number>
 
+const S2_ENDS = new Set(['es', 'ed'])
+/** Tokens the stemmer must never touch (probe-verified meaningful as-is). */
+const SURVIVE = new Set(['used', 'based', 'docs', 'e2e'])
+/** Light suffix stemming with length guards (one suffix per token). */
+const stem = (w: string): string => {
+  if (SURVIVE.has(w)) return w
+  if (w.length >= 9 && w.endsWith('ment') && w.length - 4 >= 5) return w.slice(0, -4)
+  if (w.length >= 7 && w.endsWith('ing') && w.length - 3 >= 4) return w.slice(0, -3)
+  if (w.length >= 6 && S2_ENDS.has(w.slice(-2)) && w.length - 2 >= 4) return w.slice(0, -2)
+  if (w.length >= 5 && w.endsWith('s') && w.length - 1 >= 4) return w.slice(0, -1)
+  return w
+}
 const toks = (s: string): string[] =>
-  String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w.length > 2 && !STOP.has(w))
+  String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w.length > 2 && !STOP.has(w)).map(stem)
+/** Adjacent raw query-token pairs (post-STOP, pre-stem), capped at 2. */
+const bigrams = (q: string): string[] => {
+  const t = String(q).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w.length > 2 && !STOP.has(w))
+  return t.length >= 2 ? t.slice(0, -1).map((w, i) => w + ' ' + t[i + 1]).slice(0, 2) : []
+}
 
 export interface SkillEntry {
   name: string
@@ -380,6 +397,7 @@ export class SkillIndex {
 
     const qt: Tokens = new Map()
     for (const w of toks(q)) qt.set(w, (qt.get(w) || 0) + 1)
+    const qBigrams = bigrams(q)
     const qg = SkillIndex.grams(q)
     let qn = 0
     for (const c of qg.values()) qn += c * c
@@ -401,7 +419,16 @@ export class SkillIndex {
         ? (1 - this.knobs.wLex) * s[i] + this.knobs.wLex * lex + this.knobs.wGram * gsim
         // Semantic off: the lexical and gram lanes rank on their own.
         : this.knobs.wLex * lex + this.knobs.wGram * gsim
-      return { i, score: base }
+      // Bigram tie-breaker: surface phrase evidence in raw name+description.
+      let boost = 0
+      if (qBigrams.length > 0) {
+        const docText = (m.name + ' ' + m.description).toLowerCase()
+        for (const b of qBigrams) {
+          if (boost >= 0.3) break
+          if (new RegExp('\\b' + b.replace(/[^a-z0-9 ]/g, '') + '\\b').test(docText)) boost += 0.15
+        }
+      }
+      return { i, score: base + boost }
     })
     scored.sort((a, b) => b.score - a.score)
 
