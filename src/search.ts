@@ -45,8 +45,20 @@ const GRAM = 3
 
 type Tokens = Map<string, number>
 
+const S2_ENDS = new Set(['es', 'ed'])
+/** Tokens the stemmer must never touch (probe-verified meaningful as-is). */
+const SURVIVE = new Set(['used', 'based', 'docs', 'e2e'])
+/** Light suffix stemming with length guards (one suffix per token). */
+const stem = (w: string): string => {
+  if (SURVIVE.has(w)) return w
+  if (w.length >= 9 && w.endsWith('ment') && w.length - 4 >= 5) return w.slice(0, -4)
+  if (w.length >= 7 && w.endsWith('ing') && w.length - 3 >= 4) return w.slice(0, -3)
+  if (w.length >= 6 && S2_ENDS.has(w.slice(-2)) && w.length - 2 >= 4) return w.slice(0, -2)
+  if (w.length >= 5 && w.endsWith('s') && w.length - 1 >= 4) return w.slice(0, -1)
+  return w
+}
 const toks = (s: string): string[] =>
-  String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w.length > 2 && !STOP.has(w))
+  String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w.length > 2 && !STOP.has(w)).map(stem)
 
 export interface SkillEntry {
   name: string
