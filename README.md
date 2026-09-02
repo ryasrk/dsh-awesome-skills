@@ -152,6 +152,8 @@ node rebuild2.js
 # then copy skills.json + vectors.f32 into the package's skills/
 ```
 
+After rebuilding, sync both `lib/` and `skills/` into any installed profile (`rsync -a --delete lib/ skills/ <profile>/node_modules/dsh-awesome-skills/`) — syncing only `lib/` leaves the deployed profile serving a stale index.
+
 A skill directory is any directory holding a `SKILL.md`; directories nested
 inside one (a sub-skill shipped as reference material) are not indexed
 separately. Regenerate the client bundle after pulling source changes:

@@ -363,3 +363,11 @@ GIT_TERMINAL_PROMPT=0 git push origin main
 - No placeholders: all code blocks are complete and transcribable; the bench harness and labels file ALREADY EXIST and are validated (50 labels; baseline line recorded in the header).
 - Honesty note: the plan's Task 2 Step 4 gate reflects real probe evidence (+161e-3/+130e-3 zustand/zod), and Task 4's boost block was derived from the verified probe logic; the stemmer's exact guard values (9/7/6/5) are the probe's, restated verbatim.
 - Prior drafting failure (two corrupted plan attempts) is corrected by this rewrite; the labels JSON corruption that motivated the rewrite is fixed at the real file (`/tmp/opencode/labels6k.json` validated separately from this document).
+
+## Outcome (recorded 2026-09-02)
+
+- Phase B (graph-keyword enrichment) shipped: `f1cf90f`. Canonical bench [post-B]: R@1 62% (31/50), R@3 88% (44/50), median 0.569 — vs [pre-B] 60%/88%/0.592.
+- Phase A (guarded stems + capped bigram boost, `277252e`) REJECTED by the pre-registered conjunctive gate: R@1 66% (+2 labels) but R@3 84% (−2 labels < 88%). Reverted in `ad4501e`; post-revert bench reproduced post-B exactly.
+- Rejection mechanism: the +0.15–0.30 bigram boost is a rank-overturn, not a tie-breaker on this score spread — worst case a confident wrong top-1 at 0.81 ("create a pull request from my branch", gold absent from top-5). For a router that reads-and-follows the top hit, that is the worst failure mode.
+- Bands restored to 0.7/0.4 per the mechanical rule on the standing bench (`e6a0056`); README records the final numbers.
+- Next levers, in order: (1) stemming-only probe (cherry-pick the stemmer from `277252e`, drop the boost block), (2) vocabulary-gap enrichment round 2 for the 6 hard misses (accessibility/a11y, sensor-fusion, brainstorming, api-docs, translation, pre-commit), (3) grow the canonical set past 50 labels before any further ranking change (1 label = 2pts on 50).
