@@ -240,7 +240,7 @@
 .segOn {
   composes: seg;
   background: var(--dsw-alias-bg-layer-2);
-  color: var(--dsw-alias-label-primary);
+  color: var(--dsw-alias-brand-primary);
   font-weight: 600;
 }
 

@@ -184,10 +184,10 @@ export function SkillExplorer(props: SkillExplorerProps) {
             ref={inputRef}
             className={css.search}
             value={query}
-            placeholder={t('searchPlaceholder')}
+            placeholder={count > 0 ? template(t('searchPlaceholder'), count) : t('searchPlaceholderNoCount')}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={(event) => { if (event.key === 'Escape') setQuery('') }}
-            aria-label={t('searchPlaceholder')}
+            aria-label={count > 0 ? template(t('searchPlaceholder'), count) : t('searchPlaceholderNoCount')}
           />
           {query !== '' && (
             <button type="button" className={css.clear} onClick={() => setQuery('')} aria-label={t('clear')}>

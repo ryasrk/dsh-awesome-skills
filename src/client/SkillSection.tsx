@@ -181,8 +181,21 @@ export function SkillSection(props: SkillSectionProps) {
     { id: 'config' as const, label: labels.config },
   ]), [labels, pending])
 
+  /** Whole-corpus blackout: whitelist-only scope with an empty whitelist hides
+   *  every skill. Raised as a focusable summary that links to the Config scope
+   *  field, so the user can see *and* reach the one switch that lifts it. */
+  const blackout = loaded && whitelistOnly && applied.whitelist.length === 0
+
   return (
     <div>
+      {blackout && (
+        <div className={css.summary} role="alert" tabIndex={-1}>
+          <span>{t('whitelistEmptyWarn')}</span>
+          <button type="button" className={css.summaryLink} onClick={() => setTab('config')}>
+            {t('gotoScope')}
+          </button>
+        </div>
+      )}
       <div className={css.tabs} role="tablist" aria-label={labels.section}>
         {tabs.map(entry => (
           <button

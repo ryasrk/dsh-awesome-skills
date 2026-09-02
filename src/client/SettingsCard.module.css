@@ -34,6 +34,30 @@
   padding: 4px 16px 16px;
 }
 
+/* Semantic sections group the seven knobs into two short clusters (Search
+   ranking vs Scope & routing) so the card reads as grouped choices rather than
+   a single undifferentiated wall. A subheading leads each cluster; hairlines
+   separate sections, and the fields within keep the host's row rhythm. */
+.section {
+  padding-top: 4px;
+}
+
+.section + .section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+}
+
+.sectionHeading {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-tertiary);
+}
+
 /* Fields: label on its own line, control below, hint last. The harness's
    field row uses a 12px vertical rhythm with hairline separators, which is
    what keeps a six-field card scannable instead of a wall of boxes. */
@@ -233,7 +257,7 @@
 .segOn {
   composes: seg;
   background: var(--dsw-alias-bg-layer-2);
-  color: var(--dsw-alias-label-primary);
+  color: var(--dsw-alias-brand-primary);
   font-weight: 600;
 }
 

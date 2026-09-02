@@ -2,11 +2,11 @@
  * The plugin's settings card in Settings → Plugins → Plugin configuration.
  *
  * Layout follows the harness's own plugin-card and field conventions (see
- * SettingsCard.module.css): a title band, a stack of label-over-control rows
- * separated by hairlines, then an action band — three visual bands, so the
- * six fields scan instead of reading as a wall of boxes. Numeric fields are
- * bounded inputs so an out-of-range value is unrepresentable rather than
- * something a save has to reject; booleans are switches.
+ * SettingsCard.module.css): a title band, then fields grouped into semantic
+ * sections ("Search ranking" vs "Scope & routing") so seven knobs scan as two
+ * short clusters instead of a wall of boxes, then an action band. Numeric
+ * fields are bounded inputs so an out-of-range value is unrepresentable rather
+ * than something a save has to reject; booleans are switches.
  */
 
 import { useEffect, useState } from 'react'
@@ -24,9 +24,10 @@ interface FieldState {
 }
 
 /**
- * Field descriptor: key, copy keys, control kind, and numeric bounds.
- * Both `key` and the copy keys are typed so a missing dictionary key or a
- * key/FieldKey mismatch is a compile error, not a blank control at runtime.
+ * Field descriptor: key, copy keys, control kind, numeric bounds, and the
+ * section it belongs to. Both `key` and the copy keys are typed so a missing
+ * dictionary key or a key/FieldKey mismatch is a compile error, not a blank
+ * control at runtime.
  */
 type FieldDescriptor = {
   key: FieldKey
@@ -36,16 +37,24 @@ type FieldDescriptor = {
   min?: number
   max?: number
   step?: number
+  /** The semantic group this field renders under; two sections, not seven. */
+  section: 'ranking' | 'scope'
 }
 
+/** A section groups its fields under one subheading so the card scans. */
+const SECTIONS: readonly { id: 'ranking' | 'scope'; title: keyof typeof DICT['en'] }[] = [
+  { id: 'ranking', title: 'sectionRanking' },
+  { id: 'scope', title: 'sectionScope' },
+]
+
 const FIELDS: readonly FieldDescriptor[] = [
-  { key: 'semantic', label: 'fieldSemantic', hint: 'fieldSemanticHint', kind: 'toggle' },
-  { key: 'defaultK', label: 'fieldDefaultK', hint: 'fieldDefaultKHint', kind: 'number', min: 1, max: 25, step: 1 },
-  { key: 'pool', label: 'fieldPool', hint: 'fieldPoolHint', kind: 'number', min: 50, max: 3000, step: 50 },
-  { key: 'wLex', label: 'fieldWLex', hint: 'fieldWLexHint', kind: 'number', min: 0, max: 1, step: 0.05 },
-  { key: 'wGram', label: 'fieldWGram', hint: 'fieldWGramHint', kind: 'number', min: 0, max: 1, step: 0.05 },
-  { key: 'autoRoute', label: 'fieldAutoRoute', hint: 'fieldAutoRouteHint', kind: 'toggle' },
-  { key: 'whitelistOnly', label: 'scopeLabel', hint: 'scopeHint', kind: 'scope' },
+  { key: 'semantic', label: 'fieldSemantic', hint: 'fieldSemanticHint', kind: 'toggle', section: 'ranking' },
+  { key: 'defaultK', label: 'fieldDefaultK', hint: 'fieldDefaultKHint', kind: 'number', min: 1, max: 25, step: 1, section: 'ranking' },
+  { key: 'pool', label: 'fieldPool', hint: 'fieldPoolHint', kind: 'number', min: 50, max: 3000, step: 50, section: 'ranking' },
+  { key: 'wLex', label: 'fieldWLex', hint: 'fieldWLexHint', kind: 'number', min: 0, max: 1, step: 0.05, section: 'ranking' },
+  { key: 'wGram', label: 'fieldWGram', hint: 'fieldWGramHint', kind: 'number', min: 0, max: 1, step: 0.05, section: 'ranking' },
+  { key: 'autoRoute', label: 'fieldAutoRoute', hint: 'fieldAutoRouteHint', kind: 'toggle', section: 'scope' },
+  { key: 'whitelistOnly', label: 'scopeLabel', hint: 'scopeHint', kind: 'scope', section: 'scope' },
 ]
 
 type FieldKey = 'semantic' | 'defaultK' | 'pool' | 'wLex' | 'wGram' | 'autoRoute' | 'whitelistOnly'
@@ -54,7 +63,9 @@ type FieldKey = 'semantic' | 'defaultK' | 'pool' | 'wLex' | 'wGram' | 'autoRoute
 const DICT: { en: Record<string, string>; zh: Record<keyof typeof DICT['en'], string> } = {
   en: {
     cardTitle: 'dsh-awesome-skills',
-    cardDescription: 'Semantic search over the local 16,000-skill corpus',
+    cardDescription: 'Semantic search over the local skill corpus',
+    sectionRanking: 'Search ranking',
+    sectionScope: 'Scope & routing',
     fieldSemantic: 'Semantic lane',
     fieldSemanticHint: 'Vector similarity (wasm). Off falls back to lexical + n-gram only',
     fieldDefaultK: 'Results per search',
@@ -76,7 +87,9 @@ const DICT: { en: Record<string, string>; zh: Record<keyof typeof DICT['en'], st
   },
   zh: {
     cardTitle: 'dsh-awesome-skills',
-    cardDescription: '对本地 1.6 万技能语料进行语义检索',
+    cardDescription: '对本地技能语料进行语义检索',
+    sectionRanking: '搜索排序',
+    sectionScope: '范围与路由',
     fieldSemantic: '语义通道',
     fieldSemanticHint: '向量相似度（wasm）。关闭后仅用词法 + n-gram',
     fieldDefaultK: '每次搜索结果数',
@@ -188,7 +201,10 @@ export function SettingsCard(props: SettingsCardProps) {
       </div>
 
       <div className={css.body}>
-        {FIELDS.map(f => {
+        {SECTIONS.map(section => (
+          <section className={css.section} key={section.id} aria-labelledby={`dshas-section-${section.id}`}>
+            <h3 className={css.sectionHeading} id={`dshas-section-${section.id}`}>{t(section.title)}</h3>
+            {FIELDS.filter(f => f.section === section.id).map(f => {
           const state = stateOf(f.key)
           const isInvalid = f.kind === 'number' && drafts[f.key] !== undefined
             && !validNumber(state.draft, f.min, f.max)
@@ -251,7 +267,9 @@ export function SettingsCard(props: SettingsCardProps) {
                 : <p className={css.hint}>{t(f.hint)}</p>}
             </div>
           )
-        })}
+            })}
+          </section>
+        ))}
       </div>
 
       <div className={css.actions}>

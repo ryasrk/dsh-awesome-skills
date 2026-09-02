@@ -54,6 +54,54 @@
   vertical-align: 2px;
 }
 
+/* Whole-corpus blackout summary: whitelist-only scope with an empty whitelist
+   hides every skill. Focusable (tabIndex -1) so keyboard and screen-reader
+   users can reach it, and announced via role=alert on mount; the inline action
+   jumps to the Config scope switch that lifts the blackout. */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin: 0 0 12px;
+  border: 1px solid var(--dsw-alias-label-error);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-2);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-error);
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
+.summaryLink {
+  appearance: none;
+  flex: none;
+  border: 1px solid var(--dsw-alias-label-error);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 5px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.summaryLink:hover {
+  background: var(--dsw-alias-interactive-bg-hover-danger, var(--dsw-alias-interactive-bg-hover));
+}
+
+.summaryLink:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+
 /* Trust banners: initial-load failure and failed optimistic assigns. Both
    live above the panes, so they are seen before any row claims a state. */
 .loadError {
