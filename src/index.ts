@@ -4,7 +4,7 @@
  * Registers the corpus as a durable host service and installs the model-facing
  * `skill-router` skill so agents can search the corpus semantically.
  *
- * The corpus is deliberately NOT a skill discovery root: 16,000 skills in the
+ * The corpus is deliberately NOT a skill discovery root: ~6,000 skills in the
  * catalog cost a large per-turn token bill. Instead this plugin owns the
  * vector index and exposes two things:
  *   1. a `skills-search` service with `search()` for other plugins and tools,
@@ -162,7 +162,7 @@ ls "__CORPUS_DIR__/<path>/"
 
 export function apply(ctx: PluginContext, config?: Config): void {
   const home = config?.home ?? process.env.HOME ?? ''
-  // The 16k skill bodies stay in their canonical corpus directory and are
+  // The ~6k skill bodies stay in their canonical corpus directory and are
   // referenced, not copied: the package ships the index (skills.json +
   // vectors.f32) and points `corpusDir` at the tree those bodies live in.
   const corpusDir = config?.corpusDir

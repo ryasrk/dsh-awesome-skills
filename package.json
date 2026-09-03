@@ -1,6 +1,6 @@
 {
   "name": "dsh-awesome-skills",
-  "description": "Semantic vector search over a 16,000-skill local corpus. Ships a bundled `skill-router` skill that routes any task to the most relevant vetted playbook on demand, keeping the corpus out of the per-turn model catalog.",
+  "description": "Semantic vector search over a ~6,000-skill local corpus. Ships a bundled `skill-router` skill that routes any task to the most relevant vetted playbook on demand, keeping the corpus out of the per-turn model catalog.",
   "version": "0.1.0",
   "type": "module",
   "main": "lib/index.js",

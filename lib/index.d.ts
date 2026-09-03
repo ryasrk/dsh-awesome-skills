@@ -4,7 +4,7 @@
  * Registers the corpus as a durable host service and installs the model-facing
  * `skill-router` skill so agents can search the corpus semantically.
  *
- * The corpus is deliberately NOT a skill discovery root: 16,000 skills in the
+ * The corpus is deliberately NOT a skill discovery root: ~6,000 skills in the
  * catalog cost a large per-turn token bill. Instead this plugin owns the
  * vector index and exposes two things:
  *   1. a `skills-search` service with `search()` for other plugins and tools,

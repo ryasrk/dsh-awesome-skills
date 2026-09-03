@@ -3,7 +3,7 @@
  *
  * Ported from the standalone `~/.dsh/awesome-skills/runtime` scripts, keeping
  * the calibrated hybrid ranking (semantic + lexical IDF + char 3-gram) and the
- * lazy gram cache. The corpus is NOT a skill discovery root, so 16,000 skills
+ * lazy gram cache. The corpus is NOT a skill discovery root, so ~6,000 skills
  * never enter the per-turn model catalog.
  */
 /** Embedding dimensionality of all-MiniLM-L6-v2. */
@@ -89,7 +89,7 @@ export declare class SkillIndex {
     /**
      * Indices that survive the visibility filters: the whitelist cuts first
      * (when scope-restricted and non-empty), then the blacklist narrows within
-     * it. Returns a Set for O(1) membership tests over a 16k corpus.
+     * it. Returns a Set for O(1) membership tests over a ~6k corpus.
      */
     private visibleIndices;
     /** The current knobs, for routes that echo them back. */

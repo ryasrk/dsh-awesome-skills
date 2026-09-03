@@ -119,7 +119,7 @@ function IconSearch({ size = 14 }) {
 //#endregion
 //#region src/client/SkillExplorer.tsx
 /**
-* The Skill Explorer: a live semantic search box over the host's 16k corpus,
+* The Skill Explorer: a live semantic search box over the host's ~6k corpus,
 * rendered inside the plugin's own "Skills" settings section.
 *
 * Queries the host RPC route with a 300ms debounce and never throws — every
