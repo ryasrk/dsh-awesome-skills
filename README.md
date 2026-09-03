@@ -136,25 +136,24 @@ All fields optional, via a `cordis.patch.yml` row:
 | Field | Default | Meaning |
 |---|---|---|
 | `corpusDir` | `~/.dsh/awesome-skills/skills` | Skill bodies (`<path>/SKILL.md`) |
-| `home` | OS home (`os.homedir()`) | Where the router skill is installed |
+| `home` | OS home (`os.homedir()`) | Base home the router skill installs under (`<home>/.agents`) |
+| `agentsHome` | `<home>/.agents` | Agents home whose `skills/` root the harness reads; overrides `$DSH_AGENTS_HOME` |
 | `installSkillRouter` | `true` | Install the router skill on `apply` |
 
 Environment: `DSH_AWESOME_SKILLS_CORPUS` (corpus), `DSH_AWESOME_SKILLS_INDEX`
-(index directory for the CLI).
+(index directory for the CLI), `DSH_AGENTS_HOME` (agents home; resolved the same
+way the harness skill provider does, so a relocated agents home still receives
+the router skill).
 
 ## Rebuilding the index
 
-The index ships prebuilt. After changing the corpus, rebuild it with the
-standalone runtime's walker, which reads the corpus recursively and rewrites
-`skills.json` and `vectors.f32`:
-
-```sh
-cd ~/.dsh/awesome-skills/runtime
-node rebuild2.js
-# then copy skills.json + vectors.f32 into the package's skills/
-```
-
-After rebuilding, sync both `lib/` and `skills/` into any installed profile (`rsync -a --delete lib/ skills/ <profile>/node_modules/dsh-awesome-skills/`) — syncing only `lib/` leaves the deployed profile serving a stale index.
+The index ships prebuilt in `skills/skills.json` and `skills/vectors.f32`; a
+user never needs to rebuild it. Rebuilding after changing the corpus is a
+maintainer step done in the separate corpus-ingestion workspace (the walker
+lives there, not in this package) — it reads the corpus recursively and rewrites
+`skills.json` and `vectors.f32`, which are then copied back into this repo's
+`skills/`. If a deployed profile carries a stale index, re-sync this repo's
+`lib/` and `skills/` directories into the profile's installed copy.
 
 A skill directory is any directory holding a `SKILL.md`; directories nested
 inside one (a sub-skill shipped as reference material) are not indexed

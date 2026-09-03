@@ -31,7 +31,12 @@ export interface Config {
   corpusDir?: string
   /** Home directory of the running user, for installing the router skill. */
   home?: string
-  /** Install the bundled skill-router skill into `<home>/.agents/skills`. */
+  /**
+   * Explicit agents home — the directory that holds the harness's `skills/`
+   * catalog root. Overrides the default `<home>/.agents` and `$DSH_AGENTS_HOME`.
+   */
+  agentsHome?: string
+  /** Install the bundled skill-router skill into `<agentsHome>/skills`. */
   installSkillRouter?: boolean
 }
 
@@ -161,6 +166,14 @@ decoration. If \`skills_read\` is unavailable, list the directory
 
 export function apply(ctx: PluginContext, config?: Config): void {
   const home = config?.home ?? homedir()
+  // The agents home is where the harness discovers user skills (its default
+  // skill catalog root is `<agentsHome>/skills`). Resolve it the same way the
+  // harness skill provider does: an explicit `agentsHome` config, then
+  // `$DSH_AGENTS_HOME`, then `<home>/.agents` — so the router is installed
+  // where the harness actually loads it, even when the agents home is moved.
+  const agentsHome = config?.agentsHome
+    ?? process.env.DSH_AGENTS_HOME
+    ?? join(home, '.agents')
   // The ~6k skill bodies stay in their canonical corpus directory and are
   // referenced, not copied: the package ships the index (skills.json +
   // vectors.f32) and points `corpusDir` at the tree those bodies live in.
@@ -208,10 +221,10 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // without a restart.
   installPriorityLoader(ctx, corpusDir, () => ({ prio: search.getKnobs().prio }), ctx.logger)
 
-  if (config?.installSkillRouter === false || !home) return
+  if (config?.installSkillRouter === false || !agentsHome) return
 
   try {
-    const dir = join(home, '.agents', 'skills', 'skill-router')
+    const dir = join(agentsHome, 'skills', 'skill-router')
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
     const file = join(dir, 'SKILL.md')
     // Refresh on every apply: the shipped copy is the source of truth for the

@@ -19,7 +19,12 @@ export interface Config {
     corpusDir?: string;
     /** Home directory of the running user, for installing the router skill. */
     home?: string;
-    /** Install the bundled skill-router skill into `<home>/.agents/skills`. */
+    /**
+     * Explicit agents home — the directory that holds the harness's `skills/`
+     * catalog root. Overrides the default `<home>/.agents` and `$DSH_AGENTS_HOME`.
+     */
+    agentsHome?: string;
+    /** Install the bundled skill-router skill into `<agentsHome>/skills`. */
     installSkillRouter?: boolean;
 }
 export declare function apply(ctx: PluginContext, config?: Config): void;
