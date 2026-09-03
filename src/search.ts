@@ -10,6 +10,7 @@
 import { readFileSync, existsSync, writeFileSync, renameSync, unlinkSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { homedir } from 'node:os'
 import { createHash } from 'node:crypto'
 // Vendored copy of onnxruntime-web's wasm bundle (see vendor/ort/README.md).
 // Loaded through a relative path so this package has zero npm dependencies and
@@ -491,7 +492,7 @@ export function registerSearchService(
     indexDir: opts.indexDir,
     modelDir: existsSync(join(bundledModel, 'model_quantized.onnx'))
       ? bundledModel
-      : join(process.env.HOME ?? '', '.dsh', 'awesome-skills', 'model'),
+      : join(homedir(), '.dsh', 'awesome-skills', 'model'),
     cacheDir: opts.corpusDir,
   })
   const service: SkillsSearch = {

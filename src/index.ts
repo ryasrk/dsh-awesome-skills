@@ -15,6 +15,7 @@
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { homedir } from 'node:os'
 import { registerSearchService, type SkillsSearch } from './search.js'
 import { installSettingsSection } from './settings-wiring.js'
 import { mountSkillRoutesOnContext } from './routes.js'
@@ -89,11 +90,15 @@ Call the \`skills_search\` tool with \`query\` (and \`k\` if you want more than
 5 hits). Each result carries \`path\`, \`score\` (0-1), \`name\`, and a one-line
 \`description\`.
 
-If this host has no \`skills_search\` tool, fall back to the CLI once:
-
-\`\`\`bash
-printf '%s' '{"query":"<goal in plain words>","k":5}' | node "__QUERY_BIN__"
+If this host has no \`skills_search\` tool, run the bundled search CLI once:
+feed it the JSON query \`{"query":"<goal in plain words>","k":5}\` on its
+standard input (it reads stdin and writes JSON to stdout; adapt the stdin/pipe
+invocation to whatever shell this host provides — on Linux/macOS that is bash,
+on Windows it is PowerShell):
 \`\`\`
+node "__QUERY_BIN__"
+\`\`\`
+The CLI answers with a JSON object whose \`results\` are the ranked hits.
 
 ### Reading the scores
 
@@ -133,21 +138,15 @@ weak-band hits rarely help. Trust the bands:
 
 Call the \`skills_read\` tool with the hit's \`path\` (**never** the display
 \`name\` - paths are unique) to load its SKILL.md. If this host has no
-\`skills_read\` tool, fall back:
-
-\`\`\`bash
-sed -n '1,260p' "__CORPUS_DIR__/<path>/SKILL.md"
-\`\`\`
+\`skills_read\` tool, read the file directly with the host's file-read
+capability at \`__CORPUS_DIR__/<path>/SKILL.md\`.
 
 A skill's directory holds its complete playbook: reference files, templates,
 examples, and scripts live beside the SKILL.md. When the SKILL.md says "read
 tests.md" or points at \`references/\` or \`scripts/\`, load those with
 \`skills_read\` (path + \`file\`) too - they are part of the skill, not optional
-decoration. If \`skills_read\` is unavailable, list them first:
-
-\`\`\`bash
-ls "__CORPUS_DIR__/<path>/"
-\`\`\`
+decoration. If \`skills_read\` is unavailable, list the directory
+\`__CORPUS_DIR__/<path>/\` with the host's file browser to see its contents.
 
 ## Rules
 
@@ -161,13 +160,13 @@ ls "__CORPUS_DIR__/<path>/"
 `
 
 export function apply(ctx: PluginContext, config?: Config): void {
-  const home = config?.home ?? process.env.HOME ?? ''
+  const home = config?.home ?? homedir()
   // The ~6k skill bodies stay in their canonical corpus directory and are
   // referenced, not copied: the package ships the index (skills.json +
   // vectors.f32) and points `corpusDir` at the tree those bodies live in.
   const corpusDir = config?.corpusDir
     ?? process.env.DSH_AWESOME_SKILLS_CORPUS
-    ?? join(process.env.HOME ?? '', '.dsh', 'awesome-skills', 'skills')
+    ?? join(homedir(), '.dsh', 'awesome-skills', 'skills')
   const queryBin = join(PKG_ROOT, 'lib', 'query.js')
 
   const search: SkillsSearch = registerSearchService(ctx, {

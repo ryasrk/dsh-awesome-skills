@@ -8,6 +8,7 @@
 
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { homedir } from 'node:os'
 import { SkillIndex } from './search.js'
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -15,7 +16,7 @@ const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 // live in the canonical corpus directory, which may be overridden per host.
 const INDEX_DIR = process.env.DSH_AWESOME_SKILLS_INDEX ?? join(PKG_ROOT, 'skills')
 const CORPUS = process.env.DSH_AWESOME_SKILLS_CORPUS
-  ?? join(process.env.HOME ?? '', '.dsh', 'awesome-skills', 'skills')
+  ?? join(homedir(), '.dsh', 'awesome-skills', 'skills')
 const MODEL = join(PKG_ROOT, 'model')
 
 let input = ''

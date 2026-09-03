@@ -76,9 +76,11 @@ corpus, since the agent needs no Bash or out-of-workspace Read:
 - `skills_read(path, file?)` — one file from a hit's directory, guarded to the
   corpus root (no traversal), text extensions only, 64 KiB cap.
 
-The `skill-router` skill teaches the tool-first flow and keeps the
-`printf | node query.js` CLI as a one-paragraph fallback for hosts without
-the tools service.
+The `skill-router` skill teaches the tool-first flow and keeps the `node
+lib/query.js` CLI (JSON on stdin → JSON on stdout) as a shell-agnostic
+one-paragraph fallback for hosts without the tools service — it reads stdin and
+writes stdout, so no bash-specific syntax is required on any shell (bash,
+PowerShell, cmd).
 
 ## Ranking
 
@@ -134,7 +136,7 @@ All fields optional, via a `cordis.patch.yml` row:
 | Field | Default | Meaning |
 |---|---|---|
 | `corpusDir` | `~/.dsh/awesome-skills/skills` | Skill bodies (`<path>/SKILL.md`) |
-| `home` | `$HOME` | Where the router skill is installed |
+| `home` | OS home (`os.homedir()`) | Where the router skill is installed |
 | `installSkillRouter` | `true` | Install the router skill on `apply` |
 
 Environment: `DSH_AWESOME_SKILLS_CORPUS` (corpus), `DSH_AWESOME_SKILLS_INDEX`
