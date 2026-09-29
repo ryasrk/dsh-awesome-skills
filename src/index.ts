@@ -22,7 +22,7 @@ import { installSettingsSection } from './settings-wiring.js'
 import { mountSkillRoutesOnContext } from './routes.js'
 import { installPriorityLoader } from './priority-loader.js'
 import { registerSkillsTools } from './tools.js'
-import { SkillsSettingsRemote } from './remote.js'
+import { setKnobBridge } from './remote.js'
 import { KnobsField, PLUGIN_SETTINGS_BASE, type PluginSettings } from './settings-schema.js'
 import type { PluginContext } from './cordis-types.js'
 
@@ -236,28 +236,20 @@ export function apply(ctx: PluginContext, config?: Config): void {
   // degradation, not failure.
   installSettingsSection(ctx, search)
 
-  // The Remote row the settings page calls. It claims this entry's form, reads
-  // the knobs from the same source the Explorer uses, and writes through the
-  // settings service so a revision guards concurrent edits. Both halves stay
-  // optional: without `settings` or `typert` this is a quiet no-op and the
-  // composed defaults keep serving search.
-  const readKnobs = (): PluginSettings => {
-    const knobs = config?.knobs?.get?.() as Partial<PluginSettings> | undefined
-    return { ...PLUGIN_SETTINGS_BASE, ...(knobs ?? {}) }
-  }
-  const writeKnobs = (next: Partial<PluginSettings>): void => {
-    search.setKnobs(next)
-    ctx.logger.info(`dsh-awesome-skills: knobs applied (${Object.keys(next).join(', ') || 'none'})`)
-  }
-  const typert = (ctx as Record<string, unknown>).typert
-  if (typert !== undefined && typeof ctx.inject === 'function') {
-    const remote = new SkillsSettingsRemote(
-      ctx as never,
-      readKnobs,
-      writeKnobs,
-    )
-    void remote
-  }
+  // Hand the Remote row (a separate top-level entry, mounted before this one)
+  // its knob back-end: it reports these values and writes through the settings
+  // service, where a revision guards concurrent edits. Both halves stay
+  // optional — without the Remote row the composed defaults still serve search.
+  setKnobBridge({
+    read: () => {
+      const knobs = config?.knobs?.get?.() as Partial<PluginSettings> | undefined
+      return { ...PLUGIN_SETTINGS_BASE, ...(knobs ?? {}) }
+    },
+    write: (next: Partial<PluginSettings>) => {
+      search.setKnobs(next)
+      ctx.logger.info(`dsh-awesome-skills: knobs applied (${Object.keys(next).join(', ') || 'none'})`)
+    },
+  })
 
   // Browser RPC for the Skill Explorer settings section. Injects ['webServer'],
   // so on a host without one this is a quiet no-op and the CLI-only

@@ -49,6 +49,12 @@
     "client",
     "scripts"
   ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-settings": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-typert-protocol": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-typert-registry": ">=0.2.0-rc.1"
+  },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@types/react": "^18.3.31",

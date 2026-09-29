@@ -15,24 +15,14 @@
  * @module dsh-awesome-skills/remote
  */
 
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+// Type-only: pulls the `ctx.settings` and `ctx.typert` augmentations.
+import type {} from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-typert-registry'
+import type { TypertContribution } from '@deepseek-ai/dsh-typert-registry'
 import { INVOCATIONS, PACKAGE, SERVICE, SETTINGS_NAMESPACE } from './contract.js'
-import type { PluginSettings } from './settings-schema.js'
-
-/** Minimal Typert registration surface, structurally typed (see cordis-types). */
-interface TypertService {
-  register(contribution: unknown): unknown
-}
-
-/** Minimal slice of the settings service this row uses. */
-interface SettingsService {
-  configure(presentation: { auto?: boolean }, owner: unknown): () => void
-  describe(options?: { redactSecrets?: boolean }): readonly {
-    ns: string
-    value: unknown
-    revision: number
-  }[]
-  mutate(ns: string, ops: readonly unknown[], expectedRevision?: number): Promise<void>
-}
+import { PLUGIN_SETTINGS_BASE, type PluginSettings } from './settings-schema.js'
 
 /**
  * The Typert contribution.
@@ -41,7 +31,7 @@ interface SettingsService {
  * being written here, so the ids the gateway routes and the ids the client
  * mounts cannot drift apart.
  */
-const TYPERT = {
+const TYPERT: TypertContribution = {
   package: PACKAGE,
   face: 'host',
   schemas: [],
@@ -49,7 +39,47 @@ const TYPERT = {
   invocations: INVOCATIONS,
 }
 
-/** Live knob values, or `undefined` when the entry is not mounted. */
+/**
+ * The knobs this row reports and writes.
+ *
+ * Supplied by `apply` rather than read from a module-level singleton: the
+ * Remote row and the plugin row are separate Cordis entries with no shared
+ * handle, and a mismatch here would show the user one set of values while
+ * search ran on another.
+ */
+export interface KnobBridge {
+  /** Current knob values, with schema defaults already applied. */
+  read(): PluginSettings
+  /** Push changed knobs into the live search service. */
+  write(next: Partial<PluginSettings>): void
+}
+
+/** Module-level bridge, set by `apply` before this row is mounted. */
+let bridge: KnobBridge | undefined
+
+/**
+ * Hand the Remote row its knob back-end.
+ *
+ * Called by the plugin row's `apply`; the Remote row is mounted first as its
+ * own top-level entry, so the bridge must be installed before this row starts
+ * answering calls. A missing bridge degrades to schema defaults rather than
+ * throwing: an unreadable panel is worse than one showing the defaults.
+ *
+ * @param next - the knob reader and writer.
+ */
+export function setKnobBridge(next: KnobBridge): void {
+  bridge = next
+}
+
+/**
+ * The entry's stored knobs, read through `describe`.
+ *
+ * Same source the generic form uses, so this row and any hand edit of
+ * `cordis.yml` cannot disagree.
+ *
+ * @param settings - the Host settings service.
+ * @returns the stored knobs, or `undefined` when the entry is absent.
+ */
 function storedKnobs(settings: {
   describe(options?: { redactSecrets?: boolean }): readonly { ns: string; value: unknown }[]
 }): PluginSettings | undefined {
@@ -58,60 +88,28 @@ function storedKnobs(settings: {
   return descriptor?.value as PluginSettings | undefined
 }
 
-/**
- * The plugin's knob back-end, keyed by the search service it drives.
- *
- * Constructed by `apply` rather than exported as a plugin: this row owns no
- * catalog or tools, and the Typert Remote base class is what the gateway
- * discovers.
- */
-export class SkillsSettingsRemote {
-  /** The Cordis service key the gateway routes this row under. */
-  static readonly serviceKey = SERVICE
+export default class SkillsSettingsRemote extends TypertRemoteService {
+  static inject = ['settings', 'typert']
 
-  /**
-   * @param ctx - the owning context.
-   * @param read - current knob values.
-   * @param write - apply changed knobs to the live search service.
-   */
-  constructor(
-    private readonly ctx: {
-      typert: TypertService
-      settings: SettingsService
-      fiber: unknown
-      inject(deps: readonly string[], cb: (scoped: Record<string, unknown>) => void): void
-      logger: { info(message: string): void; warn(message: string): void }
-    },
-    private readonly read: () => PluginSettings,
-    private readonly write: (next: Partial<PluginSettings>) => void,
-  ) {
-    const typert = ctx.typert
-    if (typert !== undefined) typert.register(TYPERT)
-    // This row ships its own settings page, so the generic schema-generated
-    // form must stay off: both would claim the same entry. `inject` keeps the
-    // plugin running when Settings is absent or mounts later.
-    ctx.inject(['settings'], (scoped: Record<string, unknown>) => {
-      const child = scoped as unknown as {
-        settings: SettingsService
-        effect?(cb: () => () => void, label?: string): void
-      }
-      const claim = (): (() => void) => child.settings.configure({ auto: false }, ctx.fiber)
-      if (typeof child.effect === 'function') child.effect(() => claim(), 'dsh-awesome-skills: settings policy')
-      else claim()
-    })
+  constructor(ctx: Context) {
+    super(ctx, SERVICE)
+    ctx.typert.register(TYPERT)
   }
 
   /** The current knobs plus the revision a writer must echo back. */
+  @Remote
   async getState(): Promise<{ knobs: PluginSettings; revision: number }> {
-    return { knobs: this.read(), revision: this.revision() }
+    return { knobs: this.knobs(), revision: this.revision() }
   }
 
   /**
    * Replace the knobs, rejecting the write if the stored revision moved.
    *
-   * Unknown fields are ignored rather than stored, so a stale client cannot
-   * introduce one.
+   * @param knobs - the complete next knob set.
+   * @param expectedRevision - the revision the client read.
+   * @returns the committed state.
    */
+  @Remote
   async setKnobs(
     knobs: PluginSettings,
     expectedRevision: number,
@@ -121,26 +119,28 @@ export class SkillsSettingsRemote {
       [{ op: 'set', path: ['knobs'], value: knobs }],
       expectedRevision,
     )
-    this.write(knobs)
+    // Apply locally too: the entry's volatile reference updates on the profile
+    // write, but the search service is owned by the other row, which has no
+    // handle on this one.
+    bridge?.write(knobs)
     return await this.getState()
+  }
+
+  /** The live knobs: the bridge's values, or schema defaults without one. */
+  private knobs(): PluginSettings {
+    const live = bridge?.read()
+    if (live !== undefined) return live
+    const stored = storedKnobs(this.ctx.settings)
+    return { ...PLUGIN_SETTINGS_BASE, ...(stored ?? {}) }
   }
 
   /** The current revision of this plugin's settings entry. */
   private revision(): number {
-    try {
-      const descriptor = this.ctx.settings
-        .describe({ redactSecrets: true })
-        .find(candidate => candidate.ns === SETTINGS_NAMESPACE)
-      return descriptor?.revision ?? 0
-    } catch {
-      return 0
-    }
+    const descriptor = this.ctx.settings
+      .describe({ redactSecrets: true })
+      .find((candidate: { ns: string }) => candidate.ns === SETTINGS_NAMESPACE)
+    // The entry is absent until it mounts with a volatile field; revision 0 is
+    // correct for that state, and a read must not fail over it.
+    return descriptor?.revision ?? 0
   }
-}
-
-/** Read the entry's knobs, or `undefined` when the entry is not mounted. */
-export function readStoredKnobs(settings: {
-  describe(options?: { redactSecrets?: boolean }): readonly { ns: string; value: unknown }[]
-}): PluginSettings | undefined {
-  return storedKnobs(settings)
 }

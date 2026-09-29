@@ -14,53 +14,37 @@
  *
  * @module dsh-awesome-skills/remote
  */
-import type { PluginSettings } from './settings-schema.js';
-/** Minimal Typert registration surface, structurally typed (see cordis-types). */
-interface TypertService {
-    register(contribution: unknown): unknown;
-}
-/** Minimal slice of the settings service this row uses. */
-interface SettingsService {
-    configure(presentation: {
-        auto?: boolean;
-    }, owner: unknown): () => void;
-    describe(options?: {
-        redactSecrets?: boolean;
-    }): readonly {
-        ns: string;
-        value: unknown;
-        revision: number;
-    }[];
-    mutate(ns: string, ops: readonly unknown[], expectedRevision?: number): Promise<void>;
+import { TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol';
+import type { Context } from '@deepseek-ai/cordis';
+import { type PluginSettings } from './settings-schema.js';
+/**
+ * The knobs this row reports and writes.
+ *
+ * Supplied by `apply` rather than read from a module-level singleton: the
+ * Remote row and the plugin row are separate Cordis entries with no shared
+ * handle, and a mismatch here would show the user one set of values while
+ * search ran on another.
+ */
+export interface KnobBridge {
+    /** Current knob values, with schema defaults already applied. */
+    read(): PluginSettings;
+    /** Push changed knobs into the live search service. */
+    write(next: Partial<PluginSettings>): void;
 }
 /**
- * The plugin's knob back-end, keyed by the search service it drives.
+ * Hand the Remote row its knob back-end.
  *
- * Constructed by `apply` rather than exported as a plugin: this row owns no
- * catalog or tools, and the Typert Remote base class is what the gateway
- * discovers.
+ * Called by the plugin row's `apply`; the Remote row is mounted first as its
+ * own top-level entry, so the bridge must be installed before this row starts
+ * answering calls. A missing bridge degrades to schema defaults rather than
+ * throwing: an unreadable panel is worse than one showing the defaults.
+ *
+ * @param next - the knob reader and writer.
  */
-export declare class SkillsSettingsRemote {
-    private readonly ctx;
-    private readonly read;
-    private readonly write;
-    /** The Cordis service key the gateway routes this row under. */
-    static readonly serviceKey = "skillsSettings";
-    /**
-     * @param ctx - the owning context.
-     * @param read - current knob values.
-     * @param write - apply changed knobs to the live search service.
-     */
-    constructor(ctx: {
-        typert: TypertService;
-        settings: SettingsService;
-        fiber: unknown;
-        inject(deps: readonly string[], cb: (scoped: Record<string, unknown>) => void): void;
-        logger: {
-            info(message: string): void;
-            warn(message: string): void;
-        };
-    }, read: () => PluginSettings, write: (next: Partial<PluginSettings>) => void);
+export declare function setKnobBridge(next: KnobBridge): void;
+export default class SkillsSettingsRemote extends TypertRemoteService {
+    static inject: string[];
+    constructor(ctx: Context);
     /** The current knobs plus the revision a writer must echo back. */
     getState(): Promise<{
         knobs: PluginSettings;
@@ -69,24 +53,17 @@ export declare class SkillsSettingsRemote {
     /**
      * Replace the knobs, rejecting the write if the stored revision moved.
      *
-     * Unknown fields are ignored rather than stored, so a stale client cannot
-     * introduce one.
+     * @param knobs - the complete next knob set.
+     * @param expectedRevision - the revision the client read.
+     * @returns the committed state.
      */
     setKnobs(knobs: PluginSettings, expectedRevision: number): Promise<{
         knobs: PluginSettings;
         revision: number;
     }>;
+    /** The live knobs: the bridge's values, or schema defaults without one. */
+    private knobs;
     /** The current revision of this plugin's settings entry. */
     private revision;
 }
-/** Read the entry's knobs, or `undefined` when the entry is not mounted. */
-export declare function readStoredKnobs(settings: {
-    describe(options?: {
-        redactSecrets?: boolean;
-    }): readonly {
-        ns: string;
-        value: unknown;
-    }[];
-}): PluginSettings | undefined;
-export {};
 //# sourceMappingURL=remote.d.ts.map

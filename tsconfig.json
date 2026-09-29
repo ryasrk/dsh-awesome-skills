@@ -14,7 +14,26 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": false,
-    "noEmitOnError": false
+    "noEmitOnError": false,
+    // cordis and the dsh packages are vendored inside the harness and not
+    // published to npm, so they cannot be installed as real dependencies.
+    // These paths type-check against a sibling checkout when one exists; a
+    // build without it still emits (noEmitOnError above), because the runtime
+    // resolves the same names from the host's own tree.
+    "paths": {
+      "@deepseek-ai/cordis": [
+        "../deepseek-harness/vendor/cordis/lib/types/index.d.ts"
+      ],
+      "@deepseek-ai/dsh-typert-protocol": [
+        "../deepseek-harness/packages/typert/protocol/lib/types/index.d.ts"
+      ],
+      "@deepseek-ai/dsh-typert-registry": [
+        "../deepseek-harness/packages/typert/registry/lib/types/index.d.ts"
+      ],
+      "@deepseek-ai/dsh-settings": [
+        "../deepseek-harness/packages/settings/settings/lib/types/index.d.ts"
+      ]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib"]
