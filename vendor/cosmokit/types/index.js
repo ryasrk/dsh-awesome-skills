@@ -8,4 +8,6 @@ export * from "./misc.js";
 export * from "./string.js";
 /** Time constants, parsing, and formatting helpers. */
 export * from "./time.js";
+/** Immutable config references shared by schema validators and runtimes. */
+export * from "./volatile.js";
 //# sourceMappingURL=index.js.map

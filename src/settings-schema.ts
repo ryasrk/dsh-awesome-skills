@@ -22,6 +22,8 @@ interface ZodField {
   min(n: number): ZodField
   max(n: number): ZodField
   step(n: number): ZodField
+  /** Mark this field live-editable without remounting the plugin. */
+  volatile(): ZodField
 }
 interface Zod {
   object(shape: Record<string, ZodField>): ZodField
@@ -77,7 +79,8 @@ export const PluginSettingsSchema: ZodField = z
     wGram: z.number().min(0).max(1).default(0.5),
     autoRoute: z.boolean().default(true),
   })
-  
+
+
 
 /**
  * Composition-layer defaults, identical to the schema defaults, so a user
@@ -95,3 +98,12 @@ export const PLUGIN_SETTINGS_BASE: PluginSettings = {
   wGram: 0.5,
   autoRoute: true,
 }
+
+/**
+ * The whole knob set as one volatile Config field.
+ *
+ * One field rather than nine: the card edits them as a unit, and 0.2.0 rejects
+ * a volatile nested inside another volatile, so the container carries the
+ * marker and its children stay plain.
+ */
+export const KnobsField: ZodField = PluginSettingsSchema.default(PLUGIN_SETTINGS_BASE).volatile()

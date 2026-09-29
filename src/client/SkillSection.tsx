@@ -34,8 +34,8 @@ export type SectionTab = 'search' | 'priority' | 'config'
 
 export interface SkillSectionProps {
   t: (key: string) => string
-  /** The bound settings scope for the plugin's namespace (config card). */
-  scope: SettingsCardProps['scope']
+  /** The mounted Remote face the config card reads and writes through. */
+  remote: SettingsCardProps['remote']
   /** Locale copy for the tab labels, keyed by tab id, plus the section name
       for the tablist's accessible label. */
   labels: Record<SectionTab, string> & { section: string }
@@ -48,7 +48,7 @@ export interface SkillSectionProps {
  * @param props - locale, scope, labels, and the forwarded pane props.
  */
 export function SkillSection(props: SkillSectionProps) {
-  const { t, scope, labels, explorer } = props
+  const { t, remote, labels, explorer } = props
   const [tab, setTab] = useState<SectionTab>('search')
   const [pending, setPending] = useState(false)
   /** The explorer's latest hits, offered to the priority picker. */
@@ -246,7 +246,7 @@ export function SkillSection(props: SkillSectionProps) {
         )
         : <p className={css.state}>{loadFailed ? t('priorityLoadFailed') : t('loading')}</p>
       )}
-      {tab === 'config' && <SettingsCard scope={scope} />}
+      {tab === 'config' && <SettingsCard remote={remote} />}
     </div>
   )
 }

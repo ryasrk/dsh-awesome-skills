@@ -1,25 +1,26 @@
 /**
- * Host-side settings wiring for the plugin's own namespace.
+ * Host-side settings wiring for the plugin's own entry.
  *
- * The shape mirrors `installSettingsSection` from @deepseek-ai/dsh-settings,
- * inlined deliberately: that package is not published to npm (like cordis and
+ * 0.2.0 removed `settings.register` and the namespace it registered. A form is
+ * now the projection of one profile entry's volatile Config fields, so this
+ * module no longer registers anything: it reads that entry's resolved value
+ * through `describe` and pushes it into the search service.
+ *
+ * The shape mirrors the host's `settings` service but is inlined deliberately:
+ * @deepseek-ai/dsh-settings is not published to npm (like cordis and
  * schemastery, both vendored), and dsh-market's own notes record how a named
  * import from an unpublished package became a hard SyntaxError that stopped
- * the host booting. An `inject` degrades quietly; a missing named export
- * kills the process.
+ * the host booting. An `inject` degrades quietly; a missing named export kills
+ * the process.
  */
 
 import type { PluginContext } from './cordis-types.js'
 import type { SkillsSearch } from './search.js'
-import { PluginSettingsSchema, PLUGIN_SETTINGS_BASE, SETTINGS_NAMESPACE, type PluginSettings } from './settings-schema.js'
+import { PLUGIN_SETTINGS_BASE, SETTINGS_NAMESPACE, type PluginSettings } from './settings-schema.js'
 
 /** The slice of the host's settings service this module uses. */
-interface SettingsScope {
-  get(): PluginSettings
-  watch(listener: () => void): () => void
-}
 interface SettingsService {
-  register(ns: string, schema: unknown, options: { base: PluginSettings }): SettingsScope
+  describe(options?: { redactSecrets?: boolean }): readonly { ns: string; value: unknown }[]
 }
 
 /** Live search knobs the settings layer pushes into the search service. */
@@ -32,11 +33,15 @@ export interface SearchKnobs {
 }
 
 /**
- * Register the namespace and keep the search service in step with saved
- * changes. Applies live: a saved field reaches the next query without a
- * restart.
+ * Keep the search service in step with the entry's stored knobs.
+ *
+ * Reads through `describe` rather than holding a scope: the value is whatever
+ * the profile composition currently resolves to, so a save reaches the next
+ * query without a restart and an unmounted entry cannot leave the service
+ * reading values nobody can see or change.
+ *
  * @param ctx - the plugin context owning the wiring.
- * @param search - the service whose knobs follow the saved section.
+ * @param search - the service whose knobs follow the stored section.
  */
 export function installSettingsSection(ctx: PluginContext, search: SkillsSearch): void {
   const inject = ctx.inject as
@@ -44,12 +49,12 @@ export function installSettingsSection(ctx: PluginContext, search: SkillsSearch)
     | undefined
   inject?.(['settings'], (scoped: Record<string, unknown>) => {
     const sctx = scoped as unknown as { settings: SettingsService }
-    const scope = sctx.settings.register(SETTINGS_NAMESPACE, PluginSettingsSchema, {
-      base: PLUGIN_SETTINGS_BASE,
-    })
 
     const apply = (): void => {
-      const value = scope.get()
+      const descriptor = sctx.settings
+        .describe({ redactSecrets: true })
+        .find(candidate => candidate.ns === SETTINGS_NAMESPACE)
+      const value = { ...PLUGIN_SETTINGS_BASE, ...(descriptor?.value as Partial<PluginSettings> | undefined) }
       search.setKnobs({
         semantic: value.semantic,
         defaultK: value.defaultK,
@@ -66,14 +71,7 @@ export function installSettingsSection(ctx: PluginContext, search: SkillsSearch)
       )
     }
 
-    // Unload falls back to the composition entry, so a disabled section
-    // cannot leave the service reading values nobody can see or change.
-    const effect = scoped.effect as
-      | ((cb: () => () => void, label: string) => void)
-      | undefined
-    effect?.(() => () => apply(), 'dsh-awesome-skills: settings fallback')
     apply()
-    scope.watch(apply)
   })
 }
 

@@ -16,6 +16,8 @@ interface ZodField {
     min(n: number): ZodField;
     max(n: number): ZodField;
     step(n: number): ZodField;
+    /** Mark this field live-editable without remounting the plugin. */
+    volatile(): ZodField;
 }
 /** Settings namespace owned by this plugin. Lowercase kebab-case. */
 export declare const SETTINGS_NAMESPACE: string;
@@ -49,5 +51,13 @@ export declare const PluginSettingsSchema: ZodField;
  * layer can clear a field and the composition still answers.
  */
 export declare const PLUGIN_SETTINGS_BASE: PluginSettings;
+/**
+ * The whole knob set as one volatile Config field.
+ *
+ * One field rather than nine: the card edits them as a unit, and 0.2.0 rejects
+ * a volatile nested inside another volatile, so the container carries the
+ * marker and its children stay plain.
+ */
+export declare const KnobsField: ZodField;
 export {};
 //# sourceMappingURL=settings-schema.d.ts.map

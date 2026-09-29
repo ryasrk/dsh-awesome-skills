@@ -13,15 +13,15 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SectionTabs_module_css_default = {
-	"loadError": "jsPfLW_loadError",
-	"dot": "jsPfLW_dot",
-	"retryBtn": "jsPfLW_retryBtn",
-	"summaryLink": "jsPfLW_summaryLink",
-	"tabs": "jsPfLW_tabs",
 	"tab": "jsPfLW_tab",
 	"state": "jsPfLW_state",
+	"loadError": "jsPfLW_loadError",
+	"summaryLink": "jsPfLW_summaryLink",
+	"summary": "jsPfLW_summary",
+	"tabs": "jsPfLW_tabs",
 	"tabOn": "jsPfLW_tabOn",
-	"summary": "jsPfLW_summary"
+	"retryBtn": "jsPfLW_retryBtn",
+	"dot": "jsPfLW_dot"
 };
 //#endregion
 //#region \0dsh-css:SkillExplorer_module_css.mjs
@@ -35,38 +35,38 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillExplorer_module_css_default = {
-	"searchBlock": "vc1x0a_searchBlock",
-	"errorRow": "vc1x0a_errorRow",
-	"chipPrimary": "vc1x0a_chipPrimary",
-	"search": "vc1x0a_search",
-	"path": "vc1x0a_path",
-	"emptyTitle": "vc1x0a_emptyTitle",
-	"state": "vc1x0a_state",
-	"name": "vc1x0a_name",
-	"hint": "vc1x0a_hint",
-	"retryBtn": "vc1x0a_retryBtn",
-	"resultHead": "vc1x0a_resultHead",
-	"copyError": "vc1x0a_copyError",
-	"pathInert": "vc1x0a_pathInert",
-	"filterBtn": "vc1x0a_filterBtn",
 	"rowActions": "vc1x0a_rowActions",
-	"clear": "vc1x0a_clear",
-	"resultIn": "vc1x0a_resultIn",
-	"filterBar": "vc1x0a_filterBar",
-	"description": "vc1x0a_description",
-	"empty": "vc1x0a_empty",
-	"error": "vc1x0a_error",
-	"searchRow": "vc1x0a_searchRow",
-	"filterOn": "vc1x0a_filterOn",
-	"searchIcon": "vc1x0a_searchIcon",
-	"section": "vc1x0a_section",
-	"result": "vc1x0a_result",
 	"chipOn": "vc1x0a_chipOn",
-	"meta": "vc1x0a_meta",
-	"emptyBody": "vc1x0a_emptyBody",
+	"path": "vc1x0a_path",
+	"filterBtn": "vc1x0a_filterBtn",
+	"copyError": "vc1x0a_copyError",
+	"name": "vc1x0a_name",
+	"pathInert": "vc1x0a_pathInert",
+	"section": "vc1x0a_section",
+	"empty": "vc1x0a_empty",
+	"filterBar": "vc1x0a_filterBar",
+	"resultIn": "vc1x0a_resultIn",
+	"emptyTitle": "vc1x0a_emptyTitle",
+	"searchRow": "vc1x0a_searchRow",
+	"retryBtn": "vc1x0a_retryBtn",
+	"searchIcon": "vc1x0a_searchIcon",
 	"score": "vc1x0a_score",
+	"chipPrimary": "vc1x0a_chipPrimary",
+	"results": "vc1x0a_results",
+	"search": "vc1x0a_search",
+	"clear": "vc1x0a_clear",
+	"error": "vc1x0a_error",
 	"chip": "vc1x0a_chip",
-	"results": "vc1x0a_results"
+	"description": "vc1x0a_description",
+	"emptyBody": "vc1x0a_emptyBody",
+	"state": "vc1x0a_state",
+	"searchBlock": "vc1x0a_searchBlock",
+	"hint": "vc1x0a_hint",
+	"result": "vc1x0a_result",
+	"meta": "vc1x0a_meta",
+	"filterOn": "vc1x0a_filterOn",
+	"resultHead": "vc1x0a_resultHead",
+	"errorRow": "vc1x0a_errorRow"
 };
 //#endregion
 //#region src/client/icons.tsx
@@ -431,34 +431,34 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SettingsCard_module_css_default = {
-	"hint": "alOFIW_hint",
-	"description": "alOFIW_description",
-	"toggle": "alOFIW_toggle",
-	"segOn": "alOFIW_segOn",
-	"primary": "alOFIW_primary",
-	"input": "alOFIW_input",
-	"section": "alOFIW_section",
-	"badge": "alOFIW_badge",
-	"revert": "alOFIW_revert",
-	"control": "alOFIW_control",
-	"header": "alOFIW_header",
-	"label": "alOFIW_label",
-	"name": "alOFIW_name",
-	"invalid": "alOFIW_invalid",
-	"field": "alOFIW_field",
-	"button": "alOFIW_button",
-	"alert": "alOFIW_alert",
-	"body": "alOFIW_body",
-	"actions": "alOFIW_actions",
-	"saved": "alOFIW_saved",
-	"dshasSpin": "alOFIW_dshasSpin",
-	"sectionHeading": "alOFIW_sectionHeading",
-	"seg": "alOFIW_seg",
 	"segmented": "alOFIW_segmented",
-	"inputInvalid": "alOFIW_inputInvalid",
+	"badge": "alOFIW_badge",
+	"seg": "alOFIW_seg",
+	"primary": "alOFIW_primary",
 	"card": "alOFIW_card",
+	"revert": "alOFIW_revert",
+	"sectionHeading": "alOFIW_sectionHeading",
+	"alert": "alOFIW_alert",
+	"description": "alOFIW_description",
+	"input": "alOFIW_input",
+	"invalid": "alOFIW_invalid",
 	"spacer": "alOFIW_spacer",
-	"head": "alOFIW_head"
+	"label": "alOFIW_label",
+	"button": "alOFIW_button",
+	"segOn": "alOFIW_segOn",
+	"body": "alOFIW_body",
+	"section": "alOFIW_section",
+	"hint": "alOFIW_hint",
+	"control": "alOFIW_control",
+	"inputInvalid": "alOFIW_inputInvalid",
+	"toggle": "alOFIW_toggle",
+	"saved": "alOFIW_saved",
+	"name": "alOFIW_name",
+	"actions": "alOFIW_actions",
+	"dshasSpin": "alOFIW_dshasSpin",
+	"head": "alOFIW_head",
+	"header": "alOFIW_header",
+	"field": "alOFIW_field"
 };
 //#endregion
 //#region src/client/SettingsCard.tsx
@@ -604,30 +604,67 @@ const DICT = {
 };
 /**
 * Render the plugin's configuration card.
-* @param props - the bound settings scope.
+* @param props - the Remote face.
 */
 function SettingsCard(props) {
-	const { scope } = props;
-	const [snapshot, setSnapshot] = (0, react.useState)(() => scope.getSnapshot());
+	const { remote } = props;
+	/**
+	* The last state the Host reported, plus the revision it was read at.
+	*
+	* The revision travels with every write, so a write that lost a race is
+	* rejected rather than silently discarding the other change.
+	*/
+	const [state, setState] = (0, react.useState)(void 0);
+	const [error, setError] = (0, react.useState)(void 0);
 	const [drafts, setDrafts] = (0, react.useState)({});
 	const [saving, setSaving] = (0, react.useState)(false);
 	const [failed, setFailed] = (0, react.useState)(false);
 	const [savedTick, setSavedTick] = (0, react.useState)(false);
-	(0, react.useEffect)(() => scope.subscribe(() => {
-		setSnapshot(scope.getSnapshot());
-	}), [scope]);
+	const refresh = (0, react.useCallback)(async () => {
+		const result = await remote.getState();
+		if (!result.ok) {
+			setError(result.error.message);
+			return;
+		}
+		setState(result.value);
+		setError(void 0);
+	}, [remote]);
+	(0, react.useEffect)(() => {
+		refresh();
+	}, [refresh]);
 	const dict = (typeof document !== "undefined" ? document.documentElement.lang : "en").startsWith("zh") ? DICT.zh : DICT.en;
 	const t = (key) => dict[key];
-	const value = snapshot.value;
-	const user = snapshot.user ?? {};
-	if (snapshot.status !== "ready" || value === void 0 || typeof value !== "object") return null;
+	if (state === void 0) return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+		className: _dsh_css_SettingsCard_module_css_default.card,
+		children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
+			className: _dsh_css_SettingsCard_module_css_default.header,
+			children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+				className: _dsh_css_SettingsCard_module_css_default.name,
+				children: t("cardTitle")
+			}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+				className: _dsh_css_SettingsCard_module_css_default.description,
+				children: t("cardDescription")
+			})]
+		}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+			className: _dsh_css_SettingsCard_module_css_default.body,
+			children: error === void 0 ? /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SettingsCard_module_css_default.hint,
+				children: "Loading settings…"
+			}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
+				className: _dsh_css_SettingsCard_module_css_default.invalid,
+				role: "alert",
+				children: error
+			})
+		})]
+	});
+	const value = state.knobs;
 	const stateOf = (key) => {
 		const staged = drafts[key];
 		if (staged !== void 0) return staged;
 		const current = value[key];
 		return {
 			draft: current === void 0 ? "" : String(current),
-			overridden: user?.[key] !== void 0
+			overridden: false
 		};
 	};
 	const dirty = FIELDS.some((f) => drafts[f.key] !== void 0);
@@ -648,23 +685,26 @@ function SettingsCard(props) {
 		}));
 	};
 	const save = async () => {
+		if (state === void 0) return;
 		setSaving(true);
 		setFailed(false);
 		try {
+			const next = { ...state.knobs };
 			for (const f of FIELDS) {
 				const staged = drafts[f.key];
 				if (staged === void 0) continue;
-				if (f.kind === "toggle" || f.kind === "scope") {
-					const next = staged.draft === "true";
-					if (next === value[f.key]) continue;
-					await scope.set(f.key, next);
-				} else {
-					if (!validNumber(staged.draft, f.min, f.max)) continue;
-					const n = Number(staged.draft);
-					if (n === value[f.key]) continue;
-					await scope.set(f.key, n);
-				}
+				if (f.kind === "toggle" || f.kind === "scope") next[f.key] = staged.draft === "true";
+				else if (validNumber(staged.draft, f.min, f.max)) next[f.key] = Number(staged.draft);
 			}
+			const result = await remote.setKnobs(next, state.revision);
+			if (!result.ok) {
+				setError(`${result.error.message} ${t("failed")}`);
+				setFailed(true);
+				await refresh();
+				return;
+			}
+			setState(result.value);
+			setError(void 0);
 			setDrafts({});
 			setSavedTick(true);
 		} catch {
@@ -750,7 +790,7 @@ function SettingsCard(props) {
 											type: "radio",
 											name: `dshas-${f.key}`,
 											checked: state.draft === option.value,
-											disabled: !snapshot.writable || saving,
+											disabled: saving,
 											onChange: () => stage(f.key, option.value, state.overridden)
 										}), option.label]
 									}, option.value))
@@ -759,7 +799,7 @@ function SettingsCard(props) {
 									type: "checkbox",
 									className: _dsh_css_SettingsCard_module_css_default.toggle,
 									role: "switch",
-									disabled: !snapshot.writable || saving,
+									disabled: saving,
 									checked: state.draft === "true",
 									onChange: (e) => stage(f.key, e.target.checked ? "true" : "false", state.overridden)
 								}) : /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
@@ -768,7 +808,7 @@ function SettingsCard(props) {
 										id,
 										type: "number",
 										className: isInvalid ? _dsh_css_SettingsCard_module_css_default.inputInvalid : _dsh_css_SettingsCard_module_css_default.input,
-										disabled: !snapshot.writable || saving,
+										disabled: saving,
 										min: f.min,
 										max: f.max,
 										step: f.step,
@@ -795,7 +835,7 @@ function SettingsCard(props) {
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 						type: "button",
 						className: _dsh_css_SettingsCard_module_css_default.primary,
-						disabled: !dirty || invalid || saving || !snapshot.writable,
+						disabled: !dirty || invalid || saving,
 						onClick: () => {
 							save();
 						},
@@ -843,36 +883,36 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_PrioritySkills_module_css_default = {
-	"block": "bm5jra_block",
-	"empty": "bm5jra_empty",
-	"row": "bm5jra_row",
-	"hint": "bm5jra_hint",
-	"list": "bm5jra_list",
-	"combo": "bm5jra_combo",
-	"optionOn": "bm5jra_optionOn",
-	"warn": "bm5jra_warn",
-	"button": "bm5jra_button",
-	"danger": "bm5jra_danger",
-	"state": "bm5jra_state",
-	"actions": "bm5jra_actions",
 	"controls": "bm5jra_controls",
+	"path": "bm5jra_path",
+	"vh": "bm5jra_vh",
+	"list": "bm5jra_list",
+	"hint": "bm5jra_hint",
+	"button": "bm5jra_button",
+	"rank": "bm5jra_rank",
+	"combo": "bm5jra_combo",
+	"danger": "bm5jra_danger",
+	"grow": "bm5jra_grow",
+	"block": "bm5jra_block",
+	"state": "bm5jra_state",
+	"segGroup": "bm5jra_segGroup",
 	"seg": "bm5jra_seg",
 	"diff": "bm5jra_diff",
-	"addRow": "bm5jra_addRow",
-	"segGroup": "bm5jra_segGroup",
-	"vh": "bm5jra_vh",
+	"empty": "bm5jra_empty",
+	"warn": "bm5jra_warn",
 	"option": "bm5jra_option",
-	"input": "bm5jra_input",
-	"primary": "bm5jra_primary",
-	"root": "bm5jra_root",
 	"options": "bm5jra_options",
 	"heading": "bm5jra_heading",
-	"path": "bm5jra_path",
-	"rank": "bm5jra_rank",
-	"ctl": "bm5jra_ctl",
-	"grow": "bm5jra_grow",
+	"addRow": "bm5jra_addRow",
+	"input": "bm5jra_input",
+	"root": "bm5jra_root",
+	"primary": "bm5jra_primary",
 	"noMatch": "bm5jra_noMatch",
-	"segOn": "bm5jra_segOn"
+	"row": "bm5jra_row",
+	"optionOn": "bm5jra_optionOn",
+	"segOn": "bm5jra_segOn",
+	"ctl": "bm5jra_ctl",
+	"actions": "bm5jra_actions"
 };
 //#endregion
 //#region src/client/PrioritySkills.tsx
@@ -1330,7 +1370,7 @@ function api(path) {
 * @param props - locale, scope, labels, and the forwarded pane props.
 */
 function SkillSection(props) {
-	const { t, scope, labels, explorer } = props;
+	const { t, remote, labels, explorer } = props;
 	const [tab, setTab] = (0, react.useState)("search");
 	const [pending, setPending] = (0, react.useState)(false);
 	/** The explorer's latest hits, offered to the priority picker. */
@@ -1548,7 +1588,7 @@ function SkillSection(props) {
 			className: _dsh_css_SectionTabs_module_css_default.state,
 			children: loadFailed ? t("priorityLoadFailed") : t("loading")
 		})),
-		tab === "config" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { scope })
+		tab === "config" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SettingsCard, { remote })
 	] });
 }
 //#endregion
@@ -1563,15 +1603,15 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 	document.head.appendChild(tag);
 }
 var _dsh_css_SkillPickDetails_module_css_default = {
-	"duration": "AWa8SG_duration",
-	"stateError": "AWa8SG_stateError",
-	"fallback": "AWa8SG_fallback",
-	"head": "AWa8SG_head",
-	"stateRunning": "AWa8SG_stateRunning",
 	"sectionLabel": "AWa8SG_sectionLabel",
 	"pre": "AWa8SG_pre",
-	"root": "AWa8SG_root",
-	"name": "AWa8SG_name"
+	"head": "AWa8SG_head",
+	"duration": "AWa8SG_duration",
+	"stateError": "AWa8SG_stateError",
+	"name": "AWa8SG_name",
+	"fallback": "AWa8SG_fallback",
+	"stateRunning": "AWa8SG_stateRunning",
+	"root": "AWa8SG_root"
 };
 //#endregion
 //#region src/client/SkillPickDetails.tsx
@@ -1966,6 +2006,94 @@ const zh = {
 	priorityLoadFailed: "无法加载你的列表。加载完成前暂停编辑。"
 };
 //#endregion
+//#region src/contract.ts
+/** Package name, stamped into every invocation id. */
+const PACKAGE = "dsh-awesome-skills";
+/** The service name, which is also its Remote namespace. */
+const SERVICE = "skillsSettings";
+/**
+* Wrap a value-bearing schema in the `{ parse }` shape a codec requires.
+*
+* The wire contract only needs `parse`, and this plugin's schemas are defined
+* once in `settings-schema.ts` for the Config itself. Validating at the
+* boundary with a second hand-written copy is the failure this avoids.
+*/
+function parser(schema) {
+	return { parse(value) {
+		const standard = schema["~standard"];
+		if (standard !== void 0) {
+			const result = standard.validate(value);
+			if ("issues" in result) throw new TypeError(`dsh-awesome-skills codec rejected a value: ${JSON.stringify(result.issues)}`);
+			return result.value;
+		}
+		const parse = schema.parse;
+		if (typeof parse !== "function") throw new TypeError("dsh-awesome-skills codec has no parser");
+		return parse.call(schema, value);
+	} };
+}
+/**
+* One strict codec over a schema.
+*
+* The boundary schema is materialized on first use, not at module load: a
+* codec carries the *recipe* so each process realm builds the schema it
+* validates with. 0.2.0 made `create` mandatory and dropped the eager
+* `schema` field, so a codec carrying only `schema` fails registration.
+*/
+function codec(schema) {
+	let cached;
+	return {
+		mode: "strict",
+		typeSymbol: "AwesomeSkillsPayload",
+		create() {
+			return cached ??= parser(schema);
+		}
+	};
+}
+/** The codec for the complete knob set. */
+const knobsCodec = codec({ parse: (value) => value });
+/** The codec for a revision number. */
+const revisionCodec = codec({ parse: (value) => {
+	if (typeof value !== "number" || !Number.isInteger(value) || value < 0) throw new TypeError("dsh-awesome-skills: revision must be a non-negative integer");
+	return value;
+} });
+/** The codec for the full settings payload. */
+const stateCodec = codec({ parse: (value) => value });
+/**
+* The invocation descriptors, defined once for both halves.
+*
+* The Host registers them so the gateway can route calls; the client mounts
+* them so the `remote.skillsSettings` namespace exists. Identical ids on both
+* sides are what pair them, so a typo here fails as an unroutable call rather
+* than as silently mismatched methods.
+*/
+const INVOCATIONS = [{
+	id: `${PACKAGE}#${SERVICE}/getState`,
+	service: SERVICE,
+	namespace: SERVICE,
+	method: "getState",
+	invocation: { kind: "direct" },
+	parameters: [],
+	result: stateCodec
+}, {
+	id: `${PACKAGE}#${SERVICE}/setKnobs`,
+	service: SERVICE,
+	namespace: SERVICE,
+	method: "setKnobs",
+	invocation: { kind: "direct" },
+	parameters: [{
+		name: "knobs",
+		wire: "knobs",
+		source: "json",
+		codec: knobsCodec
+	}, {
+		name: "expectedRevision",
+		wire: "expectedRevision",
+		source: "json",
+		codec: revisionCodec
+	}],
+	result: stateCodec
+}];
+//#endregion
 //#region src/client/index.tsx
 /** Dictionary namespace owned by this plugin. */
 const NS = "dsh-awesome-skills";
@@ -1973,8 +2101,19 @@ const NS = "dsh-awesome-skills";
 const inject = [
 	"locale",
 	"slots",
-	"settingsScope"
+	"remote"
 ];
+/**
+* The client-side Remote descriptors, from the shared contract.
+*
+* `$mount` uses them to install the `remote.skillsSettings` namespace service;
+* without a mount that namespace does not exist and every call in the card
+* reads as a missing method.
+*/
+const REMOTE_CONTRIBUTION = {
+	package: PACKAGE,
+	descriptors: INVOCATIONS
+};
 /** Sidebar order for the Skills section: after the Market section (40). */
 const SECTION_ORDER = 45;
 /**
@@ -1987,9 +2126,14 @@ const SECTION_ORDER = 45;
 const DETAILS_PRIORITY = -1;
 /**
 * Mount the plugin's browser surfaces.
+*
+* Async because mounting the Remote is what creates `remote.skillsSettings`:
+* the namespace does not exist until it resolves, and registering the
+* section first would render a card whose calls read as missing methods.
+*
 * @param ctx - the browser plugin context.
 */
-function apply(ctx) {
+async function apply(ctx) {
 	ctx.effect(() => ctx.locale.register(NS, {
 		en,
 		zh
@@ -1999,31 +2143,38 @@ function apply(ctx) {
 		priority: DETAILS_PRIORITY,
 		locale: NS
 	}, SkillPickDetails));
-	ctx.inject(["slots", "settingsScope"], (scoped) => {
+	const remoteApi = ctx;
+	if (remoteApi.remote === void 0) return;
+	await remoteApi.remote.$mount(REMOTE_CONTRIBUTION);
+	const remote = remoteApi.get("remote.skillsSettings");
+	if (remote === void 0) throw new Error("dsh-awesome-skills: remote.skillsSettings did not mount");
+	ctx.inject(["slots"], (scoped) => {
 		const slotsCtx = scoped;
 		const t = ctx.locale.bind(NS);
-		const scope = slotsCtx.settingsScope.bind({ namespace: NS });
-		slotsCtx.slots.inject("settings.section", () => slotsCtx.slots.register({
-			name: "settings.section",
-			id: "skills",
-			order: SECTION_ORDER,
-			label: () => t("sectionTitle"),
-			locale: NS,
-			inject: () => ({
+		slotsCtx.slots.inject("settings.section", () => {
+			slotsCtx.slots.register({
+				name: "settings.section",
+				id: "skills",
+				order: SECTION_ORDER,
+				label: () => t("sectionTitle"),
+				locale: NS,
+				inject: () => ({
+					t,
+					remote
+				})
+			}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillSection, {
 				t,
-				scope
-			})
-		}, () => /* @__PURE__ */ (0, react_jsx_runtime.jsx)(SkillSection, {
-			t,
-			scope,
-			labels: {
-				section: t("sectionTitle"),
-				search: t("tabSearch"),
-				priority: t("tabPriority"),
-				config: t("tabConfig")
-			},
-			explorer: { t }
-		})));
+				remote,
+				labels: {
+					section: t("sectionTitle"),
+					search: t("tabSearch"),
+					priority: t("tabPriority"),
+					config: t("tabConfig")
+				},
+				explorer: { t }
+			}));
+			return () => void 0;
+		});
 	});
 }
 //#endregion

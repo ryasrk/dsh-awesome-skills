@@ -16,12 +16,23 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
+import { createRequire } from 'node:module'
 import { registerSearchService, type SkillsSearch } from './search.js'
 import { installSettingsSection } from './settings-wiring.js'
 import { mountSkillRoutesOnContext } from './routes.js'
 import { installPriorityLoader } from './priority-loader.js'
 import { registerSkillsTools } from './tools.js'
+import { SkillsSettingsRemote } from './remote.js'
+import { KnobsField, PLUGIN_SETTINGS_BASE, type PluginSettings } from './settings-schema.js'
 import type { PluginContext } from './cordis-types.js'
+
+// Vendored schemastery (see vendor/): the harness vendors it too and does not
+// publish it to npm, so a real dependency would break the zero-config install.
+const z = createRequire(import.meta.url)('../vendor/schemastery/index.cjs') as unknown as {
+  object(shape: Record<string, unknown>): unknown
+  string(): { default(value: unknown): unknown }
+  boolean(): { default(value: unknown): unknown }
+}
 
 export const name = 'dsh-awesome-skills'
 
@@ -38,6 +49,20 @@ export interface Config {
   agentsHome?: string
   /** Install the bundled skill-router skill into `<agentsHome>/skills`. */
   installSkillRouter?: boolean
+  /**
+   * Live search knobs.
+   *
+   * Volatile so the Skills settings page can own them: the form is the
+   * projection of these fields, and the Remote row reads and writes the same
+   * values. 0.2.0 removed `settings.register` and the namespace it registered,
+   * so these live in Config — one owner per value, the profile entry — and the
+   * revision guarding concurrent writes is derived from them.
+   *
+   * Typed structurally rather than with cordis's `Volatile<T>`: cordis is
+   * vendored inside the harness and not published to npm, so importing its
+   * types would make this package uninstallable outside a Harness checkout.
+   */
+  knobs: { get(): PluginSettings }
 }
 
 /** Package root: this file lives at `<root>/src/index.ts` or `<root>/lib/index.js`. */
@@ -164,6 +189,21 @@ decoration. If \`skills_read\` is unavailable, list the directory
   miss costs one second and is not a failure.
 `
 
+/**
+ * The Config schema the Loader resolves.
+ *
+ * `knobs` is volatile so the Skills settings page owns it: the form is the
+ * projection of that one field, and the Remote row reads and writes the same
+ * value. The deployment fields stay ordinary — changing them remounts.
+ */
+export const Config = z.object({
+  corpusDir: z.string(),
+  home: z.string(),
+  agentsHome: z.string(),
+  installSkillRouter: z.boolean().default(true),
+  knobs: KnobsField,
+})
+
 export function apply(ctx: PluginContext, config?: Config): void {
   const home = config?.home ?? homedir()
   // The agents home is where the harness discovers user skills (its default
@@ -190,11 +230,34 @@ export function apply(ctx: PluginContext, config?: Config): void {
 
   ctx.logger.info(`dsh-awesome-skills: corpus=${corpusDir} skills=${search.count()}`)
 
-  // Settings: the user layer over these defaults is what the plugin-
-  // configuration card edits. `installSettingsSection` injects ['settings'],
-  // so on a host without the settings service nothing here runs and the
-  // composed defaults above simply stand — degradation, not failure.
+  // Settings: the entry's stored knobs are what the Skills page edits.
+  // `installSettingsSection` injects ['settings'], so on a host without the
+  // settings service nothing here runs and the composed defaults stand —
+  // degradation, not failure.
   installSettingsSection(ctx, search)
+
+  // The Remote row the settings page calls. It claims this entry's form, reads
+  // the knobs from the same source the Explorer uses, and writes through the
+  // settings service so a revision guards concurrent edits. Both halves stay
+  // optional: without `settings` or `typert` this is a quiet no-op and the
+  // composed defaults keep serving search.
+  const readKnobs = (): PluginSettings => {
+    const knobs = config?.knobs?.get?.() as Partial<PluginSettings> | undefined
+    return { ...PLUGIN_SETTINGS_BASE, ...(knobs ?? {}) }
+  }
+  const writeKnobs = (next: Partial<PluginSettings>): void => {
+    search.setKnobs(next)
+    ctx.logger.info(`dsh-awesome-skills: knobs applied (${Object.keys(next).join(', ') || 'none'})`)
+  }
+  const typert = (ctx as Record<string, unknown>).typert
+  if (typert !== undefined && typeof ctx.inject === 'function') {
+    const remote = new SkillsSettingsRemote(
+      ctx as never,
+      readKnobs,
+      writeKnobs,
+    )
+    void remote
+  }
 
   // Browser RPC for the Skill Explorer settings section. Injects ['webServer'],
   // so on a host without one this is a quiet no-op and the CLI-only

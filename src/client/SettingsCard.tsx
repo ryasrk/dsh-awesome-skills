@@ -9,13 +9,25 @@
  * than something a save has to reject; booleans are switches.
  */
 
-import { useEffect, useState } from 'react'
-import type { SettingsScope, SettingsScopeSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
+import { useCallback, useEffect, useState } from 'react'
 import css from './SettingsCard.module.css'
 import { IconSpinner } from './icons.tsx'
+import type { PluginSettings } from './../settings-schema.js'
 
-/** Namespace both the Host registration and this card key themselves to. */
+/** Namespace both the Host entry and this card key themselves to. */
 const NS = 'dsh-awesome-skills'
+
+/** The `remote.skillsSettings` face this card calls. */
+export interface SkillsSettingsRemoteFace {
+  getState(): Promise<{ ok: true; value: { knobs: PluginSettings; revision: number } } | {
+    ok: false
+    error: { message: string }
+  }>
+  setKnobs(knobs: PluginSettings, expectedRevision: number): Promise<{
+    ok: true
+    value: { knobs: PluginSettings; revision: number }
+  } | { ok: false; error: { message: string } }>
+}
 
 /** One field's staged state: draft text plus whether it started overridden. */
 interface FieldState {
@@ -112,39 +124,68 @@ const DICT: { en: Record<string, string>; zh: Record<keyof typeof DICT['en'], st
 }
 
 export interface SettingsCardProps {
-  /** The bound settings scope for this plugin's namespace. */
-  scope: SettingsScope<Record<string, unknown>>
+  /** The mounted Remote face this card reads and writes through. */
+  remote: SkillsSettingsRemoteFace
 }
 
 /**
  * Render the plugin's configuration card.
- * @param props - the bound settings scope.
+ * @param props - the Remote face.
  */
 export function SettingsCard(props: SettingsCardProps) {
-  const { scope } = props
-  const [snapshot, setSnapshot] = useState<SettingsScopeSnapshot<Record<string, unknown>>>(
-    () => scope.getSnapshot(),
-  )
+  const { remote } = props
+  /**
+   * The last state the Host reported, plus the revision it was read at.
+   *
+   * The revision travels with every write, so a write that lost a race is
+   * rejected rather than silently discarding the other change.
+   */
+  const [state, setState] = useState<{ knobs: PluginSettings; revision: number } | undefined>(undefined)
+  const [error, setError] = useState<string | undefined>(undefined)
   const [drafts, setDrafts] = useState<Partial<Record<FieldKey, FieldState>>>({})
   const [saving, setSaving] = useState(false)
   const [failed, setFailed] = useState(false)
   const [savedTick, setSavedTick] = useState(false)
 
-  useEffect(() => scope.subscribe(() => { setSnapshot(scope.getSnapshot()) }), [scope])
+  const refresh = useCallback(async () => {
+    const result = await remote.getState()
+    if (!result.ok) {
+      setError(result.error.message)
+      return
+    }
+    setState(result.value)
+    setError(undefined)
+  }, [remote])
+
+  useEffect(() => { void refresh() }, [refresh])
 
   const lang = typeof document !== 'undefined' ? document.documentElement.lang : 'en'
   const dict = lang.startsWith('zh') ? DICT.zh : DICT.en
   const t = (key: keyof typeof DICT['en']): string => dict[key]
 
-  const value = snapshot.value
-  const user = (snapshot.user ?? {}) as Record<string, unknown>
-  if (snapshot.status !== 'ready' || value === undefined || typeof value !== 'object') return null
+  if (state === undefined) {
+    return (
+      <div className={css.card}>
+        <div className={css.header}>
+          <div className={css.name}>{t('cardTitle')}</div>
+          <div className={css.description}>{t('cardDescription')}</div>
+        </div>
+        <div className={css.body}>
+          {error === undefined
+            ? <p className={css.hint}>Loading settings…</p>
+            : <p className={css.invalid} role="alert">{error}</p>}
+        </div>
+      </div>
+    )
+  }
+
+  const value = state.knobs as unknown as Record<string, unknown>
 
   const stateOf = (key: FieldKey): FieldState => {
     const staged = drafts[key]
     if (staged !== undefined) return staged
     const current = value[key]
-    return { draft: current === undefined ? '' : String(current), overridden: user?.[key] !== undefined }
+    return { draft: current === undefined ? '' : String(current), overridden: false }
   }
 
   const dirty = FIELDS.some(f => drafts[f.key] !== undefined)
@@ -161,22 +202,30 @@ export function SettingsCard(props: SettingsCardProps) {
   }
 
   const save = async (): Promise<void> => {
+    if (state === undefined) return
     setSaving(true); setFailed(false)
     try {
+      // One write for the whole form: the knobs are stored as one field, so
+      // staging them per control and writing them as one payload keeps a
+      // partial edit from landing as a half-applied ranking.
+      const next = { ...state.knobs } as unknown as Record<string, unknown>
       for (const f of FIELDS) {
         const staged = drafts[f.key]
         if (staged === undefined) continue
-        if (f.kind === 'toggle' || f.kind === 'scope') {
-          const next = staged.draft === 'true'
-          if (next === value[f.key]) continue
-          await scope.set(f.key, next)
-        } else {
-          if (!validNumber(staged.draft, f.min, f.max)) continue
-          const n = Number(staged.draft)
-          if (n === value[f.key]) continue
-          await scope.set(f.key, n)
-        }
+        if (f.kind === 'toggle' || f.kind === 'scope') next[f.key] = staged.draft === 'true'
+        else if (validNumber(staged.draft, f.min, f.max)) next[f.key] = Number(staged.draft)
       }
+      const result = await remote.setKnobs(next as unknown as PluginSettings, state.revision)
+      if (!result.ok) {
+        // The Host refused: reload and say so, rather than reporting success
+        // for a write that did not land.
+        setError(`${result.error.message} ${t('failed')}`)
+        setFailed(true)
+        await refresh()
+        return
+      }
+      setState(result.value)
+      setError(undefined)
       setDrafts({})
       setSavedTick(true)
     } catch {
@@ -230,7 +279,7 @@ export function SettingsCard(props: SettingsCardProps) {
                         type="radio"
                         name={`dshas-${f.key}`}
                         checked={state.draft === option.value}
-                        disabled={!snapshot.writable || saving}
+                        disabled={saving}
                         onChange={() => stage(f.key, option.value, state.overridden)}
                       />
                       {option.label}
@@ -243,7 +292,7 @@ export function SettingsCard(props: SettingsCardProps) {
                   type="checkbox"
                   className={css.toggle}
                   role="switch"
-                  disabled={!snapshot.writable || saving}
+                  disabled={saving}
                   checked={state.draft === 'true'}
                   onChange={e => stage(f.key, e.target.checked ? 'true' : 'false', state.overridden)}
                 />
@@ -253,7 +302,7 @@ export function SettingsCard(props: SettingsCardProps) {
                     id={id}
                     type="number"
                     className={isInvalid ? css.inputInvalid : css.input}
-                    disabled={!snapshot.writable || saving}
+                    disabled={saving}
                     min={f.min} max={f.max} step={f.step}
                     value={state.draft}
                     aria-invalid={isInvalid || undefined}
@@ -276,7 +325,7 @@ export function SettingsCard(props: SettingsCardProps) {
         <button
           type="button"
           className={css.primary}
-          disabled={!dirty || invalid || saving || !snapshot.writable}
+          disabled={!dirty || invalid || saving}
           onClick={() => { void save() }}
         >
           {saving ? <IconSpinner /> : t('save')}

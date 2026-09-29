@@ -62,6 +62,7 @@
   },
   "exports": {
     ".": "./lib/index.js",
+    "./remote": "./lib/remote.js",
     "./client": "./client/client.js"
   }
 }

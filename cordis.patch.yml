@@ -1,7 +1,14 @@
 # dsh bundle patch: inserts this plugin into a profile's layer stack.
-# No loader config is needed: the plugin reads its corpus location from its
-# own package directory, so it needs nothing from the composition beyond
-# being mounted at all.
+#
+# Two rows, and the split is load-bearing. The Remote service must be its own
+# TOP-LEVEL insert: the api-gateway discovers Remote routes from the root
+# service table, so nesting it inside the plugin row makes it invisible and the
+# settings section mounts against a namespace that does not exist.
+#
+# No loader config is needed: the plugin reads its corpus location from its own
+# package directory, and its live knobs come from this entry's Config.
 - insert:
+    - id: dsh-awesome-skills-remote
+      name: 'dsh-awesome-skills/remote'
     - id: dsh-awesome-skills
       name: 'dsh-awesome-skills'
